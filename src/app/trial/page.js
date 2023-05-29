@@ -1,6 +1,12 @@
-import Link from 'next/link';
+// import { getUser } from '../../utils/getUser';
 
-export default function Home() {
+export const metadata = {
+  title: 'Trial Claire Sersun',
+  description: 'Start of my app',
+  keywords: 'scheduling app'
+}
+export default async function Trial() {
+  // const user = await getUser(id);
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
   
@@ -9,7 +15,7 @@ export default function Home() {
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
           
             <h2 className={`mb-3 text-2xl font-semibold`}>
-              The start of my scheduling app{' '}
+              working? YES!{' '}
               
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
@@ -18,14 +24,33 @@ export default function Home() {
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               By Claire Sersun
             </p>
-            <p>
-              <Link href='/trial' className={`mb-3 text-2xl font-semibold`}>why not working?</Link>
-              </p>
-          
   
           </div>
         </div>
       </main>
     )
   }
+
+  // for data iften changing, when you fetch do this:
+  // const response = await fetch(
+    // 'link', {
+  //      next: {
+  //        revalidate: 60
+  //   }
+  // }) 
   
+  // for apis either do w/in the pages or api/page/route.js then do export async function GET(response) {
+  //   return new Response('hello')
+  // }
+
+  // to pull info from your json in api use NextResponse from import { NextResponse } from "next/server"
+  // then use it in component to fetch from link
+  // in component await fetch from the api you created
+
+  //to get a query within your get request use const { searchParams } = new URL(request.url)
+  // const query = searchParams.get('query')
+
+  //to post use request.json() to get the body of the request
+  // uuid creates random id
+  // import {v4 as uuid} from 'uuid'
+  //use this when creating a new post
