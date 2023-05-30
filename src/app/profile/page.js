@@ -1,12 +1,23 @@
 // import { getUser } from '../../utils/getUser';
+'use client'
 
-export const metadata = {
-  title: 'Trial Claire Sersun',
-  description: 'Start of my app',
-  keywords: 'scheduling app'
-}
-export default async function Trial() {
-  // const user = await getUser(id);
+import { useSession } from 'next-auth/react';
+import SignIn from '../signin/page';
+import Image from 'next/image';
+
+// export const metadata = {
+//   title: 'Profile',
+//   description: 'Profile page for the scheduling app',
+//   keywords: 'scheduling app'
+// }
+export default async function Profile() {
+  const {data: session, status} =  useSession({
+  required: true,
+  onUnauthenticated: () => { 
+    console.log('not signed in')}
+})
+console.log(session, status)
+if (status === "authenticated") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
   
@@ -14,22 +25,23 @@ export default async function Trial() {
           
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
           
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              working? YES!{' '}
-              
-            </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Coming soon!
+            <p className={`mb-3 text-2xl font-semibold`}>
+              Name: {session.user.name}
             </p>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              By Claire Sersun
+            <p className={`mb-3 text-2xl font-semibold`}>
+              Email: {session.user.email}
             </p>
+            <Image src={session.user.image} alt="Profile photo" width="200" height="200" className={`mb-3 text-2xl font-semibold`} />
+             
   
           </div>
         </div>
       </main>
     )
   }
+  else return <SignIn /> 
+  
+}
 
   // for data iften changing, when you fetch do this:
   // const response = await fetch(

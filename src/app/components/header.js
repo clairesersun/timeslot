@@ -10,8 +10,7 @@ export default function Header() {
                     <Link href="/">Claire Sersun</Link>
                 </div>
                 <div className="links">
-                <Link href="/trial">Trial</Link>
-                <Link href="/signin">Sign in page</Link>
+                <Link href="/profile">Profile</Link>
                 <button onClick={() => signOut()}>Sign out</button>
                 </div>
             </div>
