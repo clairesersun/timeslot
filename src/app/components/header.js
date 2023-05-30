@@ -1,4 +1,6 @@
+"use client"
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
     return(
@@ -9,7 +11,8 @@ export default function Header() {
                 </div>
                 <div className="links">
                 <Link href="/trial">Trial</Link>
-                <Link href="/login">Login page</Link>
+                <Link href="/signin">Sign in page</Link>
+                <button onClick={() => signOut()}>Sign out</button>
                 </div>
             </div>
         </header>

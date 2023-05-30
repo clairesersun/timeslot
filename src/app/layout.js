@@ -1,6 +1,7 @@
 import { Chicle } from 'next/font/google'
 import './globals.css'
 import Header from './components/header'
+import Provider from './components/Provider'
 
 const chicle = Chicle({
   weight: ['400'],
@@ -22,10 +23,12 @@ export default async function RootLayout({
     <>
       <html lang="en">
         <body className={chicle.className}>
-          <Header />
-          <main className='container'>
-            {children}
-          </main>
+          <Provider>
+            <Header/>
+            <main>
+              {children}
+            </main>
+          </Provider>
         </body>
       </html>
     </>
