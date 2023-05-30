@@ -9,6 +9,7 @@ export default function Header() {
                 </div>
                 <div className="links">
                 <Link href="/trial">Trial</Link>
+                <Link href="/login">Login page</Link>
                 </div>
             </div>
         </header>

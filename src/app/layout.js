@@ -14,15 +14,20 @@ export const metadata = {
   keywords: 'scheduling app'
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({
+  children} 
+) {
+  
   return (
-    <html lang="en">
-      <body className={chicle.className}>
-        <Header />
-        <main className='container'>
-          {children}
-        </main>
-      </body>
-    </html>
-  )
+    <>
+      <html lang="en">
+        <body className={chicle.className}>
+          <Header />
+          <main className='container'>
+            {children}
+          </main>
+        </body>
+      </html>
+    </>
+  );
 }
