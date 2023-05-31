@@ -17,6 +17,7 @@ export default async function Profile() {
     console.log('not signed in')}
 })
 console.log(session, status)
+console.log(session.user.email) //user this to check if itss in the database and if not create account
 if (status === "authenticated") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">

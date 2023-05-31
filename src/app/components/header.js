@@ -11,6 +11,9 @@ export default function Header() {
                 </div>
                 <div className="links">
                 <Link href="/profile">Profile</Link>
+                <Link href="/events">Events</Link>
+                <Link href="/availability">Availability</Link>
+                <Link href="/design">Design</Link>
                 <button onClick={() => signOut()}>Sign out</button>
                 </div>
             </div>
