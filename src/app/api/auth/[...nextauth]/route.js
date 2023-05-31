@@ -1,16 +1,36 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from "../../../../app/../../db/connection"
+
 
 export const authOptions = {
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    })
-  ],
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    
+      authorizationUrl:
+            'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+          scope:
+            'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
+        }),
+      ],
+  secret: process.env.SECRET,
   pages: {
     signIn: '/signin'
-  }
+  },
+  callbacks: {
+    jwt: ({token, account })=> {
+      if (account?.access_token) {
+        token.access_token = account.access_token;
+      }
+      return token;
+    },
+  },
+  
+
 }
 
 const handler = NextAuth(authOptions)

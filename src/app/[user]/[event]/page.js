@@ -3,6 +3,8 @@
 import Datetime from 'react-datetime';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import SignIn from '../../signin/page';
+// import mongodb from 'mongodb';
 
 export default function Schedule() {
     const [start, setStart] = useState(new Date());
@@ -15,7 +17,31 @@ export default function Schedule() {
         onUnauthenticated: () => { 
             console.log('not signed in')}
         })
-        console.log(session.user.email);
+
+//     const MongoClient = require("mongodb");
+// const url = 'mongodb://localhost:27017/';
+// const databasename = "test";  // Database name
+// MongoClient.connect(url).then((client) => {
+  
+//     const connect = client.db(databasename);
+  
+//     // Connect to collection
+//     const collection = connect
+//         .collection("accounts");
+  
+//     collection.find({}).toArray().then((ans) => {
+//         console.log(ans);
+//     });
+// }).catch((err) => {
+  
+//     // Printing the error message
+//     console.log(err.Message);
+// })
+    // const accessToken = await getCsrfToken()
+    // console.log(accessToken)
+    // console.log(token)
+    //is this not correct?
+        // console.log(session.user.email);
           
           
           
@@ -62,12 +88,15 @@ export default function Schedule() {
         },
       },
     };
+    
+    //need the access token to create the event
+
     await fetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1",
       {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + session.provider_token, // Access token for google
+          Authorization: "Bearer " + db.test.sessions.access_token, // Access token for google
         },
         body: JSON.stringify(event),
       }
@@ -82,13 +111,13 @@ export default function Schedule() {
     }
   
   console.log(session)
-  console.log(session);
-  console.log(start);//this is the format needed: "2023-05-24T22:17:09-04:00"
-  console.log(end);
-  console.log(eventName);
-  console.log(eventDescription);
-  console.log(attendees);
-  
+//   console.log(session);
+//   console.log(start);//this is the format needed: "2023-05-24T22:17:09-04:00"
+//   console.log(end);
+//   console.log(eventName);
+//   console.log(eventDescription);
+//   console.log(attendees);
+  if (status === "authenticated") {
     return (
       <div className={`m-0 max-w-[30ch] text-sm opacity-50`}>
         <div style={{
@@ -99,7 +128,7 @@ export default function Schedule() {
             <>
             <h2>Hi {session.user.email}</h2>
             <p>Start of your event</p>
-              <Datetime  onChange={setStart} value={start}/>
+              <Datetime  onChange={setStart} value={start} style={{color: "black"}}/>
               <p>End of your event</p>
               <Datetime onChange={setEnd} value={end} />
               <p>Event name</p>
@@ -122,4 +151,5 @@ export default function Schedule() {
       </div>
     );
   }
-
+  else return <SignIn /> 
+}
