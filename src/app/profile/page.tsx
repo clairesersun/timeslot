@@ -1,20 +1,13 @@
-// import { getUser } from '../../utils/getUser';
-// 'use client'
-
-// import { useSession } from 'next-auth/react';
 import SignIn from '../components/signin';
 import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
-// import { useState } from 'react';
-// import useSWR from 'swr';
-// import addData from '../components/addData';
 
-// export const metadata = {
-  //   title: 'Profile',
-  //   description: 'Profile page for the scheduling app',
-  //   keywords: 'scheduling app'
-  // }
+export const metadata = {
+    title: 'Profile',
+    description: 'Profile page for the scheduling app',
+    keywords: 'scheduling app'
+  }
   
   async function createProfile(data: FormData) {
     'use server'
@@ -50,29 +43,12 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
       collection = db.collection("savedInfo");
       // Insert a single document, wait for promise so we can read it back
       const myDoc = await collection.findOne({ googleEmail:  googleEmail });
+      //check if user already exists in database, if so you will update the info, if not you will add the info to the database
       if (myDoc) {
         const updateInfo = await collection.updateOne({ googleEmail: googleEmail }, {$set: {name, email, businessName}});
         return console.log("updated info in database: ", name, email, businessName, googleEmail, userId)}
-        //   let colllection = db.collection("users");
-        //   const users = await colllection.find({ email: { googleEmail } });
-        //   if (users){
-          //     let colllection = db.collection("savedInfo");
-          //     await colllection.updateOne({ email: { googleEmail } }, {$set: {userId: users._id}});
-          //   } else { throw new Error ('User does not exist')}
-          //   // colllection = db.collection("savedInfo");
-          //   // const p = await colllection.insertOne({googleInfo: users._id});
-          //   // throw new Error ('Info already exists')
-          // } else {
-            // colllection = db.collection("savedInfo");
             const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId});
-      // Find one document
-      // Print to the console
-      // console.log(myDoc);
-      
       return console.log("added info in database: ", name, email, businessName, googleEmail, userId)
-      // .then(async (client) => {})
-      // db.collection('users').insertOne({})
-      
     } catch (error) {
       console.log(error)
     }
@@ -82,70 +58,24 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
     }
     
     export default async function Profile() {
-  // const [
-  //   { visibleName, email, businessName },
-  //   setForm,
-  // ] = useState({
-  //   visibleName: "",
-  //   email: "",
-  //   businessName: "",
-  // });
-  // const [visibleName, setVisibleName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [businessName, setBusinessName] = useState("");
-  const session = await getServerSession(authOptions)
+      const dbName = "users";
+      const session = await getServerSession(authOptions)
+      const { MongoClient } = require("mongodb");
+      const client = new MongoClient(process.env.MONGODB_URI);
+      await client.connect();
+      console.log("Connected correctly to server");
+      const db = client.db(dbName);
+      //this allows me to take the userId to find the access_token from sessions later down the road
+      let collection = db.collection("savedInfo");
+      // Insert a single document, wait for promise so we can read it back
+      const currentUserInfo = await collection.findOne({ googleEmail:  session.user.email });
+      console.log(currentUserInfo)
+      const visibleName = currentUserInfo.name
+      const email = currentUserInfo.email
+      const businessName = currentUserInfo.businessName
 
   if (!session) {
     return <SignIn /> }
-//   const {data: session, status} =  useSession({
-//   required: true,
-//   onUnauthenticated: () => { 
-//     console.log('not signed in')}
-// })
-
-// console.log(visibleName, email, businessName)
-
-// const handleChange = (e) => {
-//   e.preventDefault();
-//   setForm({
-//     visibleName, 
-//     email, 
-//     businessName,
-//     ...{ [e.target.name]: e.target.value},
-//   });
-// }
-// const { data, error, isLoading } = useSWR('/api/auth', fetch('/api/auth'))
-// console.log(data)
-
-// const data = {session}
-
-
-// const loggedIn = async (data) => {
-  //   const response = await fetch('/api/auth/user', {
-    //     method: 'GET',
-    //     headers: { 'content-type': 'application/json' },
-    //     body: JSON.stringify(data)
-    
-    //   })
-    //   return response;
-    // }
-    // console.log(loggedIn())
-    
-    // console.log(session, status)
-    // console.log(session.user.id) //user this to check if itss in the database and if not create account
-    
-    // const form = new FormData(document.getElementById("profile-form"));
-    // fetch("/auth/user", {
-    //   method: "POST",
-    //   body: form,
-    // });
-
-//     const handleSubmit = (e) => {
-//       e.preventDefault()
-//       addData(colllection, id, data)
-// }
-
-// if (status === "authenticated") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
   
@@ -154,23 +84,35 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
             
             <p className={`mb-3 text-2xl font-semibold`}>
-              Name: 
-              {/* {visibleName} */}
+              Name:
+            </p>
+            <p className={`mb-3 text-1xl font-semibold`}>
+              {visibleName}
             </p>
             <p className={`mb-3 text-2xl font-semibold`}>
-              Other Email: 
-              {/* {email} */}
+              Other Email:
+            </p>
+            <p className={`mb-3 text-1xl font-semibold`}>
+              {email}
             </p>
             <p className={`mb-3 text-2xl font-semibold`}>
-              Business Name: 
-              {/* {businessName} */}
+              Business Name:
+            </p>
+            <p className={`mb-3 text-1xl font-semibold`}>
+              {businessName}
             </p>
 
             <p className={`mb-3 text-2xl font-semibold`}>
-              Google Account Name: {session.user.name}
+              Google Account Name:
+            </p>
+            <p className={`mb-3 text-1xl font-semibold`}>
+            {session.user.name}
             </p>
             <p className={`mb-3 text-2xl font-semibold`}>
-              Google Account: {session.user.email}
+              Google Account:
+            </p>
+            <p className={`mb-3 text-1xl font-semibold`}>
+            {session.user.email}
             </p>
             <Image src=
             {session.user.image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
@@ -184,15 +126,6 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
           <input type="text" name='businessName' id='businessName' />
           <button type='submit'>Submit</button>
           </form>
-          {/* <form id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-          <label htmlFor="visibleName" >Name:</label> 
-          <input type="text" name="visibleName" id="visibleName" onChange={handleChange} value={visibleName}/>
-          <label htmlFor="email">Email:</label>
-          <input type="text" name='email' id='email' onChange={handleChange} value={email}/>
-          <label htmlFor="businessName">Business Name:</label>
-          <input type="text" name='businessName' id='businessName' onChange={handleChange} value={businessName}/>
-          <button onClick={() => handleSubmit}>Submit</button>
-          </form> */}
           </div>
         </div>
       </main>
