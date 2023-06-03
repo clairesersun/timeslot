@@ -2,6 +2,7 @@ import SignIn from '../components/signin';
 import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import { Suspense } from 'react';
 
 export const metadata = {
     title: 'Profile',
@@ -82,7 +83,7 @@ export const metadata = {
         <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
           
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-            
+            <Suspense fallback={<div>Loading...</div>}>
             <p className={`mb-3 text-2xl font-semibold`}>
               Name:
             </p>
@@ -116,7 +117,7 @@ export const metadata = {
             </p>
             <Image src=
             {session.user.image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
-
+            </Suspense>
           <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="visibleName" >Name:</label> 
           <input type="text" name="visibleName" id="visibleName" />
