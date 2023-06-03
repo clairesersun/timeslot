@@ -1,7 +1,7 @@
 'use client'
 
 import { useSession } from 'next-auth/react';
-import SignIn from '../signin/page';
+import SignIn from '../components/signin';
 
 export default function Availability(){
   const {data: session, status} =  useSession({

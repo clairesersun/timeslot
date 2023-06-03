@@ -3,10 +3,12 @@
 import Datetime from 'react-datetime';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import SignIn from '../../signin/page';
+import SignIn from '../../components/signin';
 // import mongodb from 'mongodb';
+// import GET from './findinfo.js';
+//HOW TO GET THE ACCESS TOKEN AND SEND IT TO THE GOOGLE API
 
-export default function Schedule() {
+export default async function Schedule() {
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState(new Date());
     const [eventName, setEventName] = useState("");
@@ -17,10 +19,32 @@ export default function Schedule() {
         onUnauthenticated: () => { 
             console.log('not signed in')}
         })
+// console.log(session, status)
+// GET()
+
+        // async function handleCreateAccount(e) {
+        //     try {
+        //       const res = await fetch("/api/user", {
+        //         method: "POST",
+        //         headers: {
+        //           "content-type": "application/json",
+        //         },
+        //         body: JSON.stringify({ 
+        //             access_token, 
+        //             id_token, 
+        //             email }),
+        //       });
+        //       if (res.status === 200) return router.push("/");
+        //       const { error: message } = await res.json();
+        //       setError(message);
+        //     } catch (err) {
+        //       console.log(err);
+        //     }
+        //   }
 
 //     const MongoClient = require("mongodb");
 // const url = 'mongodb://localhost:27017/';
-// const databasename = "test";  // Database name
+// const databasename = "users";  // Database name
 // MongoClient.connect(url).then((client) => {
   
 //     const connect = client.db(databasename);
@@ -36,14 +60,16 @@ export default function Schedule() {
   
 //     // Printing the error message
 //     console.log(err.Message);
-// })
+
+// });
+
     // const accessToken = await getCsrfToken()
     // console.log(accessToken)
     // console.log(token)
     //is this not correct?
         // console.log(session.user.email);
           
-          
+        // console.log(db.test.sessions.access_token)
           
           function getRandonString(length) {
               var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
@@ -91,12 +117,24 @@ export default function Schedule() {
     
     //need the access token to create the event
 
+//     await clientPromise
+//     // `await clientPromise` will use the default database passed in the MONGODB_URI
+//     // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
+//     //
+//     // `const client = await clientPromise`
+//     // `const db = client.db("myDatabase")`
+//     //
+//     // Then you can execute queries against your database like so:
+//     // db.find({}) or any of the MongoDB Node Driver commands
+// let client = await clientPromise;
+// let db = await client.db("test");
+
     await fetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1",
       {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + db.test.sessions.access_token, // Access token for google
+          Authorization: "Bearer " + users.accounts.access_token, // Access token for google
         },
         body: JSON.stringify(event),
       }

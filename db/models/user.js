@@ -5,11 +5,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  visible_name: {
+  googleEmail: {
     type: String,
-    required: true
   },
-  google_email: {
+  google_info: {
     type: String,
     required: true,
     minLength: 5,
@@ -25,9 +24,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  profile_picture: {
-    type: String,
-  }, 
   event_info: { 
     length: { 
         type: Number
