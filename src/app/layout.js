@@ -15,6 +15,8 @@ export const metadata = {
   keywords: 'scheduling app'
 }
 
+export const dynamicParams = true; // enable dynamic params
+
 export default async function RootLayout({
   children} 
 ) {

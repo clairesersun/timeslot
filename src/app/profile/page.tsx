@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { Suspense } from 'react';
+// import  deleteAccount  from '../../app/components/deleteData';
+
 
 export const metadata = {
     title: 'Profile',
@@ -58,6 +60,30 @@ export const metadata = {
   }
     }
     
+
+
+//   async function deleteAccountPopUp(e) {
+//     'use server'
+//     e.preventDefault()
+//     swal({
+//       title: "Are you sure?",
+//       text: "Once deleted, you will have to start from scratch!",
+//       icon: "warning",
+//       buttons: ["Oh no!", "Delete!"],
+//       dangerMode: true,
+//     })
+//    .then(async (willDelete) => {
+//         if (willDelete) {
+//           deleteAccount()
+//           } else {
+//                swal("Your imaginary file is safe!");
+//     }
+//  });
+  
+//   }
+
+
+
     export default async function Profile() {
       const dbName = "users";
       const session = await getServerSession(authOptions)
@@ -127,6 +153,8 @@ export const metadata = {
           <input type="text" name='businessName' id='businessName' />
           <button type='submit'>Submit</button>
           </form>
+          {/* {deleteAccount()} */}
+          {/* figure out how to do a pop up delete btn */}
           </div>
         </div>
       </main>

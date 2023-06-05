@@ -24,7 +24,8 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "db/connection.ts"
+    "db/connection.ts",
+    "src/app/components/deleteData.js"
   ],
   "exclude": ["node_modules"]
 }

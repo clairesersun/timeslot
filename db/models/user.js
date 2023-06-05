@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   googleEmail: {
     type: String,
   },
-  google_info: {
+  googleInfo: {
     type: String,
     required: true,
     minLength: 5,
