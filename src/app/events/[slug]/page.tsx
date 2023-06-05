@@ -9,7 +9,7 @@ export const metadata = {
     keywords: 'scheduling app'
   }
   
-  async function addEvent(data: FormData, {params}) {
+  async function updateEvent({params}, data: FormData) {
     'use server'
     const { MongoClient } = require("mongodb");
     const client = new MongoClient(process.env.MONGODB_URI);
@@ -107,7 +107,7 @@ export const metadata = {
             <h2 className={`mb-3 text-2xl font-semibold`}>
               {eventName}
             </h2>
-          <form action={addEvent} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+          <form action={updateEvent} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="eventName" >Event Name:</label> 
           <input type="text" name="eventName" id="eventName" />
           <label htmlFor="description">Description:</label>
