@@ -98,11 +98,11 @@ export default async function Profile() {
     googleEmail: session.user.email,
   });
   console.log(currentUserInfo);
-  const businessName = currentUserInfo.businessName;
-  const colorOne = currentUserInfo.design.colorOne;
-  const colorTwo = currentUserInfo.design.colorTwo;
-  const colorThree = currentUserInfo.design.colorThree;
-  const colorFour = currentUserInfo.design.colorFour;
+  let businessName = currentUserInfo.businessName;
+  let colorOne = currentUserInfo.design.colorOne;
+  let colorTwo = currentUserInfo.design.colorTwo;
+  let colorThree = currentUserInfo.design.colorThree;
+  let colorFour = currentUserInfo.design.colorFour;
 
   if (!session) {
     return <SignIn />;

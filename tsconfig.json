@@ -25,7 +25,8 @@
     "**/*.ts",
     "**/*.tsx",
     "db/connection.ts",
-    "src/app/components/deleteData.js"
+    "src/app/components/deleteData.js",
+    "src/app/design/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
