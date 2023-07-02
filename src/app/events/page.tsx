@@ -15,6 +15,9 @@ export const metadata = {
     const client = new MongoClient(process.env.MONGODB_URI);
     try {
       const eventName = data.get('eventName')?.valueOf()
+      console.log(eventName)
+      const eventnameParams = eventName.toString().toLowerCase().replace(/\s/g, '')
+      console.log(eventnameParams)
       
       if (typeof eventName !== 'string' || eventName.length === 0) {
         throw new Error ('Name is required')
@@ -42,8 +45,8 @@ export const metadata = {
       //this allows me to take the userId to find the access_token from sessions later down the road
       collection = db.collection("eventInfo");
       // Insert a single document, wait for promise so we can read it back
-      const newInfo = await collection.insertOne({eventName, description, length, userId, googleEmail });
-      return console.log("added info in database: ", eventName, description, length)
+      const newInfo = await collection.insertOne({eventName, eventnameParams, description, length, userId, googleEmail });
+      return console.log("added info in database: ", eventName, eventnameParams, description, length)
     } catch (error) {
       console.log(error)
     }
@@ -71,7 +74,7 @@ export const metadata = {
             <p className={`mb-3 text-2xl font-semibold`}>
               Add Events
             </p>
-          <form action={addEvent} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+          <form action={addEvent} id='add-event-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="eventName" >Event Name:</label> 
           <input type="text" name="eventName" id="eventName" />
           <label htmlFor="description">Description:</label>

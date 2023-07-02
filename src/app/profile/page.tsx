@@ -144,6 +144,7 @@ export const metadata = {
             <Image src=
             {session.user.image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
             </Suspense>
+          <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
           <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="visibleName" >Name:</label> 
           <input type="text" name="visibleName" id="visibleName" />
