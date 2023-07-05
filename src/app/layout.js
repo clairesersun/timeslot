@@ -2,6 +2,7 @@ import { Chicle } from 'next/font/google'
 import './globals.css'
 import Header from './components/header'
 import Provider from './components/Provider'
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 const chicle = Chicle({
   weight: ['400'],

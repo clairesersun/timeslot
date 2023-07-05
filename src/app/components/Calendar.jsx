@@ -7,10 +7,21 @@ import DateTimePicker from "react-datetime-picker";
 // import mongodb from 'mongodb';
 // import GET from './findinfo.js';
 //HOW TO GET THE ACCESS TOKEN AND SEND IT TO THE GOOGLE API
+// import { useSession } from "next-auth/react";
+import { getCsrfToken } from "next-auth/react";
 
 export default function Calendar(props) {
+  // const { data: session, status } = useSession({
+  //   required: true,
+  //   onUnauthenticated: () => {
+  //     console.log("not signed in");
+  //   },
+  // });
+
+  console.log(status);
   const date = new Date();
-  const [start, setStart] = useState("");
+  // console.log(account.access_token);
+  const [start, setStart] = useState(new Date());
   // console.log(start);
   // const [eventName, setEventName] = useState(""); this is the name pulled from the database
   const [eventNotes, setEventNotes] = useState(""); // this is the notes added by the user
@@ -20,6 +31,9 @@ export default function Calendar(props) {
   const length = props.length;
   const eventName = props.eventName;
   const googleEmail = props.googleEmail;
+  const email = props.email;
+  const accessToken = props.accessToken;
+  const idToken = props.idToken;
   const mondaystartValue = props.mondaystartValue;
   const mondayendValue = props.mondayendValue;
   const tuesdaystartValue = props.tuesdaystartValue;
@@ -35,36 +49,10 @@ export default function Calendar(props) {
   const sundaystartValue = props.sundaystartValue;
   const sundayendValue = props.sundayendValue;
   const additionaldaysValue = props.additionaldaysValue;
-  const accessToken = props.accessToken;
-
-  //     const MongoClient = require("mongodb");
-  // const url = 'mongodb://localhost:27017/';
-  // const databasename = "users";  // Database name
-  // MongoClient.connect(url).then((client) => {
-
-  //     const connect = client.db(databasename);
-
-  //     // Connect to collection
-  //     const collection = connect
-  //         .collection("accounts");
-
-  //     collection.find({}).toArray().then((ans) => {
-  //         console.log(ans);
-  //     });
-  // }).catch((err) => {
-
-  //     // Printing the error message
-  //     console.log(err.Message);
-
-  // });
-
-  // const accessToken = await getCsrfToken()
-  // console.log(accessToken)
-  // console.log(token)
-  //is this not correct?
-  // console.log(session.user.email);
-
-  // console.log(db.test.sessions.access_token)
+  // setStart = new Date();
+  // const trial = new Date(start.getTime() + length * 60000);
+  // console.log(start);
+  // console.log(trial);
 
   function getRandonString(length) {
     var chars =
@@ -77,7 +65,9 @@ export default function Calendar(props) {
     return result;
   }
 
-  async function createCalendarEvent() {
+  async function createCalendarEvent(accessToken) {
+    // const access_token = await getCsrfToken(accessToken);
+    // console.log(access_token);
     console.log("creating calendar event");
     const end = new Date(start.getTime() + length * 60000);
     const event = {
@@ -126,7 +116,9 @@ export default function Calendar(props) {
       })
       .then((data) => {
         console.log(data.conferenceData, data);
-        alert("Event created, check your Google Calendar!");
+        alert(
+          `Event created, check your Google Calendar! For further questions email ${email}`
+        );
       });
   }
 
@@ -145,10 +137,21 @@ export default function Calendar(props) {
             type="text"
             onChange={(e) => {
               setEventNotes(e.target.value);
+              style = {
+                margin: "10px",
+                color: "black",
+              };
             }}
           />
           <p>Your Email</p>
-          <input type="text" onChange={(e) => setAttendees(e.target.value)} />
+          <input
+            type="text"
+            onChange={(e) => setAttendees(e.target.value)}
+            style={{
+              margin: "10px",
+              color: "black",
+            }}
+          />
 
           <p>Select Meetime Time</p>
           <div
@@ -159,7 +162,6 @@ export default function Calendar(props) {
               alignItems: "flex-start",
               margin: "10px 0",
               padding: "10px",
-
               color: "black",
               backgroundColor: "white",
             }}
@@ -180,6 +182,19 @@ export default function Calendar(props) {
                   margin: "10px",
                   color: "black",
                 }}
+                shouldCloseWidgets={({ reason, widget }) =>
+                  reason !== "outsideAction" && widget === "calendar"
+                }
+                shouldOpenWidgets={({ reason, widget }) =>
+                  reason !== "focus" && widget === "calendar"
+                }
+                yearPlaceholder={new Date().getFullYear().toString()}
+                monthPlaceholder={new Date().getMonth() + (1).toString()}
+                dayPlaceholder={new Date().getDate().toString()}
+                required={true}
+                minDate={new Date()}
+                onCalendarOpen={() => console.log("Calendar opened")}
+                onCalendarClose={() => console.log("Calendar closed")}
                 amPmAriaLabel="Select AM/PM"
                 calendarAriaLabel="Toggle calendar"
                 clearAriaLabel="Clear value"
@@ -195,7 +210,7 @@ export default function Calendar(props) {
               />
             </div>
           </div>
-          <button onClick={() => createCalendarEvent()}>
+          <button onClick={() => createCalendarEvent(accessToken)}>
             Create Calendar Event
           </button>
           <p></p>

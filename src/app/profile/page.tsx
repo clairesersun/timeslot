@@ -87,6 +87,8 @@ export const metadata = {
     export default async function Profile() {
       const dbName = "users";
       const session = await getServerSession(authOptions)
+      if (!session) {
+        return <SignIn /> }
       const { MongoClient } = require("mongodb");
       const client = new MongoClient(process.env.MONGODB_URI);
       await client.connect();
@@ -97,12 +99,73 @@ export const metadata = {
       // Insert a single document, wait for promise so we can read it back
       const currentUserInfo = await collection.findOne({ googleEmail:  session.user.email });
       console.log(currentUserInfo)
-      const visibleName = currentUserInfo.name
-      const email = currentUserInfo.email
-      const businessName = currentUserInfo.businessName
-
-  if (!session) {
-    return <SignIn /> }
+      if (currentUserInfo === null) {
+        const visibleName = "not set"
+        const email = "not set"
+        const businessName = "not set"
+        return (
+          <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      
+            <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+              
+            <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+                <Suspense fallback={<div>Loading...</div>}>
+                <p className={`mb-3 text-2xl font-semibold`}>
+                  Name:
+                </p>
+                <p className={`mb-3 text-1xl font-semibold`}>
+                  {visibleName}
+                </p>
+                <p className={`mb-3 text-2xl font-semibold`}>
+                  Other Email:
+                </p>
+                <p className={`mb-3 text-1xl font-semibold`}>
+                  {email}
+                </p>
+                <p className={`mb-3 text-2xl font-semibold`}>
+                  Business Name:
+                </p>
+                <p className={`mb-3 text-1xl font-semibold`}>
+                  {businessName}
+                </p>
+    
+                <p className={`mb-3 text-2xl font-semibold`}>
+                  Google Account Name:
+                </p>
+                <p className={`mb-3 text-1xl font-semibold`}>
+                {session.user.name}
+                </p>
+                <p className={`mb-3 text-2xl font-semibold`}>
+                  Google Account:
+                </p>
+                <p className={`mb-3 text-1xl font-semibold`}>
+                {session.user.email}
+                </p>
+                <Image src=
+                {session.user.image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
+                </Suspense>
+              <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
+              <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <label htmlFor="visibleName" >Name:</label> 
+              <input type="text" name="visibleName" id="visibleName" />
+              <label htmlFor="email">Email:</label>
+              <input type="text" name='email' id='email' />
+              <label htmlFor="businessName">Business Name:</label>
+              <input type="text" name='businessName' id='businessName' />
+              <button type='submit'>Submit</button>
+              </form>
+              {/* {deleteAccount()} */}
+              {/* figure out how to do a pop up delete btn */}
+              </div>
+            </div>
+          </main>
+        )
+      
+      } else { 
+        const visibleName = currentUserInfo.name
+        const email = currentUserInfo.email 
+        const businessName = currentUserInfo.businessName
+       
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
   
@@ -160,7 +223,7 @@ export const metadata = {
         </div>
       </main>
     )
-  }
+  }}
   
 // }
 

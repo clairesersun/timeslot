@@ -32,7 +32,9 @@ export const metadata = {
       }
       
       const session = await getServerSession(authOptions)
+      
       const googleEmail = session.user.email
+      
       
       const dbName = "users";
       await client.connect();
@@ -60,9 +62,9 @@ export const metadata = {
 
     export default async function Events() {
       const session = await getServerSession(authOptions)
-
-  if (!session) {
-    return <SignIn /> }
+      if (!session) {
+        return <SignIn /> }
+  
     
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">

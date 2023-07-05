@@ -81,6 +81,9 @@ async function addAvailability(data) {
 export default async function Availability() {
   const dbName = "users";
   const session = await getServerSession(authOptions);
+  if (!session) {
+    return <SignIn />;
+  }
   const { MongoClient } = require("mongodb");
   const client = new MongoClient(process.env.MONGODB_URI);
   await client.connect();
@@ -94,6 +97,7 @@ export default async function Availability() {
   });
   console.log(currentUserInfo);
   let businessName = currentUserInfo.businessName;
+  if (currentUserInfo.availability) {
   //get the current values from the database
   let mondaystartValue = currentUserInfo.availability.mondayStart;
   let mondayendValue = currentUserInfo.availability.mondayEnd;
@@ -112,9 +116,7 @@ export default async function Availability() {
   let additionaldaysValue = currentUserInfo.availability.additionalDays;
 // how to say if this doesn't exist, then make the value blank?
 
-  if (!session) {
-    return <SignIn />;
-  }
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
@@ -168,4 +170,61 @@ export default async function Availability() {
       </div>
     </main>
   );
+} else {
+ 
+  
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+        <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <Suspense fallback={<div>Loading...</div>}>
+            <h1 className={`mb-3 text-2xl font-semibold`}>
+              {businessName}&apos;s Availability
+            </h1>
+          </Suspense>
+          <form
+            action={addAvailability}
+            id="profile-form"
+            className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
+          >
+            <label htmlFor="mondayStart">Monday</label>
+            <input type="time" name="mondayStart" id="mondayStart" />
+            {/* set the value value="13:30" by using the current mondayStart */}
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="mondayEnd" id="mondayEnd" />
+            <label htmlFor="tuesdayStart">Tuesday</label>
+            <input type="time" name="tuesdayStart" id="tuesdayStart" />
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="tuesdayEnd" id="tuesdayEnd" />
+            <label htmlFor="wednesdayStart">Wednesday</label>
+            <input type="time" name="wednesdayStart" id="wednesdayStart" />
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="wednesdayEnd" id="wednesdayEnd" />
+            <label htmlFor="thursdayStart">Thursday</label>
+            <input type="time" name="thursdayStart" id="thursdayStart" />
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="thursdayEnd" id="thursdayEnd" />
+            <label htmlFor="fridayStart">Friday</label>
+            <input type="time" name="fridayStart" id="fridayStart" />
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="fridayEnd" id="fridayEnd" />
+            <label htmlFor="saturdayStart">Saturday</label>
+            <input type="time" name="saturdayStart" id="saturdayStart" />
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="saturdayEnd" id="saturdayEnd"/>
+            <label htmlFor="sundayStart">Sunday</label>
+            <input type="time" name="sundayStart" id="sundayStart" />
+            <p className="lg:text-center"> - </p>
+            <input type="time" name="sundayEnd" id="sundayEnd" />
+            <label htmlFor="additionalDays">Additional Days</label>
+            <input type="datetime-local" name="additionalDays" id="additionalDays" />
+            {/* I need to figure out how to add multiple */}
+            {/* if there is already a value, then add another input */}
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  );
+}
 }

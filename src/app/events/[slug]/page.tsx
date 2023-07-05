@@ -74,6 +74,8 @@ export const metadata = {
 
         const dbName = "users";
       const session = await getServerSession(authOptions)
+      if (!session) {
+        return <SignIn /> }
       const { MongoClient } = require("mongodb");
       const client = new MongoClient(process.env.MONGODB_URI);
       await client.connect();
@@ -97,8 +99,7 @@ export const metadata = {
         
         
         
-        if (!session) {
-          return <SignIn /> }
+        
           
         // console.log(eventInfo)
         const eventName = eventInfo.eventName

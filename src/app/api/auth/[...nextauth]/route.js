@@ -26,12 +26,13 @@ export const authOptions = {
     newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   callbacks: {
-    jwt: ({token, account })=> {
+    jwt: ({token, user, account, profile, isNewUser })=> {
       if (account?.access_token) {
         token.access_token = account.access_token;
       }
       return token;
     },
+    
   },
   
 

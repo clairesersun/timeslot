@@ -3,6 +3,8 @@ import { Suspense } from "react";
 // import Link from "next/link";
 import Calendar from "../../components/Calendar.jsx";
 
+import { getToken } from "next-auth/jwt";
+
 export const metadata = {
   title: "Schedule",
   description: "Scheduling page for the scheduling app",
@@ -10,10 +12,18 @@ export const metadata = {
 };
 
 export default async function ScheduleTime({ params }) {
+  //i need this page not to load until the user is logged in
+
   //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
   const user = params.user;
+  if (!user) {
+    return <div>User not found</div>;
+  }
   user.toString();
   const event = params.event;
+
+  // console.log(session, status)
+
   // console.log(user);
   // console.log(event);
   const dbName = "users";
@@ -30,13 +40,18 @@ export default async function ScheduleTime({ params }) {
     userId: new ObjectId(user),
   });
   let accessToken = accountInfo.access_token;
+  let idToken = accountInfo.id_token;
   // console.log(accessToken);
   collection = db.collection("savedInfo");
   // Insert a single document, wait for promise so we can read it back
   let businessInfo = await collection.findOne({
     userId: new ObjectId(user),
   });
+  if (!businessInfo) {
+    return <div>Business not found</div>;
+  }
   const googleEmail = businessInfo.googleEmail;
+  const email = businessInfo.email;
   // console.log(googleEmail);
   collection = db.collection("eventInfo");
   let currentEventInfo = await collection.findOne({
@@ -94,6 +109,7 @@ export default async function ScheduleTime({ params }) {
               length={length}
               eventName={eventName}
               googleEmail={googleEmail}
+              email={email}
               mondaystartValue={mondaystartValue}
               mondayendValue={mondayendValue}
               tuesdaystartValue={tuesdaystartValue}
@@ -110,6 +126,7 @@ export default async function ScheduleTime({ params }) {
               sundayendValue={sundayendValue}
               additionaldaysValue={additionaldaysValue}
               accessToken={accessToken}
+              idToken={idToken}
             />
           </Suspense>
         </div>
