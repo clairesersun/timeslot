@@ -10,11 +10,17 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    
-      authorizationUrl:
-            'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
-          scope:
-            'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+          scope: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+        }},
+      // authorizationUrl:
+      //       'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+          // scope:
+          //   'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
         }),
       ],
   secret: process.env.SECRET,
@@ -25,15 +31,22 @@ export const authOptions = {
     verifyRequest: '/auth/verify-request', // (used for check email message)
     newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },
-  callbacks: {
-    jwt: ({token, user, account, profile, isNewUser })=> {
-      if (account?.access_token) {
-        token.access_token = account.access_token;
-      }
-      return token;
-    },
-    
-  },
+  // maybe include this session statement?
+  // session: {
+  //   strategy: 'jwt',},
+  // callbacks: {
+  //     jwt ({token, user, account, profile, isNewUser }) {
+  //     if (account?.access_token) {
+  //       token.access_token = account.access_token;
+  //     }
+  //     return token;
+  //   },
+  //   session ({ session, token, user }) {
+  //   // Send properties to the client, like an access_token from a provider.
+  //   session.accessToken = token.accessToken
+  //   return session
+  // }
+  // }
   
 
 }

@@ -49,9 +49,19 @@ export const metadata = {
       //check if user already exists in database, if so you will update the info, if not you will add the info to the database
       if (myDoc) {
         const updateInfo = await collection.updateOne({ googleEmail: googleEmail }, {$set: {name, email, businessName}});
-        return console.log("updated info in database: ", name, email, businessName, googleEmail, userId)}
-            const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId});
-      return console.log("added info in database: ", name, email, businessName, googleEmail, userId)
+        console.log("updated info in database: ", name, email, businessName, googleEmail, userId)
+        alert("Updated!")
+        return location.reload()
+      
+    }
+        
+        const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId});
+        
+          
+          alert("Updated!")
+          console.log("added info in database: ", name, email, businessName, googleEmail, userId)
+          return location.reload()
+          
     } catch (error) {
       console.log(error)
     }

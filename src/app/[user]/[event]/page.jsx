@@ -2,8 +2,8 @@
 import { Suspense } from "react";
 // import Link from "next/link";
 import Calendar from "../../components/Calendar.jsx";
-
-import { getToken } from "next-auth/jwt";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route.js";
 
 export const metadata = {
   title: "Schedule",
@@ -14,15 +14,20 @@ export const metadata = {
 export default async function ScheduleTime({ params }) {
   //i need this page not to load until the user is logged in
 
+  const session = await getServerSession(authOptions);
+  // console.log(session);
+
   //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
   const user = params.user;
+  console.log(user);
   if (!user) {
     return <div>User not found</div>;
   }
   user.toString();
+
   const event = params.event;
 
-  // console.log(session, status)
+  // console.log(session);
 
   // console.log(user);
   // console.log(event);
@@ -40,6 +45,7 @@ export default async function ScheduleTime({ params }) {
     userId: new ObjectId(user),
   });
   let accessToken = accountInfo.access_token;
+  let refreshtoken = accountInfo.refresh_token;
   let idToken = accountInfo.id_token;
   // console.log(accessToken);
   collection = db.collection("savedInfo");
@@ -71,22 +77,38 @@ export default async function ScheduleTime({ params }) {
   //get length
   let length = currentEventInfo.length;
 
-  //get availability
-  let mondaystartValue = businessInfo.availability.mondayStart;
-  let mondayendValue = businessInfo.availability.mondayEnd;
-  let tuesdaystartValue = businessInfo.availability.tuesdayStart;
-  let tuesdayendValue = businessInfo.availability.tuesdayEnd;
-  let wednesdaystartValue = businessInfo.availability.wednesdayStart;
-  let wednesdayendValue = businessInfo.availability.wednesdayEnd;
-  let thursdaystartValue = businessInfo.availability.thursdayStart;
-  let thursdayendValue = businessInfo.availability.thursdayEnd;
-  let fridaystartValue = businessInfo.availability.fridayStart;
-  let fridayendValue = businessInfo.availability.fridayEnd;
-  let saturdaystartValue = businessInfo.availability.saturdayStart;
-  let saturdayendValue = businessInfo.availability.saturdayEnd;
-  let sundaystartValue = businessInfo.availability.sundayStart;
-  let sundayendValue = businessInfo.availability.sundayEnd;
-  let additionaldaysValue = businessInfo.availability.additionalDays;
+  // //get availability
+  // let mondaystartValue = businessInfo.availability.mondayStart;
+  // let mondayendValue = businessInfo.availability.mondayEnd;
+  // let tuesdaystartValue = businessInfo.availability.tuesdayStart;
+  // let tuesdayendValue = businessInfo.availability.tuesdayEnd;
+  // let wednesdaystartValue = businessInfo.availability.wednesdayStart;
+  // let wednesdayendValue = businessInfo.availability.wednesdayEnd;
+  // let thursdaystartValue = businessInfo.availability.thursdayStart;
+  // let thursdayendValue = businessInfo.availability.thursdayEnd;
+  // let fridaystartValue = businessInfo.availability.fridayStart;
+  // let fridayendValue = businessInfo.availability.fridayEnd;
+  // let saturdaystartValue = businessInfo.availability.saturdayStart;
+  // let saturdayendValue = businessInfo.availability.saturdayEnd;
+  // let sundaystartValue = businessInfo.availability.sundayStart;
+  // let sundayendValue = businessInfo.availability.sundayEnd;
+  // let additionaldaysValue = businessInfo.availability.additionalDays;
+
+  let mondaystartValue = "";
+  let mondayendValue = "";
+  let tuesdaystartValue = "";
+  let tuesdayendValue = "";
+  let wednesdaystartValue = "";
+  let wednesdayendValue = "";
+  let thursdaystartValue = "";
+  let thursdayendValue = "";
+  let fridaystartValue = "";
+  let fridayendValue = "";
+  let saturdaystartValue = "";
+  let saturdayendValue = "";
+  let sundaystartValue = "";
+  let sundayendValue = "";
+  let additionaldaysValue = "";
 
   // how to say if this doesn't exist, then make the value blank?
 
@@ -127,6 +149,7 @@ export default async function ScheduleTime({ params }) {
               additionaldaysValue={additionaldaysValue}
               accessToken={accessToken}
               idToken={idToken}
+              refreshtoken={refreshtoken}
             />
           </Suspense>
         </div>

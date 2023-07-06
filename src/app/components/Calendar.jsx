@@ -1,16 +1,21 @@
 "use client";
 
+//I DO NOT HAVE GOOGLE ACCESS TO DO THIS YET -- FIGURE OUT WITH GOOGLE HOW TO DO THIS
+
 import { useState } from "react";
 import DateTimePicker from "react-datetime-picker";
+// import { getToken } from "next-auth/jwt";
 // import "react-date-picker/dist/DatePicker.css";
 // import "react-calendar/dist/Calendar.css";
 // import mongodb from 'mongodb';
 // import GET from './findinfo.js';
 //HOW TO GET THE ACCESS TOKEN AND SEND IT TO THE GOOGLE API
-// import { useSession } from "next-auth/react";
-import { getCsrfToken } from "next-auth/react";
+// import { getCsrfToken, useSession } from "next-auth/react";
+// import { google } from "googleapis"; // i cannot use this! it will not work with nextjs
 
 export default function Calendar(props) {
+  // const session = useSession();
+  // console.log(session);
   // const { data: session, status } = useSession({
   //   required: true,
   //   onUnauthenticated: () => {
@@ -18,7 +23,7 @@ export default function Calendar(props) {
   //   },
   // });
 
-  console.log(status);
+  // console.log(status);
   const date = new Date();
   // console.log(account.access_token);
   const [start, setStart] = useState(new Date());
@@ -33,6 +38,8 @@ export default function Calendar(props) {
   const googleEmail = props.googleEmail;
   const email = props.email;
   const accessToken = props.accessToken;
+  const refreshToken = props.refreshToken;
+
   const idToken = props.idToken;
   const mondaystartValue = props.mondaystartValue;
   const mondayendValue = props.mondayendValue;
@@ -65,9 +72,16 @@ export default function Calendar(props) {
     return result;
   }
 
-  async function createCalendarEvent(accessToken) {
+  async function createCalendarEvent() {
     // const access_token = await getCsrfToken(accessToken);
     // console.log(access_token);
+    // const secret = process.env.NEXTAUTH_SECRET;
+    // let accessToken;
+    // const token = await getToken({ req: req, secret: secret, raw: true });
+    // console.log(token);
+
+    // accessToken = token.accessToken;
+
     console.log("creating calendar event");
     const end = new Date(start.getTime() + length * 60000);
     const event = {
@@ -102,7 +116,7 @@ export default function Calendar(props) {
     };
 
     await fetch(
-      "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1",
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1?sendNotifications=true?sendUpdates=all?supportsAttachments=true",
       {
         method: "POST",
         headers: {
