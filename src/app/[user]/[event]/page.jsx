@@ -14,12 +14,12 @@ export const metadata = {
 export default async function ScheduleTime({ params }) {
   //i need this page not to load until the user is logged in
 
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   // console.log(session);
 
   //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
   const user = params.user;
-  console.log(user);
+  // console.log(user);
   if (!user) {
     return <div>User not found</div>;
   }
@@ -123,6 +123,45 @@ export default async function ScheduleTime({ params }) {
             <h2 className={`mb-3 text-2xl font-semibold`}>{businessName}</h2>
             <h2 className={`mb-3 text-2xl font-semibold`}>{description}</h2>
             <h2 className={`mb-3 text-2xl font-semibold`}>{length} minutes</h2>
+          </Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
+            <h2 className={`mb-3 text-2xl font-semibold`}>
+              {eventName} Availability in {length} minute slots
+            </h2>
+            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+              in {length} minute slots{" "}
+            </p>
+            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+              Currently booked appointments are in red
+            </p>
+            {/* create a list of booked times */}
+            <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+              {/* do not show a given day if there is nothing in the database */}
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Monday: {mondaystartValue} - {mondayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Thursday: {thursdaystartValue} - {thursdayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Friday: {fridaystartValue} - {fridayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Saturday: {saturdaystartValue} - {saturdayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Sunday: {sundaystartValue} - {sundayendValue}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                Additional Days: {additionaldaysValue}
+              </p>
+            </div>
           </Suspense>
           <Suspense fallback={<div>Loading...</div>}>
             <Calendar

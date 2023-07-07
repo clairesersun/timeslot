@@ -2,6 +2,7 @@ import SignIn from "../components/signin";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
+import ColorPicker from "../components/Color";
 
 export const metadata = {
   title: "Profile",
@@ -67,7 +68,7 @@ async function createDesign(data) {
       googleEmail,
       userId,
     });
-    return console.log(
+    return alert(
       "added info in database: ",
       colorOne,
       colorTwo,
@@ -131,9 +132,10 @@ export default async function Profile() {
                 Color 4: {colorFour}{" "}
               </p>
             </Suspense>
+            {/* <ColorPicker /> */}
             <form
               action={createDesign}
-              id="profile-form"
+              id="design-form"
               className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left"
             >
               <label htmlFor="colorOne">Color 1:</label>
@@ -168,13 +170,21 @@ export default async function Profile() {
               <p className={`mb-3 text-lg font-semibold`}>Color 3: not set </p>
               <p className={`mb-3 text-lg font-semibold`}>Color 4: not set </p>
             </Suspense>
+
             <form
               action={createDesign}
               id="profile-form"
               className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left"
             >
               <label htmlFor="colorOne">Color 1:</label>
-              <input type="text" name="colorOne" id="colorOne" />
+              {/* <ColorPicker /> */}
+              <input
+                type="text"
+                name="colorOne"
+                id="colorOne"
+                // hidden
+                // value={document.getElementById("colorOnePicker").state}
+              />
               <label htmlFor="colorTwo">Color 2:</label>
               <input type="text" name="colorTwo" id="colorTwo" />
               <label htmlFor="colorThree">Color 3:</label>

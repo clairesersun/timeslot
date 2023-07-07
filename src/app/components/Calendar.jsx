@@ -130,6 +130,7 @@ export default function Calendar(props) {
       })
       .then((data) => {
         console.log(data.conferenceData, data);
+        // create a booked event in the database
         alert(
           `Event created, check your Google Calendar! For further questions email ${email}`
         );

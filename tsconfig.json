@@ -27,7 +27,8 @@
     "db/connection.ts",
     "src/app/components/deleteData.js",
     "src/app/design/page.jsx",
-    "src/app/profile/page.tsx"
+    "src/app/profile/page.tsx",
+    "src/app/components/Color.jsx"
   ],
   "exclude": ["node_modules"]
 }

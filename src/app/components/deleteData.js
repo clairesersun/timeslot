@@ -1,43 +1,30 @@
-export default function deleteAccount() {
-    
-    async function deletingAccount() {
-    'use server'
-    const { MongoClient } = require("mongodb");
-            const client = new MongoClient(process.env.MONGODB_URI);
-            try {
-              const session = await getServerSession(authOptions)
-              const googleEmail = session.user.email
-              
-              const dbName = "users";
-              await client.connect();
-              console.log("Connected correctly to server");
-              const db = client.db(dbName);
-              let collection = db.collection("users");
-              //delete the single instance of the user from the users collection
-              const users = await collection.deleteOne({ email: googleEmail })
-              return console.log("deleted info from database")
-            } catch (error) {
-              console.log(error)
-            }
-            finally {
-              await client.close();
-          }
-          }
-  
-  
-    async function deleteAccountPopUp(e) {
-      'use server'
-      e.preventDefault()
-    if (confirm("Press a button!")) {
-        deletingAccount()
-    } else {
-      return console.log("did not delete account")
-    }
-    
-    }
+"use client"
+// import Deleting from "./deleting"
+
+
+
+async function deleteProfile() {
+  debugger
+  //how to get this to only happen when the button is clicked?
+  if (confirm("Are you sure you want to delete?")) {
+   
+    //this cannot be done on the client side! how to fix?
+    // Deleting()
+  } else {
+    return console.log("did not delete account")
+  }}
+
+export default function DeleteAccount() {
+
+
 
     return (
-        <button onClick={deleteAccountPopUp}>Delete Account </button>
+      <button onClick={() => deleteProfile()} className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+        Delete Account </button>
+        
     )
         
     }
+
+    
+    
