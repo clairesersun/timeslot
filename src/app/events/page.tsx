@@ -19,9 +19,9 @@ export const metadata = {
     const client = new MongoClient(process.env.MONGODB_URI);
     try {
       const eventName = data.get('eventName')?.valueOf()
-      console.log(eventName)
+      // console.log(eventName)
       const eventnameParams = eventName.toString().toLowerCase().replace(/\s/g, '')
-      console.log(eventnameParams)
+      //console.log(eventnameParams)
       
       if (typeof eventName !== 'string' || eventName.length === 0) {
         throw new Error ('Name is required')
