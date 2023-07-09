@@ -1,6 +1,8 @@
 import SignIn from '../components/signin';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import  AddAlert  from '../components/alert';
+// import { useRouter } from 'next/router';
 
 
 export const metadata = {
@@ -8,6 +10,8 @@ export const metadata = {
     description: 'Event page for the scheduling app',
     keywords: 'scheduling app'
   }
+
+  
   
   async function addEvent(data: FormData) {
     'use server'
@@ -48,7 +52,16 @@ export const metadata = {
       collection = db.collection("eventInfo");
       // Insert a single document, wait for promise so we can read it back
       const newInfo = await collection.insertOne({eventName, eventnameParams, description, length, userId, googleEmail });
-      return console.log("added info in database: ", eventName, eventnameParams, description, length)
+      return console.log("added info in database: " +
+      eventName +
+      ", " +
+      eventnameParams +
+      ", " +
+      description +
+      ", " +
+      length)
+      // AddAlert(eventName, eventnameParams, description, length)
+      
     } catch (error) {
       console.log(error)
     }

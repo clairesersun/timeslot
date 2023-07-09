@@ -101,7 +101,7 @@ export default async function Profile() {
   const currentUserInfo = await collection.findOne({
     googleEmail: session.user.email,
   });
-  console.log(currentUserInfo);
+  // console.log(currentUserInfo);
   let businessName = currentUserInfo.businessName;
   if (currentUserInfo.design) {
     let colorOne = currentUserInfo.design.colorOne;

@@ -2,8 +2,8 @@
 import { Suspense } from "react";
 // import Link from "next/link";
 import Calendar from "../../components/Calendar.jsx";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route.js";
+// import { getAccessToken } from "next-auth";
+import moment from "moment";
 
 export const metadata = {
   title: "Schedule",
@@ -20,10 +20,11 @@ export default async function ScheduleTime({ params }) {
   //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
   const user = params.user;
   // console.log(user);
-  if (!user) {
-    return <div>User not found</div>;
-  }
   user.toString();
+  // const userId = new ObjectId(user);
+  // if (!userId) {
+  //   return <div>User not found</div>;
+  // }
 
   const event = params.event;
 
@@ -45,14 +46,61 @@ export default async function ScheduleTime({ params }) {
     userId: new ObjectId(user),
   });
   let accessToken = accountInfo.access_token;
+  // console.log(accessToken);
   let refreshtoken = accountInfo.refresh_token;
+  let expires_at = accountInfo.expires_at;
+  let providerAccountId = accountInfo.providerAccountId;
+  // console.log(expires_at);
   let idToken = accountInfo.id_token;
+  if (expires_at * 1000 < Date.now()) {
+    // If the access token has expired, try to refresh it
+    try {
+      // https://accounts.google.com/.well-known/openid-configuration
+      // We need the `token_endpoint`.
+      const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          client_id: process.env.GOOGLE_CLIENT_ID,
+          client_secret: process.env.GOOGLE_CLIENT_SECRET,
+          grant_type: "refresh_token",
+          refresh_token: refreshtoken,
+        }),
+        method: "POST",
+      });
+
+      const tokens = await tokenResponse.json();
+
+      if (!tokenResponse.ok) throw tokens;
+
+      // console.log("Refreshed access token", tokens);
+      // console.log(collection);
+
+      await collection.updateOne(
+        {
+          providerAccountId: providerAccountId,
+        },
+        {
+          $set: {
+            access_token: tokens.access_token,
+            expires_at: Math.floor(Date.now() / 1000 + tokens.expires_in),
+            refresh_token: tokens.refresh_token ?? refreshtoken,
+          },
+        }
+      );
+      console.log("updating access token");
+    } catch (error) {
+      console.error("Error refreshing access token", error);
+      // The error property will be used client-side to handle the refresh token error
+      throw (error = "RefreshAccessTokenError");
+    }
+  }
   // console.log(accessToken);
   collection = db.collection("savedInfo");
   // Insert a single document, wait for promise so we can read it back
   let businessInfo = await collection.findOne({
     userId: new ObjectId(user),
   });
+
   if (!businessInfo) {
     return <div>Business not found</div>;
   }
@@ -77,44 +125,73 @@ export default async function ScheduleTime({ params }) {
   //get length
   let length = currentEventInfo.length;
 
-  // //get availability
-  // let mondaystartValue = businessInfo.availability.mondayStart;
-  // let mondayendValue = businessInfo.availability.mondayEnd;
-  // let tuesdaystartValue = businessInfo.availability.tuesdayStart;
-  // let tuesdayendValue = businessInfo.availability.tuesdayEnd;
-  // let wednesdaystartValue = businessInfo.availability.wednesdayStart;
-  // let wednesdayendValue = businessInfo.availability.wednesdayEnd;
-  // let thursdaystartValue = businessInfo.availability.thursdayStart;
-  // let thursdayendValue = businessInfo.availability.thursdayEnd;
-  // let fridaystartValue = businessInfo.availability.fridayStart;
-  // let fridayendValue = businessInfo.availability.fridayEnd;
-  // let saturdaystartValue = businessInfo.availability.saturdayStart;
-  // let saturdayendValue = businessInfo.availability.saturdayEnd;
-  // let sundaystartValue = businessInfo.availability.sundayStart;
-  // let sundayendValue = businessInfo.availability.sundayEnd;
-  // let additionaldaysValue = businessInfo.availability.additionalDays;
+  if (!businessInfo.availability) {
+    console.log("availability doesn't exists");
+    //get availability
+    let mondaystartValue = "";
+    let mondayendValue = "";
+    let tuesdaystartValue = "";
+    let tuesdayendValue = "";
+    let wednesdaystartValue = "";
+    let wednesdayendValue = "";
+    let thursdaystartValue = "";
+    let thursdayendValue = "";
+    let fridaystartValue = "";
+    let fridayendValue = "";
+    let saturdaystartValue = "";
+    let saturdayendValue = "";
+    let sundaystartValue = "";
+    let sundayendValue = "";
+    let additionaldaysValue = "";
 
-  let mondaystartValue = "";
-  let mondayendValue = "";
-  let tuesdaystartValue = "";
-  let tuesdayendValue = "";
-  let wednesdaystartValue = "";
-  let wednesdayendValue = "";
-  let thursdaystartValue = "";
-  let thursdayendValue = "";
-  let fridaystartValue = "";
-  let fridayendValue = "";
-  let saturdaystartValue = "";
-  let saturdayendValue = "";
-  let sundaystartValue = "";
-  let sundayendValue = "";
-  let additionaldaysValue = "";
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+            <Suspense fallback={<div>Loading...</div>}>
+              <h2 className={`mb-3 text-2xl font-semibold`}>{businessName}</h2>
+              <h2 className={`mb-3 text-2xl font-semibold`}>{description}</h2>
+              <h2 className={`mb-3 text-2xl font-semibold`}>
+                {length} minutes
+              </h2>
+            </Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <h2 className={`mb-3 text-2xl font-semibold`}>
+                {eventName} Availability in {length} minute slots
+              </h2>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                in {length} minute slots{" "}
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                No current availability
+              </p>
+              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                {" "}
+                Contact {email} for more information
+              </p>
+            </Suspense>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
-  // how to say if this doesn't exist, then make the value blank?
+  let mondaystartValue = businessInfo.availability.mondayStart;
+  let mondayendValue = businessInfo.availability.mondayEnd;
+  let tuesdaystartValue = businessInfo.availability.tuesdayStart;
+  let tuesdayendValue = businessInfo.availability.tuesdayEnd;
+  let wednesdaystartValue = businessInfo.availability.wednesdayStart;
+  let wednesdayendValue = businessInfo.availability.wednesdayEnd;
+  let thursdaystartValue = businessInfo.availability.thursdayStart;
+  let thursdayendValue = businessInfo.availability.thursdayEnd;
+  let fridaystartValue = businessInfo.availability.fridayStart;
+  let fridayendValue = businessInfo.availability.fridayEnd;
+  let saturdaystartValue = businessInfo.availability.saturdayStart;
+  let saturdayendValue = businessInfo.availability.saturdayEnd;
+  let sundaystartValue = businessInfo.availability.sundayStart;
+  let sundayendValue = businessInfo.availability.sundayEnd;
+  let additionaldaysValue = businessInfo.availability.additionalDays;
 
-  // if (!session) {
-  //   return <SignIn />;
-  // }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
@@ -132,34 +209,50 @@ export default async function ScheduleTime({ params }) {
               in {length} minute slots{" "}
             </p>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Currently booked appointments are in red
+              Currently booked appointments are listed below
             </p>
             {/* create a list of booked times */}
             <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
               {/* do not show a given day if there is nothing in the database */}
+              {mondaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Monday: {mondaystartValue} - {mondayendValue}
+                </p>
+              ) : null}
+              {tuesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                </p>
+              ) : null}
+              {wednesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                </p>
+              ) : null}
+              {thursdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                </p>
+              ) : null}
+              {fridayendValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Friday: {fridaystartValue} - {fridayendValue}
+                </p>
+              ) : null}
+              {saturdayendValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                </p>
+              ) : null}
+              {sundaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Sunday: {sundaystartValue} - {sundayendValue}
+                </p>
+              ) : null}
+
               <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Monday: {mondaystartValue} - {mondayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Tuesday: {tuesdaystartValue} - {tuesdayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Wednesday: {wednesdaystartValue} - {wednesdayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Thursday: {thursdaystartValue} - {thursdayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Friday: {fridaystartValue} - {fridayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Saturday: {saturdaystartValue} - {saturdayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Sunday: {sundaystartValue} - {sundayendValue}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Additional Days: {additionaldaysValue}
+                Additional Available Day/Times:{" "}
+                {moment(additionaldaysValue).format("MMMM Do YYYY, h:mm a")}
               </p>
             </div>
           </Suspense>
@@ -189,6 +282,7 @@ export default async function ScheduleTime({ params }) {
               accessToken={accessToken}
               idToken={idToken}
               refreshtoken={refreshtoken}
+              expires_at={expires_at}
             />
           </Suspense>
         </div>

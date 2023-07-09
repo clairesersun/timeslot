@@ -3,32 +3,14 @@
 //I DO NOT HAVE GOOGLE ACCESS TO DO THIS YET -- FIGURE OUT WITH GOOGLE HOW TO DO THIS
 
 import { useState } from "react";
-import DateTimePicker from "react-datetime-picker";
-// import { getToken } from "next-auth/jwt";
-// import "react-date-picker/dist/DatePicker.css";
-// import "react-calendar/dist/Calendar.css";
-// import mongodb from 'mongodb';
-// import GET from './findinfo.js';
-//HOW TO GET THE ACCESS TOKEN AND SEND IT TO THE GOOGLE API
-// import { getCsrfToken, useSession } from "next-auth/react";
-// import { google } from "googleapis"; // i cannot use this! it will not work with nextjs
+// import DateTimePicker from "react-datetime-picker";
+import moment from "moment";
+import "react-datetime/css/react-datetime.css";
+import Datetime from "react-datetime";
 
 export default function Calendar(props) {
-  // const session = useSession();
-  // console.log(session);
-  // const { data: session, status } = useSession({
-  //   required: true,
-  //   onUnauthenticated: () => {
-  //     console.log("not signed in");
-  //   },
-  // });
-
-  // console.log(status);
   const date = new Date();
-  // console.log(account.access_token);
   const [start, setStart] = useState(new Date());
-  // console.log(start);
-  // const [eventName, setEventName] = useState(""); this is the name pulled from the database
   const [eventNotes, setEventNotes] = useState(""); // this is the notes added by the user
   const [attendees, setAttendees] = useState("");
   const user = props.user;
@@ -39,7 +21,7 @@ export default function Calendar(props) {
   const email = props.email;
   const accessToken = props.accessToken;
   const refreshToken = props.refreshToken;
-
+  const expires_at = props.expires_at;
   const idToken = props.idToken;
   const mondaystartValue = props.mondaystartValue;
   const mondayendValue = props.mondayendValue;
@@ -56,10 +38,57 @@ export default function Calendar(props) {
   const sundaystartValue = props.sundaystartValue;
   const sundayendValue = props.sundayendValue;
   const additionaldaysValue = props.additionaldaysValue;
-  // setStart = new Date();
-  // const trial = new Date(start.getTime() + length * 60000);
-  // console.log(start);
-  // console.log(trial);
+
+  const getTimeConstraints = () => {
+    if (mondaystartValue === "true")
+      return (
+        { hours: { min: 0, max: 23, step: 1 } } && {
+          minutes: { min: 0, max: 59, step: +length },
+        }
+      );
+    else
+      return {
+        minutes: { min: 0, max: 59, step: +length },
+      };
+  };
+
+  var yesterday = moment().subtract(1, "day");
+  var valid = function (current, selected) {
+    //get ddays from database and any that are not available do not show
+    const customDates = ["2023-07-11", "2023-07-12", "2023-07-15"];
+    // const customTimes = ["10:00", "11:00"];
+    const saturday =
+      saturdayendValue === ""
+        ? current.day() !== 6 //saturday
+        : current.day() == 6;
+    const sunday =
+      sundayendValue === "" ? current.day() !== 0 : current.day() == 0;
+    const monday =
+      mondayendValue === "" ? current.day() !== 1 : current.day() == 1;
+    const tuesday =
+      tuesdayendValue === "" ? current.day() !== 2 : current.day() == 2;
+    const wednesday =
+      wednesdayendValue === "" ? current.day() !== 3 : current.day() == 3;
+    const thursday =
+      thursdayendValue === "" ? current.day() !== 4 : current.day() == 4;
+    const friday =
+      fridayendValue === "" ? current.day() !== 5 : current.day() == 5;
+    return (
+      current.isAfter(yesterday) &&
+      additionaldaysValue &&
+      sunday &&
+      saturday &&
+      monday &&
+      tuesday &&
+      wednesday &&
+      thursday &&
+      friday
+      // &&
+      // !customTimes.includes(current.format("HH:mm")) //can't select days before today
+    );
+    // !customDates.includes(current.format("YYYY-MM-DD")) &&
+    // &&
+  };
 
   function getRandonString(length) {
     var chars =
@@ -73,17 +102,9 @@ export default function Calendar(props) {
   }
 
   async function createCalendarEvent() {
-    // const access_token = await getCsrfToken(accessToken);
-    // console.log(access_token);
-    // const secret = process.env.NEXTAUTH_SECRET;
-    // let accessToken;
-    // const token = await getToken({ req: req, secret: secret, raw: true });
-    // console.log(token);
-
-    // accessToken = token.accessToken;
-
     console.log("creating calendar event");
     const end = new Date(start.getTime() + length * 60000);
+    // console.log(start, end);
     const event = {
       summary: eventName,
       description: description + " " + eventNotes,
@@ -114,13 +135,16 @@ export default function Calendar(props) {
         },
       },
     };
-
+    // console.log(event);
+    //this works, it just expires fast. need to handle refresh tokens
     await fetch(
-      "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1?sendNotifications=true?sendUpdates=all?supportsAttachments=true",
+      "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1",
       {
         method: "POST",
+
         headers: {
-          Authorization: "Bearer " + accessToken, // Access token for google
+          "Content-Type": "text/html",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(event),
       }
@@ -129,14 +153,13 @@ export default function Calendar(props) {
         return data.json();
       })
       .then((data) => {
-        console.log(data.conferenceData, data);
+        // console.log(data.conferenceData, data);
         // create a booked event in the database
         alert(
           `Event created, check your Google Calendar! For further questions email ${email}`
         );
       });
   }
-
   return (
     <div className={`m-0 max-w-[30ch] text-sm opacity-50`}>
       <div
@@ -149,13 +172,13 @@ export default function Calendar(props) {
         <>
           <p>Event Notes</p>
           <input
+            style={{
+              margin: "10px",
+              color: "black",
+            }}
             type="text"
             onChange={(e) => {
               setEventNotes(e.target.value);
-              style = {
-                margin: "10px",
-                color: "black",
-              };
             }}
           />
           <p>Your Email</p>
@@ -192,36 +215,16 @@ export default function Calendar(props) {
                 alignItems: "stretch",
               }}
             >
-              <DateTimePicker
+              <Datetime
                 style={{
                   margin: "10px",
                   color: "black",
                 }}
-                shouldCloseWidgets={({ reason, widget }) =>
-                  reason !== "outsideAction" && widget === "calendar"
-                }
-                shouldOpenWidgets={({ reason, widget }) =>
-                  reason !== "focus" && widget === "calendar"
-                }
-                yearPlaceholder={new Date().getFullYear().toString()}
-                monthPlaceholder={new Date().getMonth() + (1).toString()}
-                dayPlaceholder={new Date().getDate().toString()}
-                required={true}
-                minDate={new Date()}
-                onCalendarOpen={() => console.log("Calendar opened")}
-                onCalendarClose={() => console.log("Calendar closed")}
-                amPmAriaLabel="Select AM/PM"
-                calendarAriaLabel="Toggle calendar"
-                clearAriaLabel="Clear value"
-                dayAriaLabel="Day"
-                hourAriaLabel="Hour"
-                maxDetail="minute"
-                minuteAriaLabel="Minute"
-                monthAriaLabel="Month"
-                nativeInputAriaLabel="Date and time"
-                yearAriaLabel="Year"
-                onChange={setStart}
+                isValidDate={valid}
+                onChange={() => setStart()}
+                timeConstraints={getTimeConstraints}
                 value={start}
+                selected={start}
               />
             </div>
           </div>

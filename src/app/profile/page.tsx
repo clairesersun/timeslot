@@ -86,7 +86,7 @@ export const metadata = {
       let collection = db.collection("savedInfo");
       // Insert a single document, wait for promise so we can read it back
       const currentUserInfo = await collection.findOne({ googleEmail:  session.user.email });
-      console.log(currentUserInfo)
+      // console.log(currentUserInfo)
       if (currentUserInfo === null) {
         const visibleName = "not set"
         const email = "not set"
