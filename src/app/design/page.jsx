@@ -34,6 +34,8 @@ async function createDesign(data) {
       throw new Error("Color 4 is required and must be 6 characters long");
     }
 
+    const website = data.get("website");
+
     const session = await getServerSession(authOptions);
     const googleEmail = session.user.email;
 
@@ -53,18 +55,23 @@ async function createDesign(data) {
     if (myDoc) {
       const updateInfo = await collection.updateOne(
         { googleEmail: googleEmail },
-        { $set: { design: { colorOne, colorTwo, colorThree, colorFour } } }
+        {
+          $set: {
+            design: { colorOne, colorTwo, colorThree, colorFour, website },
+          },
+        }
       );
       return console.log(
         "updated info in database: ",
         colorOne,
         colorTwo,
         colorThree,
-        colorFour
+        colorFour,
+        website
       );
     }
     const newInfo = await collection.insertOne({
-      design: { colorOne, colorTwo, colorThree, colorFour },
+      design: { colorOne, colorTwo, colorThree, colorFour, website },
       googleEmail,
       userId,
     });
@@ -74,6 +81,7 @@ async function createDesign(data) {
       colorTwo,
       colorThree,
       colorFour,
+      website,
       googleEmail,
       userId
     );
@@ -108,6 +116,7 @@ export default async function Profile() {
     let colorTwo = currentUserInfo.design.colorTwo;
     let colorThree = currentUserInfo.design.colorThree;
     let colorFour = currentUserInfo.design.colorFour;
+    let website = currentUserInfo.design.website;
 
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -131,6 +140,10 @@ export default async function Profile() {
               <p className={`mb-3 text-lg font-semibold`}>
                 Color 4: {colorFour}{" "}
               </p>
+              <p className={`mb-3 text-lg font-semibold`}>
+                {" "}
+                Website: {website}{" "}
+              </p>
             </Suspense>
             {/* <ColorPicker /> */}
             <form
@@ -146,6 +159,8 @@ export default async function Profile() {
               <input type="text" name="colorThree" id="colorThree" />
               <label htmlFor="colorFour">Color 4:</label>
               <input type="text" name="colorFour" id="colorFour" />
+              <label htmlFor="website"> Website:</label>
+              <input type="text" name="website" id="website" />
               <button type="submit">Submit</button>
             </form>
             {/* {deleteAccount()} */}
@@ -169,6 +184,7 @@ export default async function Profile() {
               <p className={`mb-3 text-lg font-semibold`}>Color 2: not set </p>
               <p className={`mb-3 text-lg font-semibold`}>Color 3: not set </p>
               <p className={`mb-3 text-lg font-semibold`}>Color 4: not set </p>
+              <p className={`mb-3 text-lg font-semibold`}>Website not set </p>
             </Suspense>
 
             <form
@@ -191,6 +207,8 @@ export default async function Profile() {
               <input type="text" name="colorThree" id="colorThree" />
               <label htmlFor="colorFour">Color 4:</label>
               <input type="text" name="colorFour" id="colorFour" />
+              <label htmlFor="website"> Website:</label>
+              <input type="text" name="website" id="website" />
               <button type="submit">Submit</button>
             </form>
             {/* {deleteAccount()} */}
