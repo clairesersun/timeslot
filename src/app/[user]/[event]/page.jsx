@@ -52,6 +52,7 @@ export default async function ScheduleTime({ params }) {
   let providerAccountId = accountInfo.providerAccountId;
   // console.log(expires_at);
   let idToken = accountInfo.id_token;
+  // console.log(idToken);
   if (expires_at * 1000 < Date.now()) {
     // If the access token has expired, try to refresh it
     try {
@@ -88,6 +89,9 @@ export default async function ScheduleTime({ params }) {
         }
       );
       console.log("updating access token");
+      accessToken = tokens.access_token;
+      refreshtoken = tokens.refresh_token ?? refreshtoken;
+      expires_at = Math.floor(Date.now() / 1000 + tokens.expires_in);
     } catch (error) {
       console.error("Error refreshing access token", error);
       // The error property will be used client-side to handle the refresh token error
@@ -106,6 +110,21 @@ export default async function ScheduleTime({ params }) {
   }
   const googleEmail = businessInfo.googleEmail;
   const email = businessInfo.email;
+  //get bookings
+  let bookings = businessInfo.booked;
+  // console.log(bookings);
+  let notBooked = bookings.shift();
+  let bookingTimes = bookings.map((bookingTimes) => (
+    <p
+      className={`m-0 max-w-[30ch] text-sm opacity-50`}
+      key={bookingTimes.booked}
+    >
+      {moment(bookingTimes).format("MMMM Do YYYY, h:mm a")}
+    </p>
+  ));
+  bookings.unshift(notBooked);
+  // console.log(bookings);
+  // console.log(bookingTimes);
   // console.log(googleEmail);
   collection = db.collection("eventInfo");
   let currentEventInfo = await collection.findOne({
@@ -211,6 +230,11 @@ export default async function ScheduleTime({ params }) {
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               Currently booked appointments are listed below
             </p>
+            <Suspense fallback={<div>Loading...</div>}>
+              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+                {bookingTimes}
+              </div>
+            </Suspense>
             {/* create a list of booked times */}
             <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
               {/* do not show a given day if there is nothing in the database */}
@@ -261,9 +285,11 @@ export default async function ScheduleTime({ params }) {
               user={user}
               description={description}
               length={length}
+              event={event}
               eventName={eventName}
               googleEmail={googleEmail}
               email={email}
+              bookings={bookings}
               mondaystartValue={mondaystartValue}
               mondayendValue={mondayendValue}
               tuesdaystartValue={tuesdaystartValue}

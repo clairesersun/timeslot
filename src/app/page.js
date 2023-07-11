@@ -47,6 +47,7 @@ export default async function Home() {
       )
     )
 
+  
   // console.log(events);
 
   if (!currentUserInfo) {
@@ -129,13 +130,46 @@ export default async function Home() {
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Monday: {mondaystartValue} - {mondayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Tuesday: {tuesdaystartValue} - {tuesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Wednesday: {wednesdaystartValue} - {wednesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Thursday: {thursdaystartValue} - {thursdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Friday: {fridaystartValue} - {fridayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Saturday: {saturdaystartValue} - {saturdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Sunday: {sundaystartValue} - {sundayendValue}</p>
+                  {mondaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Monday: {mondaystartValue} - {mondayendValue}
+                </p>
+              ) : null}
+              {tuesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                </p>
+              ) : null}
+              {wednesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                </p>
+              ) : null}
+              {thursdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                </p>
+              ) : null}
+              {fridaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Friday: {fridaystartValue} - {fridayendValue}
+                </p>
+              ) : null}
+              {saturdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                </p>
+              ) : null}
+              {sundaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Sunday: {sundaystartValue} - {sundayendValue}
+                </p>
+              ) : null}
+              {additionaldaysValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Additional Days: {additionaldaysValue}
+                </p>
+              ) : null}
                   <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Additional Days: {additionaldaysValue}</p>
                 </div>
               </Suspense>
@@ -221,14 +255,46 @@ export default async function Home() {
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Monday: {mondaystartValue} - {mondayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Tuesday: {tuesdaystartValue} - {tuesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Wednesday: {wednesdaystartValue} - {wednesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Thursday: {thursdaystartValue} - {thursdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Friday: {fridaystartValue} - {fridayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Saturday: {saturdaystartValue} - {saturdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Sunday: {sundaystartValue} - {sundayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Additional Days: {additionaldaysValue}</p>
+                  {mondaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Monday: {mondaystartValue} - {mondayendValue}
+                </p>
+              ) : null}
+              {tuesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                </p>
+              ) : null}
+              {wednesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                </p>
+              ) : null}
+              {thursdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                </p>
+              ) : null}
+              {fridaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Friday: {fridaystartValue} - {fridayendValue}
+                </p>
+              ) : null}
+              {saturdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                </p>
+              ) : null}
+              {sundaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Sunday: {sundaystartValue} - {sundayendValue}
+                </p>
+              ) : null}
+              {additionaldaysValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Additional Days: {additionaldaysValue}
+                </p>
+              ) : null}
                 </div>
               </Suspense>
               <p className={`mb-3 text-2xl font-semibold`}>
@@ -305,14 +371,46 @@ export default async function Home() {
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Monday: {mondaystartValue} - {mondayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Tuesday: {tuesdaystartValue} - {tuesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Wednesday: {wednesdaystartValue} - {wednesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Thursday: {thursdaystartValue} - {thursdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Friday: {fridaystartValue} - {fridayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Saturday: {saturdaystartValue} - {saturdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Sunday: {sundaystartValue} - {sundayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Additional Days: {additionaldaysValue}</p>
+                  {mondaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Monday: {mondaystartValue} - {mondayendValue}
+                </p>
+              ) : null}
+              {tuesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                </p>
+              ) : null}
+              {wednesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                </p>
+              ) : null}
+              {thursdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                </p>
+              ) : null}
+              {fridaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Friday: {fridaystartValue} - {fridayendValue}
+                </p>
+              ) : null}
+              {saturdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                </p>
+              ) : null}
+              {sundaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Sunday: {sundaystartValue} - {sundayendValue}
+                </p>
+              ) : null}
+              {additionaldaysValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Additional Days: {additionaldaysValue}
+                </p>
+              ) : null}
                 </div>
               </Suspense>
               <p className={`mb-3 text-2xl font-semibold`}>
@@ -524,14 +622,46 @@ export default async function Home() {
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Monday: {mondaystartValue} - {mondayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Tuesday: {tuesdaystartValue} - {tuesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Wednesday: {wednesdaystartValue} - {wednesdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Thursday: {thursdaystartValue} - {thursdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Friday: {fridaystartValue} - {fridayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Saturday: {saturdaystartValue} - {saturdayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Sunday: {sundaystartValue} - {sundayendValue}</p>
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Additional Days: {additionaldaysValue}</p>
+                  {mondaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Monday: {mondaystartValue} - {mondayendValue}
+                </p>
+              ) : null}
+              {tuesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                </p>
+              ) : null}
+              {wednesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                </p>
+              ) : null}
+              {thursdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                </p>
+              ) : null}
+              {fridaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Friday: {fridaystartValue} - {fridayendValue}
+                </p>
+              ) : null}
+              {saturdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                </p>
+              ) : null}
+              {sundaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Sunday: {sundaystartValue} - {sundayendValue}
+                </p>
+              ) : null}
+              {additionaldaysValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Additional Days: {additionaldaysValue}
+                </p>
+              ) : null}
                 </div>
               </Suspense>
               <p className={`mb-3 text-2xl font-semibold`}>

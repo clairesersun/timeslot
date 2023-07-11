@@ -16,6 +16,8 @@ export default function Calendar(props) {
   const user = props.user;
   const description = props.description;
   const length = props.length;
+  const event = props.event;
+  const bookings = props.bookings;
   const eventName = props.eventName;
   const googleEmail = props.googleEmail;
   const email = props.email;
@@ -40,22 +42,17 @@ export default function Calendar(props) {
   const additionaldaysValue = props.additionaldaysValue;
 
   const getTimeConstraints = () => {
-    if (mondaystartValue === "true")
-      return (
-        { hours: { min: 0, max: 23, step: 1 } } && {
-          minutes: { min: 0, max: 59, step: +length },
-        }
-      );
-    else
-      return {
-        minutes: { min: 0, max: 59, step: +length },
-      };
+    return {
+      minutes: { min: 0, max: 59, step: +length },
+    };
   };
 
   var yesterday = moment().subtract(1, "day");
   var valid = function (current, selected) {
     //get ddays from database and any that are not available do not show
-    const customDates = ["2023-07-11", "2023-07-12", "2023-07-15"];
+    // const customdatesTimes = bookings;
+    // console.log(customdatesTimes.map((item) => item.booked));
+    // const customDates = ["2021-09-15", "2021-09-16"];
     // const customTimes = ["10:00", "11:00"];
     const saturday =
       saturdayendValue === ""
@@ -75,6 +72,7 @@ export default function Calendar(props) {
       fridayendValue === "" ? current.day() !== 5 : current.day() == 5;
     return (
       current.isAfter(yesterday) &&
+      // !customdatesTimes &&
       additionaldaysValue &&
       sunday &&
       saturday &&
@@ -89,7 +87,6 @@ export default function Calendar(props) {
     // !customDates.includes(current.format("YYYY-MM-DD")) &&
     // &&
   };
-
   function getRandonString(length) {
     var chars =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
@@ -135,6 +132,8 @@ export default function Calendar(props) {
         },
       },
     };
+    let booked = event.start.dateTime;
+    // console.log(booked);
     // console.log(event);
     //this works, it just expires fast. need to handle refresh tokens
     await fetch(
@@ -153,11 +152,28 @@ export default function Calendar(props) {
         return data.json();
       })
       .then((data) => {
-        // console.log(data.conferenceData, data);
+        console.log(data.conferenceData, data);
         // create a booked event in the database
         alert(
           `Event created, check your Google Calendar! For further questions email ${email}`
         );
+      });
+    await fetch("/api/booked", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "text/html ",
+      },
+      body: JSON.stringify({ booked, bookings, googleEmail, event }),
+      followRedirect: true,
+    })
+      .then((data) => {
+        return data;
+      })
+      .then((data) => {
+        console.log(data);
+        console.log(data.url);
+        //redirect to confirmation page
+        // location.href = data.url;
       });
   }
   return (

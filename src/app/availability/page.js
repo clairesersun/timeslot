@@ -29,6 +29,7 @@ async function addAvailability(data) {
     const sundayStart = data.get("sundayStart")?.valueOf();
     const sundayEnd = data.get("sundayEnd")?.valueOf();
     const additionalDays = data.get("additionalDays")?.valueOf();
+    let booked
 
     const session = await getServerSession(authOptions);
     const googleEmail = session.user.email;
@@ -45,28 +46,33 @@ async function addAvailability(data) {
     collection = db.collection("savedInfo");
     // Insert a single document, wait for promise so we can read it back
     const myDoc = await collection.findOne({ googleEmail: googleEmail });
+  
     //check if user already exists in database, if so you will update the info, if not you will add the info to the database
     if (myDoc) {
+      if (!myDoc.booked){
+        booked = ["not booked"]
+      }
+      booked = myDoc.booked
+      console.log(booked)
       const updateInfo = await collection.updateOne(
         { googleEmail: googleEmail },
         { $set: { availability: { mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays
-         } } }
+         }, booked } }
       );
       return console.log(
         "updated info in database: ",
-        mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays
+        mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, booked
       );
     }
-
-
+    booked = ["not booked"]
     const newInfo = await collection.insertOne({
-      availability: {  mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays },
+      availability: {  mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays }, booked,
       googleEmail,
       userId,
     });
     return console.log(
       "added info in database: ",
-      mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays,
+      mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, booked, 
       googleEmail,
       userId
     );
@@ -126,42 +132,88 @@ export default async function Availability() {
               {businessName}&apos;s Availability
             </h1>
           </Suspense>
+          <Suspense fallback={<div>Loading...</div>}>
+            <h2 className={`mb-3 text-2xl font-semibold`}>
+              Current Availability
+            </h2>
+            {mondaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Monday: {mondaystartValue} - {mondayendValue}
+                </p>
+              ) : null}
+              {tuesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                </p>
+              ) : null}
+              {wednesdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                </p>
+              ) : null}
+              {thursdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                </p>
+              ) : null}
+              {fridaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Friday: {fridaystartValue} - {fridayendValue}
+                </p>
+              ) : null}
+              {saturdaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                </p>
+              ) : null}
+              {sundaystartValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Sunday: {sundaystartValue} - {sundayendValue}
+                </p>
+              ) : null}
+              {additionaldaysValue ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Additional Days: {additionaldaysValue}
+                </p>
+              ) : null}
+              
+          </Suspense>
           <form
             action={addAvailability}
             id="profile-form"
             className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
           >
             <label htmlFor="mondayStart">Monday</label>
-            <input type="time" name="mondayStart" id="mondayStart" value={mondaystartValue}/>
+            <input type="time" name="mondayStart" id="mondayStart"/>
             {/* set the value value="13:30" by using the current mondayStart */}
             <p className="lg:text-center"> - </p>
-            <input type="time" name="mondayEnd" id="mondayEnd" value={mondayendValue}/>
+            <input type="time" name="mondayEnd" id="mondayEnd"/>
             <label htmlFor="tuesdayStart">Tuesday</label>
-            <input type="time" name="tuesdayStart" id="tuesdayStart" value={tuesdaystartValue}/>
+            <input type="time" name="tuesdayStart" id="tuesdayStart" />
             <p className="lg:text-center"> - </p>
-            <input type="time" name="tuesdayEnd" id="tuesdayEnd" value={tuesdayendValue}/>
+            <input type="time" name="tuesdayEnd" id="tuesdayEnd" />
             <label htmlFor="wednesdayStart">Wednesday</label>
-            <input type="time" name="wednesdayStart" id="wednesdayStart" value={wednesdaystartValue}/>
+            <input type="time" name="wednesdayStart" id="wednesdayStart" />
             <p className="lg:text-center"> - </p>
-            <input type="time" name="wednesdayEnd" id="wednesdayEnd" value={wednesdayendValue}/>
+            <input type="time" name="wednesdayEnd" id="wednesdayEnd"/>
             <label htmlFor="thursdayStart">Thursday</label>
-            <input type="time" name="thursdayStart" id="thursdayStart" value={thursdaystartValue}/>
+            <input type="time" name="thursdayStart" id="thursdayStart" />
             <p className="lg:text-center"> - </p>
-            <input type="time" name="thursdayEnd" id="thursdayEnd" value={thursdayendValue}/>
+            <input type="time" name="thursdayEnd" id="thursdayEnd" />
             <label htmlFor="fridayStart">Friday</label>
-            <input type="time" name="fridayStart" id="fridayStart" value={fridaystartValue}/>
+            <input type="time" name="fridayStart" id="fridayStart" />
             <p className="lg:text-center"> - </p>
-            <input type="time" name="fridayEnd" id="fridayEnd" value={fridayendValue}/>
+            <input type="time" name="fridayEnd" id="fridayEnd" />
             <label htmlFor="saturdayStart">Saturday</label>
-            <input type="time" name="saturdayStart" id="saturdayStart" value={saturdaystartValue}/>
+            <input type="time" name="saturdayStart" id="saturdayStart" />
             <p className="lg:text-center"> - </p>
-            <input type="time" name="saturdayEnd" id="saturdayEnd" value={saturdayendValue}/>
+            <input type="time" name="saturdayEnd" id="saturdayEnd"/>
             <label htmlFor="sundayStart">Sunday</label>
-            <input type="time" name="sundayStart" id="sundayStart" value={sundaystartValue}/>
+            <input type="time" name="sundayStart" id="sundayStart"/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="sundayEnd" id="sundayEnd" value={sundayendValue}/>
+            <input type="time" name="sundayEnd" id="sundayEnd"/>
             <label htmlFor="additionalDays">Additional Days</label>
-            <input type="datetime-local" name="additionalDays" id="additionalDays" value={additionaldaysValue}/>
+            <input type="datetime-local" name="additionalDays" id="additionalDays" />
             {/* I need to figure out how to add multiple */}
             {/* if there is already a value, then add another input */}
             <button type="submit">Submit</button>
