@@ -115,10 +115,7 @@ export default async function ScheduleTime({ params }) {
   // console.log(bookings);
   let notBooked = bookings.shift();
   let bookingTimes = bookings.map((bookingTimes) => (
-    <p
-      className={`m-0 max-w-[30ch] text-sm opacity-50`}
-      key={bookingTimes.booked}
-    >
+    <p className={`m-0 max-w-[30ch] text-sm opacity-50`} key={bookingTimes}>
       {moment(bookingTimes).format("MMMM Do YYYY, h:mm a")}
     </p>
   ));
@@ -231,7 +228,7 @@ export default async function ScheduleTime({ params }) {
               Currently booked appointments are listed below
             </p>
             <Suspense fallback={<div>Loading...</div>}>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
                 {bookingTimes}
               </div>
             </Suspense>
@@ -274,10 +271,12 @@ export default async function ScheduleTime({ params }) {
                 </p>
               ) : null}
 
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                Additional Available Day/Times:{" "}
-                {moment(additionaldaysValue).format("MMMM Do YYYY, h:mm a")}
-              </p>
+              {additionaldaysValue !== "" ? (
+                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                  Additional Available Day/Times:{" "}
+                  {moment(additionaldaysValue).format("MMMM Do YYYY, h:mm a")}
+                </p>
+              ) : null}
             </div>
           </Suspense>
           <Suspense fallback={<div>Loading...</div>}>

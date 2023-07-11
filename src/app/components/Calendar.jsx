@@ -70,20 +70,19 @@ export default function Calendar(props) {
       thursdayendValue === "" ? current.day() !== 4 : current.day() == 4;
     const friday =
       fridayendValue === "" ? current.day() !== 5 : current.day() == 5;
-    return (
-      current.isAfter(yesterday) &&
-      // !customdatesTimes &&
-      additionaldaysValue &&
-      sunday &&
-      saturday &&
-      monday &&
-      tuesday &&
-      wednesday &&
-      thursday &&
-      friday
-      // &&
-      // !customTimes.includes(current.format("HH:mm")) //can't select days before today
-    );
+    return current.isAfter(yesterday);
+    // &&
+    // additionaldaysValue &&
+    // saturday &&
+    // sunday &&
+    // monday &&
+    // tuesday &&
+    // wednesday &&
+    // thursday &&
+    // friday
+    // &&
+    // !customdatesTimes &&
+    // !customTimes.includes(current.format("HH:mm")) //can't select days before today
     // !customDates.includes(current.format("YYYY-MM-DD")) &&
     // &&
   };
