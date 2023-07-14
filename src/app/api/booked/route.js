@@ -1,7 +1,5 @@
-import { getServerSession } from "next-auth/react"
 import { NextResponse } from "next/server"
-import { redirect } from 'next/navigation'
-// import { authOptions } from "src/app/api/auth/[...nextauth]/route"
+
 
 export async function PATCH(request) {
     'use server'
@@ -31,7 +29,6 @@ export async function PATCH(request) {
     finally {
         await client.close();
         const newURL = new URL('/confirmation', request.url)
-        //how to get this to work?
         return NextResponse.redirect(newURL)
   }
     

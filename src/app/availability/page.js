@@ -49,10 +49,10 @@ async function addAvailability(data) {
   
     //check if user already exists in database, if so you will update the info, if not you will add the info to the database
     if (myDoc) {
-      if (!myDoc.booked){
-        booked = ["not booked"]
+      booked = ["not booked"]
+      if (myDoc.booked){
+        booked = myDoc.booked
       }
-      booked = myDoc.booked
       console.log(booked)
       const updateInfo = await collection.updateOne(
         { googleEmail: googleEmail },

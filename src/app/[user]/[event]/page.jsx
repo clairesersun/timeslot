@@ -21,12 +21,16 @@ export default async function ScheduleTime({ params }) {
   const user = params.user;
   // console.log(user);
   user.toString();
+  // console.log(user);
   // const userId = new ObjectId(user);
   // if (!userId) {
   //   return <div>User not found</div>;
   // }
 
   const event = params.event;
+  if (!event) {
+    return;
+  }
 
   // console.log(session);
 
