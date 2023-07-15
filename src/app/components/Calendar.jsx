@@ -231,8 +231,6 @@ export default function Calendar(props) {
     const selectedDate = new Date(time);
     const selectedTime = moment(selectedDate).format("HH:mm");
 
-    //this is not working past July 17th... why??? because it is turning it into a mm/dd/yyyy format after july 17th
-
     function addMinutes(date, minutes) {
       date.setMinutes(date.getMinutes() + minutes);
 
@@ -241,9 +239,18 @@ export default function Calendar(props) {
 
     const date = selectedDate;
     //add length from this time
+    // const newDate = date;
     const newDate = addMinutes(date, +length);
     let minutes = newDate.getMinutes();
     let hours = newDate.getHours();
+
+    let selectedMinutes = date.getMinutes();
+    let selectedHours = date.getHours();
+
+    if (selectedMinutes === 0) {
+      selectedMinutes = "00";
+    }
+    let mySelectedTime = selectedHours + ":" + selectedMinutes;
 
     if (minutes === 0) {
       minutes = "00";
@@ -289,26 +296,74 @@ export default function Calendar(props) {
     //why is 9:40 am & 11:40pm showing up in every available date?
     if (mondayDates.includes(moment(selectedDate).format("dddd"))) {
       let earlyTime = 9 + ":" + 40;
-      if (!(mondaystartValue > earlyTime < mondayendValue)) {
-        console.log("this is working");
-      }
       let lateTime = 23 + ":" + 40;
+      if (!(mondaystartValue > earlyTime < mondayendValue)) {
+        if (!(mondaystartValue > lateTime < mondayendValue)) {
+          return (
+            //if both late time and early time are not within the mondaystartValue and mondayendValue then return this
+            // add late time to this conditional statement
+            earlyTime > myOtherTime &&
+            myOtherTime > mondaystartValue &&
+            myTime < mondayendValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        console.log("this is working");
+        // if early time only is not within the mondaystartValue and mondayendValue then return this
+        return (
+          earlyTime > myOtherTime &&
+          myOtherTime > mondaystartValue &&
+          myTime < mondayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       if (!(mondaystartValue > lateTime < mondayendValue)) {
-        console.log("this is working v2");
+        //if late time only is not within the mondaystartValue and mondayendValue then return this
+        console.log("this is working v3");
+        return (
+          //if both late time and early time are not within the mondaystartValue and mondayendValue then return this
+          // add late time to this conditional statement
+          earlyTime > myOtherTime &&
+          myOtherTime > mondaystartValue &&
+          myTime < mondayendValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
       }
       return (
-        //this gets rid of the 9:40am -- move it to conditional statement above and then move the late time to inside AND do another one outside of the conditional statement
-        earlyTime > myOtherTime &&
         myOtherTime > mondaystartValue &&
         myTime < mondayendValue &&
-        // myTime < lateTime &&
-        // lateTime < selectedDate.getTime() &&
-        // lateTime > mondayendValue &&
-        // mondayendValue > lateTime &&
         currentDate.getTime() < selectedDate.getTime()
       );
     }
     if (tuesdayDates.includes(moment(selectedDate).format("dddd"))) {
+      let earlyTime = 9 + ":" + 40;
+      let lateTime = 23 + ":" + 40;
+      if (!(tuesdaystartValue > earlyTime < tuesdayendValue)) {
+        if (!(tuesdaystartValue > lateTime < tuesdayendValue)) {
+          return (
+            earlyTime > myOtherTime &&
+            myOtherTime > tuesdaystartValue &&
+            myTime < tuesdayendValue &&
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+      }
+      if (!(tuesdaystartValue > lateTime < tuesdayendValue)) {
+        return (
+          earlyTime > myOtherTime &&
+          myOtherTime > tuesdaystartValue &&
+          myTime < tuesdayendValue &&
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      // if early time only is not within the tuesdaystartValue and tuesdayendValue then return this
+      //if both late time and early time are not within the tuesdaystartValue and tuesdayendValue then return this
       return (
         myOtherTime > tuesdaystartValue &&
         myTime < tuesdayendValue &&
@@ -316,6 +371,7 @@ export default function Calendar(props) {
       );
     }
     if (wednesdayDates.includes(moment(selectedDate).format("dddd"))) {
+      //need to finish implementing them all
       return (
         myOtherTime > wednesdaystartValue &&
         myTime < wednesdayendValue &&
