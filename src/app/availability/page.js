@@ -2,6 +2,7 @@ import SignIn from "../components/signin";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
+import { revalidatePath } from "next/cache";
 
 export const metadata = {
   title: "Profile",
@@ -53,7 +54,7 @@ async function addAvailability(data) {
       if (myDoc.booked){
         booked = myDoc.booked
       }
-      console.log(booked)
+      // console.log(booked)
       const updateInfo = await collection.updateOne(
         { googleEmail: googleEmail },
         { $set: { availability: { mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays
@@ -80,6 +81,9 @@ async function addAvailability(data) {
   } catch (error) {
         console.log(error);
       } finally {
+        revalidatePath("/availability");
+        revalidatePath("/[user]/[event]");
+        revalidatePath("/");
         await client.close();
       }
 }
@@ -101,7 +105,7 @@ export default async function Availability() {
   const currentUserInfo = await collection.findOne({
     googleEmail: session.user.email,
   });
-  console.log(currentUserInfo);
+  // console.log(currentUserInfo);
   let businessName = currentUserInfo.businessName;
   if (currentUserInfo.availability) {
   //get the current values from the database

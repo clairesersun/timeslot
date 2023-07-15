@@ -2,6 +2,7 @@ import SignIn from '../components/signin';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import  AddAlert  from '../components/alert';
+import { revalidatePath } from 'next/cache';
 // import { useRouter } from 'next/router';
 
 
@@ -66,6 +67,8 @@ export const metadata = {
       console.log(error)
     }
     finally {
+      revalidatePath('/events')
+      revalidatePath("/")
       await client.close();
   }
     }
@@ -98,8 +101,6 @@ export const metadata = {
           <input type="text" name='length' id='length' />
           <button type='submit'>Submit</button>
           </form>
-          {/* {deleteAccount()} */}
-          {/* figure out how to do a pop up delete btn */}
           </div>
         </div>
       </main>

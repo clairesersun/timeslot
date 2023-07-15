@@ -14,9 +14,6 @@ export const metadata = {
 export default async function ScheduleTime({ params }) {
   //i need this page not to load until the user is logged in
 
-  // const session = await getServerSession(authOptions);
-  // console.log(session);
-
   //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
   const user = params.user;
   // console.log(user);
@@ -32,12 +29,7 @@ export default async function ScheduleTime({ params }) {
     return;
   }
 
-  // console.log(session);
-
-  // console.log(user);
-  // console.log(event);
   const dbName = "users";
-  // const session = await getServerSession(authOptions);
   const { MongoClient, ObjectId } = require("mongodb");
   const client = new MongoClient(process.env.MONGODB_URI);
   await client.connect();
@@ -50,13 +42,10 @@ export default async function ScheduleTime({ params }) {
     userId: new ObjectId(user),
   });
   let accessToken = accountInfo.access_token;
-  // console.log(accessToken);
   let refreshtoken = accountInfo.refresh_token;
   let expires_at = accountInfo.expires_at;
   let providerAccountId = accountInfo.providerAccountId;
-  // console.log(expires_at);
   let idToken = accountInfo.id_token;
-  // console.log(idToken);
   if (expires_at * 1000 < Date.now()) {
     // If the access token has expired, try to refresh it
     try {
@@ -76,9 +65,6 @@ export default async function ScheduleTime({ params }) {
       const tokens = await tokenResponse.json();
 
       if (!tokenResponse.ok) throw tokens;
-
-      // console.log("Refreshed access token", tokens);
-      // console.log(collection);
 
       await collection.updateOne(
         {
@@ -102,7 +88,6 @@ export default async function ScheduleTime({ params }) {
       throw (error = "RefreshAccessTokenError");
     }
   }
-  // console.log(accessToken);
   collection = db.collection("savedInfo");
   // Insert a single document, wait for promise so we can read it back
   let businessInfo = await collection.findOne({
@@ -124,14 +109,10 @@ export default async function ScheduleTime({ params }) {
     </p>
   ));
   bookings.unshift(notBooked);
-  // console.log(bookings);
-  // console.log(bookingTimes);
-  // console.log(googleEmail);
   collection = db.collection("eventInfo");
   let currentEventInfo = await collection.findOne({
     $and: [{ googleEmail: googleEmail }, { eventnameParams: event }],
   }); //this is how to get the event name
-  // console.log(currentEventInfo);
 
   //get business name
   let businessName = businessInfo.businessName;

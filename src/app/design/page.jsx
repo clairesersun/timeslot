@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import ColorPicker from "../components/Color";
+import { revalidatePath } from "next/cache";
 
 export const metadata = {
   title: "Profile",
@@ -88,6 +89,9 @@ async function createDesign(data) {
   } catch (error) {
     console.log(error);
   } finally {
+    revalidatePath("/design");
+    revalidatePath("/");
+    revalidatePath("/[user]/[event]");
     await client.close();
   }
 }

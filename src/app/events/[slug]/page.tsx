@@ -1,6 +1,7 @@
 import SignIn from '../../components/signin';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { revalidatePath } from 'next/cache';
 // import { redirect } from 'next/dist/server/api-utils';
 // import { useRouter } from 'next/navigation'
 
@@ -62,11 +63,16 @@ export const metadata = {
       console.log(error)
     }
     finally {
+      revalidatePath('/')
+      revalidatePath('/events/[slug]')
+      revalidatePath("/[user]/[event]")
       await client.close();
   }
     }
   
     async function DeleteEvent(data: FormData) {
+
+      // make this a route handler and the button will be just that ... a button that clls an api route just like the profile page
       'use server'
   
       const { MongoClient } = require("mongodb");
@@ -121,6 +127,8 @@ export const metadata = {
         console.log(error)
       }
       finally {
+        revalidatePath('/')
+        revalidatePath('/events/[slug]')
         await client.close();
     }
       }
@@ -192,7 +200,6 @@ export const metadata = {
           <button type='submit'>Delete</button>
           </form>
           </div>
-          {/* figure out how to do a pop up delete btn */}
           </div>
         </div>
       </main>

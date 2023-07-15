@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { Suspense } from 'react';
 import  DeleteAccount  from '../../app/components/deleteData';
+import { revalidatePath } from 'next/cache';
 
 
 export const metadata = {
@@ -66,6 +67,10 @@ export const metadata = {
       console.log(error)
     }
     finally {
+      // Ensures that the client will close when you finish/error and update information on the page
+      revalidatePath('/profile')
+      revalidatePath('/')
+      revalidatePath("/[user]/[event]")
       await client.close();
   }
     }
@@ -143,7 +148,6 @@ export const metadata = {
               <button type='submit'>Submit</button>
               </form>
               <DeleteAccount />
-              {/* figure out how to do a pop up delete btn */}
               </div>
             </div>
           </main>
@@ -210,7 +214,6 @@ export const metadata = {
           <button type='submit'>Submit</button>
           </form>
           <DeleteAccount />
-          {/* figure out how to do a pop up delete btn */}
           </div>
         </div>
       </main>

@@ -1,23 +1,18 @@
 "use client";
 
-//I DO NOT HAVE GOOGLE ACCESS TO DO THIS YET -- FIGURE OUT WITH GOOGLE HOW TO DO THIS
-
-// import { useState } from "react";
-// import DateTimePicker from "react-datetime-picker";
 import { subMinutes } from "date-fns";
-import moment, { min } from "moment";
+import moment from "moment";
 import "react-datetime/css/react-datetime.css";
-import Datetime from "react-datetime";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "path";
+
+//you need to handle booked appt times in the calendar
+//add them to times they cannot book with the exclude dates property in the calendar
 
 export default function Calendar(props) {
   const date = new Date();
   const [start, setStart] = useState(new Date());
-  // const [start, setStart] = useState(setHours(setMinutes(date, 0), 9));
   const [eventNotes, setEventNotes] = useState(""); // this is the notes added by the user
   const [attendees, setAttendees] = useState("");
   const user = props.user;
@@ -47,52 +42,6 @@ export default function Calendar(props) {
   const sundaystartValue = props.sundaystartValue;
   const sundayendValue = props.sundayendValue;
   const additionaldaysValue = props.additionaldaysValue;
-
-  const getTimeConstraints = () => {
-    return {
-      minutes: { min: 0, max: 59, step: +length },
-    };
-  };
-
-  var yesterday = moment().subtract(1, "day");
-  var valid = function (current, selected) {
-    //get ddays from database and any that are not available do not show
-    // const customdatesTimes = bookings;
-    // console.log(customdatesTimes.map((item) => item.booked));
-    // const customDates = ["2021-09-15", "2021-09-16"];
-    // const customTimes = ["10:00", "11:00"];
-    const saturday =
-      saturdayendValue === ""
-        ? current.day() !== 6 //saturday
-        : current.day() == 6;
-    const sunday =
-      sundayendValue === "" ? current.day() !== 0 : current.day() == 0;
-    const monday =
-      mondayendValue === "" ? current.day() !== 1 : current.day() == 1;
-    const tuesday =
-      tuesdayendValue === "" ? current.day() !== 2 : current.day() == 2;
-    const wednesday =
-      wednesdayendValue === "" ? current.day() !== 3 : current.day() == 3;
-    const thursday =
-      thursdayendValue === "" ? current.day() !== 4 : current.day() == 4;
-    const friday =
-      fridayendValue === "" ? current.day() !== 5 : current.day() == 5;
-    return current.isAfter(yesterday);
-    // &&
-    // additionaldaysValue &&
-    // saturday &&
-    // sunday &&
-    // monday &&
-    // tuesday &&
-    // wednesday &&
-    // thursday &&
-    // friday
-    // &&
-    // !customdatesTimes &&
-    // !customTimes.includes(current.format("HH:mm")) //can't select days before today
-    // !customDates.includes(current.format("YYYY-MM-DD")) &&
-    // &&
-  };
 
   //include specific dates based on if the user has availability on that day
   const datesIncluded = [new Date()];
@@ -202,9 +151,7 @@ export default function Calendar(props) {
       if (!sundayDates.includes("Sunday")) {
         sundayDates.push(moment(nextSunday._d).format("dddd"));
       }
-      // console.log(nextSunday._d);
       datesIncluded.push(nextSunday._d);
-      // console.log(i);
       i + 7;
     }
   }
@@ -216,15 +163,6 @@ export default function Calendar(props) {
     }
     datesIncluded.push(addDays);
   }
-
-  // const filterDays = [];
-  // const day = getDay(date);
-  // day != 1;
-  // filterDays.push(day);
-  // console.log(filterDays);
-  // filterDays.push(yesterday);
-
-  const weekend = (date) => new Date() < date;
 
   const filterPassedTime = (time) => {
     const currentDate = new Date();
@@ -238,8 +176,6 @@ export default function Calendar(props) {
     }
 
     const date = selectedDate;
-    //add length from this time
-    // const newDate = date;
     const newDate = addMinutes(date, +length);
     let minutes = newDate.getMinutes();
     let hours = newDate.getHours();
@@ -258,10 +194,6 @@ export default function Calendar(props) {
 
     let myTime = hours + ":" + minutes;
 
-    // console.log(myTime);
-    // console.log(date);
-
-    //add length from this time
     const newerDate = subMinutes(date, +length);
     let minusMinutes = newerDate.getMinutes();
     let minusHours = newerDate.getHours();
@@ -292,21 +224,26 @@ export default function Calendar(props) {
     //   myTime = newHour + ":" + minute;
     // }
     // let endValue;
-
+    let lengthMult = length * 2;
+    let earlyTime = 9 + ":" + lengthMult;
+    let lateTime = 23 + ":" + lengthMult;
+    if (lengthMult >= 60) {
+      earlyTime = 9 + ":" + length;
+      lateTime = 23 + ":" + length;
+    }
     //why is 9:40 am & 11:40pm showing up in every available date?
     if (mondayDates.includes(moment(selectedDate).format("dddd"))) {
-      let earlyTime = 9 + ":" + 40;
-      let lateTime = 23 + ":" + 40;
       if (!(mondaystartValue > earlyTime < mondayendValue)) {
         if (!(mondaystartValue > lateTime < mondayendValue)) {
           return (
             //if both late time and early time are not within the mondaystartValue and mondayendValue then return this
-            // add late time to this conditional statement
             earlyTime > myOtherTime &&
             myOtherTime > mondaystartValue &&
             myTime < mondayendValue &&
+            // add late time to this conditional statement
             //this is not working
-            lateTime > myTime &&
+            // mondayendValue < lateTime &&
+            // lateTime < myTime &&
             currentDate.getTime() < selectedDate.getTime()
           );
         }
@@ -324,12 +261,9 @@ export default function Calendar(props) {
         console.log("this is working v3");
         return (
           //if both late time and early time are not within the mondaystartValue and mondayendValue then return this
-          // add late time to this conditional statement
-          earlyTime > myOtherTime &&
           myOtherTime > mondaystartValue &&
           myTime < mondayendValue &&
-          //this is not working
-          lateTime > myTime &&
+          // add late time to this conditional statement
           currentDate.getTime() < selectedDate.getTime()
         );
       }
@@ -340,24 +274,29 @@ export default function Calendar(props) {
       );
     }
     if (tuesdayDates.includes(moment(selectedDate).format("dddd"))) {
-      let earlyTime = 9 + ":" + 40;
-      let lateTime = 23 + ":" + 40;
       if (!(tuesdaystartValue > earlyTime < tuesdayendValue)) {
         if (!(tuesdaystartValue > lateTime < tuesdayendValue)) {
           return (
             earlyTime > myOtherTime &&
             myOtherTime > tuesdaystartValue &&
             myTime < tuesdayendValue &&
+            //this is not working
             lateTime > myTime &&
             currentDate.getTime() < selectedDate.getTime()
           );
         }
-      }
-      if (!(tuesdaystartValue > lateTime < tuesdayendValue)) {
         return (
           earlyTime > myOtherTime &&
           myOtherTime > tuesdaystartValue &&
           myTime < tuesdayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(tuesdaystartValue > lateTime < tuesdayendValue)) {
+        return (
+          myOtherTime > tuesdaystartValue &&
+          myTime < tuesdayendValue &&
+          //this is not working
           lateTime > myTime &&
           currentDate.getTime() < selectedDate.getTime()
         );
@@ -371,7 +310,36 @@ export default function Calendar(props) {
       );
     }
     if (wednesdayDates.includes(moment(selectedDate).format("dddd"))) {
-      //need to finish implementing them all
+      if (!(wednesdaystartValue > earlyTime < wednesdayendValue)) {
+        if (!(wednesdaystartValue > lateTime < wednesdayendValue)) {
+          return (
+            // if both late time and early time are not within the wednesdaystartValue and wednesdayendValue then return this
+            earlyTime > myOtherTime &&
+            myOtherTime > wednesdaystartValue &&
+            myTime < wednesdayendValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        return (
+          //if early time is not within the wednesdaystartValue and wednesdayendValue then return this
+          earlyTime > myOtherTime &&
+          myOtherTime > wednesdaystartValue &&
+          myTime < wednesdayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(wednesdaystartValue > lateTime < wednesdayendValue)) {
+        //if late time only is not within the wednesdaystartValue and wednesdayendValue then return this
+        return (
+          myOtherTime > wednesdaystartValue &&
+          myTime < wednesdayendValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       return (
         myOtherTime > wednesdaystartValue &&
         myTime < wednesdayendValue &&
@@ -379,7 +347,36 @@ export default function Calendar(props) {
       );
     }
     if (thursdayDates.includes(moment(selectedDate).format("dddd"))) {
-      // console.log(myOtherTime, thursdaystartValue, myTime, thursdayendValue);
+      if (!(thursdaystartValue > earlyTime < thursdayendValue)) {
+        if (!(thursdaystartValue > lateTime < thursdayendValue)) {
+          return (
+            // if both late time and early time are not within the thursdaystartValue and thursdayendValue then return this
+            earlyTime > myOtherTime &&
+            myOtherTime > thursdaystartValue &&
+            myTime < thursdayendValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        return (
+          //if early time is not within the thursdaystartValue and thursdayendValue then return this
+          earlyTime > myOtherTime &&
+          myOtherTime > thursdaystartValue &&
+          myTime < thursdayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(thursdaystartValue > lateTime < thursdayendValue)) {
+        //if late time only is not within the thursdaystartValue and thursdayendValue then return this
+        return (
+          myOtherTime > thursdaystartValue &&
+          myTime < thursdayendValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       return (
         myOtherTime > thursdaystartValue &&
         myTime < thursdayendValue &&
@@ -387,6 +384,36 @@ export default function Calendar(props) {
       );
     }
     if (fridayDates.includes(moment(selectedDate).format("dddd"))) {
+      if (!(fridaystartValue > earlyTime < fridayendValue)) {
+        if (!(fridaystartValue > lateTime < fridayendValue)) {
+          return (
+            // if both late time and early time are not within the fridaystartValue and fridayendValue then return this
+            earlyTime > myOtherTime &&
+            myOtherTime > fridaystartValue &&
+            myTime < fridayendValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        return (
+          //if early time is not within the fridaystartValue and fridayendValue then return this
+          earlyTime > myOtherTime &&
+          myOtherTime > fridaystartValue &&
+          myTime < fridayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(fridaystartValue > lateTime < fridayendValue)) {
+        //if late time only is not within the fridaystartValue and fridayendValue then return this
+        return (
+          myOtherTime > fridaystartValue &&
+          myTime < fridayendValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       return (
         myOtherTime > fridaystartValue &&
         myTime < fridayendValue &&
@@ -394,6 +421,36 @@ export default function Calendar(props) {
       );
     }
     if (saturdayDates.includes(moment(selectedDate).format("dddd"))) {
+      if (!(saturdaystartValue > earlyTime < saturdayendValue)) {
+        if (!(saturdaystartValue > lateTime < saturdayendValue)) {
+          return (
+            // if both late time and early time are not within the saturdaystartValue and saturdayendValue then return this
+            earlyTime > myOtherTime &&
+            myOtherTime > saturdaystartValue &&
+            myTime < saturdayendValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        return (
+          //if early time is not within the saturdaystartValue and saturdayendValue then return this
+          earlyTime > myOtherTime &&
+          myOtherTime > saturdaystartValue &&
+          myTime < saturdayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(saturdaystartValue > lateTime < saturdayendValue)) {
+        //if late time only is not within the saturdaystartValue and saturdayendValue then return this
+        return (
+          myOtherTime > saturdaystartValue &&
+          myTime < saturdayendValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       return (
         myOtherTime > saturdaystartValue &&
         myTime < saturdayendValue &&
@@ -401,13 +458,74 @@ export default function Calendar(props) {
       );
     }
     if (sundayDates.includes(moment(selectedDate).format("dddd"))) {
+      if (!(sundaystartValue > earlyTime < sundayendValue)) {
+        if (!(sundaystartValue > lateTime < sundayendValue)) {
+          // if both late time and early time are not within the sundaystartValue and sundayendValue then return this
+          return (
+            earlyTime > myOtherTime &&
+            myOtherTime > sundaystartValue &&
+            myTime < sundayendValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        return (
+          //if early time is not within the sundaystartValue and sundayendValue then return this
+          earlyTime > myOtherTime &&
+          myOtherTime > sundaystartValue &&
+          myTime < sundayendValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(sundaystartValue > lateTime < sundayendValue)) {
+        //if late time only is not within the sundaystartValue and sundayendValue then return this
+        return (
+          myOtherTime > sundaystartValue &&
+          myTime < sundayendValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       return (
         myOtherTime > sundaystartValue &&
         myTime < sundayendValue &&
         currentDate.getTime() < selectedDate.getTime()
       );
     }
+    // I need to create a start and end time for the additional days
     if (additionaldays.includes(moment(selectedDate).format("dddd"))) {
+      if (!(additionaldaysValue > earlyTime < additionaldaysValue)) {
+        if (!(additionaldaysValue > lateTime < additionaldaysValue)) {
+          // if both late time and early time are not within the additionaldaysValue and additionaldaysValue then return this
+          return (
+            earlyTime > myOtherTime &&
+            myOtherTime > additionaldaysValue &&
+            myTime < additionaldaysValue &&
+            //this is not working
+            lateTime > myTime &&
+            currentDate.getTime() < selectedDate.getTime()
+          );
+        }
+        return (
+          //if early time is not within the additionaldaysValue and additionaldaysValue then return this
+          earlyTime > myOtherTime &&
+          myOtherTime > additionaldaysValue &&
+          myTime < additionaldaysValue &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
+      if (!(additionaldaysValue > lateTime < additionaldaysValue)) {
+        //if late time only is not within the additionaldaysValue and additionaldaysValue then return this
+        return (
+          myOtherTime > additionaldaysValue &&
+          myTime < additionaldaysValue &&
+          //this is not working
+          lateTime > myTime &&
+          currentDate.getTime() < selectedDate.getTime()
+        );
+      }
       return (
         myOtherTime > additionaldaysValue &&
         myTime < additionaldaysValue &&
@@ -415,11 +533,6 @@ export default function Calendar(props) {
       );
     }
     return currentDate.getTime() < selectedDate.getTime();
-  };
-
-  const isWeekday = (date) => {
-    const day = getDay(date);
-    return day !== 0 && day !== 6;
   };
 
   function getRandonString(length) {
@@ -442,7 +555,6 @@ export default function Calendar(props) {
     }
     console.log("creating calendar event");
     const end = new Date(start.getTime() + length * 60000);
-    // console.log(start, end);
     const event = {
       summary: eventName,
       description: description + " " + eventNotes,
@@ -474,9 +586,6 @@ export default function Calendar(props) {
       },
     };
     let booked = event.start.dateTime;
-    // console.log(booked);
-    // console.log(event);
-    //this works, it just expires fast. need to handle refresh tokens
     await fetch(
       "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1",
       {
@@ -572,49 +681,18 @@ export default function Calendar(props) {
                 alignItems: "stretch",
               }}
             >
-              {/* <Datetime
-                style={{
-                  margin: "10px",
-                  color: "black",
-                }}
-                isValidDate={valid}
-                onChange={() => setStart()}
-                timeConstraints={getTimeConstraints}
-                value={start}
-                selected={start}
-              /> */}
-
               <DatePicker
                 selected={start}
                 onChange={(date) => setStart(date)}
                 showTimeSelect
                 inline
                 timeIntervals={length}
-                // withPortal
-                // filterTime={(time) => {
-                //   //not working yet
-                //   if (date.getDay() === 0) {
-                //     return (
-                //       time >= new Date(0, 0, 0, 12, 30) &&
-                //       time <= new Date(0, 0, 0, 19, 0)
-                //     );
-                //   } else {
-                //     time >= new Date(0, 0, 0, 9, 0) &&
-                //       time <= new Date(0, 0, 0, 19, 0);
-                //   }
-                // }}
-                // minTime={new Date(0, 0, 0, 12, 30)}
-                // maxTime={new Date(0, 0, 0, 19, 0)}
                 //not working yet
                 highlightDates={new Date()}
                 filterTime={filterPassedTime}
-                // filterDate={isWeekday}
                 includeDates={datesIncluded}
-                // excludeDates={filterDays}
                 dateFormat="MMMM d, yyyy h:mmaa"
                 minDate={new Date()}
-                //this max date is 7 days from now
-                // maxDate={new Date().setDate(new Date().getDate() + 7)}
               />
             </div>
           </div>
