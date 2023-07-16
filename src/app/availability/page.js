@@ -30,6 +30,7 @@ async function addAvailability(data) {
     const sundayStart = data.get("sundayStart")?.valueOf();
     const sundayEnd = data.get("sundayEnd")?.valueOf();
     const additionalDays = data.get("additionalDays")?.valueOf();
+    const additionalDaysEnd = data.get("additionalDaysEnd")?.valueOf();
     let booked
 
     const session = await getServerSession(authOptions);
@@ -57,23 +58,23 @@ async function addAvailability(data) {
       // console.log(booked)
       const updateInfo = await collection.updateOne(
         { googleEmail: googleEmail },
-        { $set: { availability: { mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays
+        { $set: { availability: { mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, additionalDaysEnd
          }, booked } }
       );
       return console.log(
         "updated info in database: ",
-        mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, booked
+        mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, additionalDaysEnd, booked
       );
     }
     booked = ["not booked"]
     const newInfo = await collection.insertOne({
-      availability: {  mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays }, booked,
+      availability: {  mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, additionalDaysEnd }, booked,
       googleEmail,
       userId,
     });
     return console.log(
       "added info in database: ",
-      mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, booked, 
+      mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd, sundayStart, sundayEnd, additionalDays, additionalDaysEnd, booked, 
       googleEmail,
       userId
     );
@@ -124,6 +125,7 @@ export default async function Availability() {
   let sundaystartValue = currentUserInfo.availability.sundayStart;
   let sundayendValue = currentUserInfo.availability.sundayEnd;
   let additionaldaysValue = currentUserInfo.availability.additionalDays;
+  let additionaldaysValueEnd = currentUserInfo.availability.additionalDaysEnd;
 // how to say if this doesn't exist, then make the value blank?
 
   
@@ -177,7 +179,7 @@ export default async function Availability() {
               ) : null}
               {additionaldaysValue ? (
                 <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Additional Days: {additionaldaysValue}
+                  Additional Day Start: {new Date(additionaldaysValue).getHours()}:{(new Date(additionaldaysValue).getMinutes()<10?'0':'') + new Date(additionaldaysValue).getMinutes()} - {additionaldaysValueEnd}
                 </p>
               ) : null}
               
@@ -189,7 +191,6 @@ export default async function Availability() {
           >
             <label htmlFor="mondayStart">Monday</label>
             <input type="time" name="mondayStart" id="mondayStart"/>
-            {/* set the value value="13:30" by using the current mondayStart */}
             <p className="lg:text-center"> - </p>
             <input type="time" name="mondayEnd" id="mondayEnd"/>
             <label htmlFor="tuesdayStart">Tuesday</label>
@@ -218,6 +219,8 @@ export default async function Availability() {
             <input type="time" name="sundayEnd" id="sundayEnd"/>
             <label htmlFor="additionalDays">Additional Days</label>
             <input type="datetime-local" name="additionalDays" id="additionalDays" />
+            <label htmlFor="additionalDaysEnd">Additional Day End</label>
+            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" />
             {/* I need to figure out how to add multiple */}
             {/* if there is already a value, then add another input */}
             <button type="submit">Submit</button>

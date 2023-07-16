@@ -7,16 +7,18 @@ import { DeleteEvent } from '../../components/deleteData';
 // import { useRouter } from 'next/navigation'
 
 export const metadata = {
-    title: 'Events',
-    description: 'Event page for the scheduling app',
-    keywords: 'scheduling app'
-  }
-  
-  async function UpdateEvent(data: FormData) {
-    'use server'
+  title: 'Events',
+  description: 'Event page for the scheduling app',
+  keywords: 'scheduling app'
+}
+
+async function UpdateEvent(data: FormData) {
+  'use server'
 
     const { MongoClient } = require("mongodb");
     const client = new MongoClient(process.env.MONGODB_URI);
+    const session = await getServerSession(authOptions)
+    const googleEmail = session['user'].email
     try {
       const eventName = data.get('eventName')?.valueOf()
       if (typeof eventName !== 'string' || eventName.length === 0) {
@@ -37,8 +39,6 @@ export const metadata = {
         throw new Error ('Length is required')
       }
       
-      const session = await getServerSession(authOptions)
-      const googleEmail = session.user.email
       // const { slug } = params;
       
       const dbName = "users";
@@ -79,6 +79,7 @@ export const metadata = {
 
         const dbName = "users";
       const session = await getServerSession(authOptions)
+      console.log(session['user'].email)
       if (!session) {
         return <SignIn /> }
       const { MongoClient } = require("mongodb");
@@ -89,7 +90,7 @@ export const metadata = {
       //this allows me to take the userId to find the access_token from sessions later down the road
       let collection = db.collection("savedInfo");
       // Insert a single document, wait for promise so we can read it back
-      const googleEmail = session.user.email
+      const googleEmail = session['user'].email
       const currentUserInfo = await collection.findOne({ googleEmail:  googleEmail });
       // console.log(currentUserInfo)
       const visibleName = currentUserInfo.name

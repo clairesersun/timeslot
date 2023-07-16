@@ -33,7 +33,7 @@ export const metadata = {
       }
       
       const session = await getServerSession(authOptions)
-      const googleEmail = session.user.email
+      const googleEmail = session['user'].email
       
       const dbName = "users";
       await client.connect();
@@ -90,7 +90,7 @@ export const metadata = {
       //this allows me to take the userId to find the access_token from sessions later down the road
       let collection = db.collection("savedInfo");
       // Insert a single document, wait for promise so we can read it back
-      const currentUserInfo = await collection.findOne({ googleEmail:  session.user.email });
+      const currentUserInfo = await collection.findOne({ googleEmail:  session['user'].email });
       // console.log(currentUserInfo)
       if (currentUserInfo === null) {
         const visibleName = "not set"
@@ -126,16 +126,16 @@ export const metadata = {
                   Google Account Name:
                 </p>
                 <p className={`mb-3 text-1xl font-semibold`}>
-                {session.user.name}
+                {session['user'].email}
                 </p>
                 <p className={`mb-3 text-2xl font-semibold`}>
                   Google Account:
                 </p>
                 <p className={`mb-3 text-1xl font-semibold`}>
-                {session.user.email}
+                {session['user'].email}
                 </p>
                 <Image src=
-                {session.user.image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
+                {session['user'].email} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
                 </Suspense>
               <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
               <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
@@ -192,16 +192,16 @@ export const metadata = {
               Google Account Name:
             </p>
             <p className={`mb-3 text-1xl font-semibold`}>
-            {session.user.name}
+            {session['user'].email}
             </p>
             <p className={`mb-3 text-2xl font-semibold`}>
               Google Account:
             </p>
             <p className={`mb-3 text-1xl font-semibold`}>
-            {session.user.email}
+            {session['user'].email}
             </p>
             <Image src=
-            {session.user.image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
+            {session['user'].email} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
             </Suspense>
           <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
           <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">

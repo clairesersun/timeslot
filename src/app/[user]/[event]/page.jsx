@@ -1,8 +1,5 @@
-// import { ObjectId } from "mongodb";
 import { Suspense } from "react";
-// import Link from "next/link";
 import Calendar from "../../components/Calendar.jsx";
-// import { getAccessToken } from "next-auth";
 import moment from "moment";
 
 export const metadata = {
@@ -144,6 +141,7 @@ export default async function ScheduleTime({ params }) {
     let sundaystartValue = "";
     let sundayendValue = "";
     let additionaldaysValue = "";
+    let additionaldaysValueEnd = "";
 
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -192,6 +190,7 @@ export default async function ScheduleTime({ params }) {
   let sundaystartValue = businessInfo.availability.sundayStart;
   let sundayendValue = businessInfo.availability.sundayEnd;
   let additionaldaysValue = businessInfo.availability.additionalDays;
+  let additionaldaysValueEnd = businessInfo.availability.additionalDaysEnd;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -289,6 +288,7 @@ export default async function ScheduleTime({ params }) {
               sundaystartValue={sundaystartValue}
               sundayendValue={sundayendValue}
               additionaldaysValue={additionaldaysValue}
+              additionaldaysValueEnd={additionaldaysValueEnd}
               accessToken={accessToken}
               idToken={idToken}
               refreshtoken={refreshtoken}

@@ -62,7 +62,7 @@ export default function DeleteAccount() {
     
     export function DeleteEvent(props) {
       let slug = props.slug
-      console.log(slug)
+      // console.log(slug)
         return (
           <button onClick={() => deleteCreatedEvent(slug)} className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
             Delete Event </button>   

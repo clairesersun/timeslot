@@ -38,7 +38,7 @@ export const metadata = {
       
       const session = await getServerSession(authOptions)
       
-      const googleEmail = session.user.email
+      const googleEmail = session['user'].email
       
       
       const dbName = "users";
