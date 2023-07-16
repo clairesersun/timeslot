@@ -2,7 +2,6 @@ import SignIn from "../components/signin";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
-import ColorPicker from "../components/Color";
 import { revalidatePath } from "next/cache";
 
 export const metadata = {
@@ -18,20 +17,21 @@ async function createDesign(data) {
   try {
     const colorOne = data.get("colorOne")?.valueOf();
 
-    if (typeof colorOne !== "string" || colorOne.length !== 6) {
+    // console.log(colorOne);
+    if (typeof colorOne !== "string" || colorOne.length !== 7) {
       throw new Error("Color 1 is required and must be 6 characters long");
     }
     const colorTwo = data.get("colorTwo");
-    if (typeof colorTwo !== "string" || colorTwo.length !== 6) {
+    if (typeof colorTwo !== "string" || colorTwo.length !== 7) {
       throw new Error("Color 2 is required and must be 6 characters long");
     }
     const colorThree = data.get("colorThree");
-    if (typeof colorThree !== "string" || colorThree.length !== 6) {
+    if (typeof colorThree !== "string" || colorThree.length !== 7) {
       throw new Error("Color 3 is required and must be 6 characters long");
     }
 
     const colorFour = data.get("colorThree");
-    if (typeof colorFour !== "string" || colorFour.length !== 6) {
+    if (typeof colorFour !== "string" || colorFour.length !== 7) {
       throw new Error("Color 4 is required and must be 6 characters long");
     }
 
@@ -149,26 +149,23 @@ export default async function Profile() {
                 Website: {website}{" "}
               </p>
             </Suspense>
-            {/* <ColorPicker /> */}
             <form
               action={createDesign}
               id="design-form"
               className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left"
             >
               <label htmlFor="colorOne">Color 1:</label>
-              <input type="text" name="colorOne" id="colorOne" />
+              <input type="color" name="colorOne" id="colorOne" />
               <label htmlFor="colorTwo">Color 2:</label>
-              <input type="text" name="colorTwo" id="colorTwo" />
+              <input type="color" name="colorTwo" id="colorTwo" />
               <label htmlFor="colorThree">Color 3:</label>
-              <input type="text" name="colorThree" id="colorThree" />
+              <input type="color" name="colorThree" id="colorThree" />
               <label htmlFor="colorFour">Color 4:</label>
-              <input type="text" name="colorFour" id="colorFour" />
+              <input type="color" name="colorFour" id="colorFour" />
               <label htmlFor="website"> Website:</label>
               <input type="text" name="website" id="website" />
               <button type="submit">Submit</button>
             </form>
-            {/* {deleteAccount()} */}
-            {/* figure out how to do a pop up delete btn */}
           </div>
         </div>
       </main>

@@ -535,6 +535,8 @@ export default function Calendar(props) {
     return currentDate.getTime() < selectedDate.getTime();
   };
 
+  const excludeTimes = () => {};
+
   function getRandonString(length) {
     var chars =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
@@ -691,6 +693,7 @@ export default function Calendar(props) {
                 highlightDates={new Date()}
                 filterTime={filterPassedTime}
                 includeDates={datesIncluded}
+                excludeTimes={bookings.getTime()}
                 dateFormat="MMMM d, yyyy h:mmaa"
                 minDate={new Date()}
               />

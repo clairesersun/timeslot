@@ -2,6 +2,7 @@ import SignIn from '../../components/signin';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]/route';
 import { revalidatePath } from 'next/cache';
+import { DeleteEvent } from '../../components/deleteData';
 // import { redirect } from 'next/dist/server/api-utils';
 // import { useRouter } from 'next/navigation'
 
@@ -70,68 +71,7 @@ export const metadata = {
   }
     }
   
-    async function DeleteEvent(data: FormData) {
-
-      // make this a route handler and the button will be just that ... a button that clls an api route just like the profile page
-      'use server'
-  
-      const { MongoClient } = require("mongodb");
-      const client = new MongoClient(process.env.MONGODB_URI);
-      try {
-        const eventName = data.get('eventName')?.valueOf()
-        if (typeof eventName !== 'string' || eventName.length === 0) {
-          throw new Error ('Name is required')
-        }
-  
-        const eventnameParams = eventName.toString().toLowerCase().replace(/\s/g, '')
-        // console.log(eventnameParams)
-        
-        const previousnameSlug = data.get('previousnameSlug')?.valueOf()
-  
-        const description = data.get('description')
-        if (typeof description !== 'string' || description.length === 0) {
-          throw new Error ('Description is required')
-        }
-        const length = data.get('length')
-        if (typeof length !== 'string' || length.length === 0) {
-          throw new Error ('Length is required')
-        }
-        
-        const session = await getServerSession(authOptions)
-        const googleEmail = session.user.email
-        // const { slug } = params;
-        
-        const dbName = "users";
-        await client.connect();
-        console.log("Connected correctly to server");
-        const db = client.db(dbName);
-        let collection = db.collection("users");
-        const users = await collection.findOne({ email: googleEmail })
-        // console.log(users._id)
-        const userId = users._id
-        //this allows me to take the userId to find the access_token from sessions later down the road
-        collection = db.collection("eventInfo");
-        // Insert a single document, wait for promise so we can read it back
-        const deleteInfo = await collection.deleteOne(
-          {$and:
-          [{ googleEmail: googleEmail }, 
-          {eventnameParams: previousnameSlug}, 
-          {eventName: eventName},
-          {description: description},
-          {length: length}
-        ] } );
-        return console.log("deleted info from database") 
-        // also return a pop up that confirms the update and asks if they want to go back to the home page or make more edits
-  
-      } catch (error) {
-        console.log(error)
-      }
-      finally {
-        revalidatePath('/')
-        revalidatePath('/events/[slug]')
-        await client.close();
-    }
-      }
+    
 
 
     export default async function Events({params}) {
@@ -168,6 +108,8 @@ export const metadata = {
           
         // console.log(eventInfo)
         const eventName = eventInfo.eventName
+        const description = eventInfo.description
+        const length = eventInfo.length
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
   
@@ -181,6 +123,12 @@ export const metadata = {
             <h2 className={`mb-3 text-2xl font-semibold`}>
               {eventName}
             </h2>
+            <p className={`mb-3 text-2xl font-semibold`}>
+              {description}
+            </p>
+            <p className={`mb-3 text-2xl font-semibold`}>
+              {length} minutes
+            </p>
           <form action={UpdateEvent} id='update-event-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="eventName" >Event Name:</label> 
           <input type="text" name="eventName" id="eventName" />
@@ -192,13 +140,7 @@ export const metadata = {
           <button type='submit'>Submit</button>
           </form>
           <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-          <form action={DeleteEvent} id='delete-event-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-          <input type="hidden" name="eventName" id="eventName" value={eventName} />
-          <input type="hidden" name="previousnameSlug" id="previousnameSlug" value={slug} />
-          <input type="hidden" name="description" id="description" value={eventInfo.description} />
-          <input type="hidden" name="length" id="length" value={eventInfo.length} />
-          <button type='submit'>Delete</button>
-          </form>
+          <DeleteEvent slug={slug}/>
           </div>
           </div>
         </div>
