@@ -53,16 +53,16 @@ export const metadata = {
         return console.log("updated info in database: ", name, email, businessName, googleEmail, userId)
         // alert("Updated!")
         //  location.reload()
+        
+      }
       
-    }
-        
-        const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId});
-        
-          
-          // alert("Updated!")
-          return console.log("added info in database: ", name, email, businessName, googleEmail, userId)
-          //  location.reload()
-          
+      const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId});
+      
+      
+      // alert("Updated!")
+      return console.log("added info in database: ", name, email, businessName, googleEmail, userId)
+      //  location.reload()
+      
     } catch (error) {
       console.log(error)
     }
@@ -72,16 +72,17 @@ export const metadata = {
       revalidatePath('/')
       revalidatePath("/[user]/[event]")
       await client.close();
-  }
     }
-    
-
- 
-    export default async function Profile() {
-      const dbName = "users";
-      const session = await getServerSession(authOptions)
-      if (!session) {
-        return <SignIn /> }
+  }
+  
+  
+  
+  export default async function Profile() {
+    const dbName = "users";
+    const session = await getServerSession(authOptions)
+    if (!session) {
+      return <SignIn /> }
+      console.log(session)
       const { MongoClient } = require("mongodb");
       const client = new MongoClient(process.env.MONGODB_URI);
       await client.connect();
@@ -126,7 +127,7 @@ export const metadata = {
                   Google Account Name:
                 </p>
                 <p className={`mb-3 text-1xl font-semibold`}>
-                {session['user'].email}
+                {session['user'].name}
                 </p>
                 <p className={`mb-3 text-2xl font-semibold`}>
                   Google Account:
@@ -135,16 +136,16 @@ export const metadata = {
                 {session['user'].email}
                 </p>
                 <Image src=
-                {session['user'].email} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
+                {session['user'].image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
                 </Suspense>
               <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
               <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
               <label htmlFor="visibleName" >Name:</label> 
-              <input type="text" name="visibleName" id="visibleName" />
+              <input type="text" name="visibleName" id="visibleName" className='text-sky-400'/>
               <label htmlFor="email">Email:</label>
-              <input type="text" name='email' id='email' />
+              <input type="text" name='email' id='email' className='text-sky-400'/>
               <label htmlFor="businessName">Business Name:</label>
-              <input type="text" name='businessName' id='businessName' />
+              <input type="text" name='businessName' id='businessName' className='text-sky-400'/>
               <button type='submit'>Submit</button>
               </form>
               <DeleteAccount />
@@ -192,7 +193,7 @@ export const metadata = {
               Google Account Name:
             </p>
             <p className={`mb-3 text-1xl font-semibold`}>
-            {session['user'].email}
+            {session['user'].name}
             </p>
             <p className={`mb-3 text-2xl font-semibold`}>
               Google Account:
@@ -201,16 +202,16 @@ export const metadata = {
             {session['user'].email}
             </p>
             <Image src=
-            {session['user'].email} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
+            {session['user'].image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
             </Suspense>
           <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
           <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="visibleName" >Name:</label> 
-          <input type="text" name="visibleName" id="visibleName" />
+          <input type="text" name="visibleName" id="visibleName" className='text-sky-400'/>
           <label htmlFor="email">Email:</label>
-          <input type="text" name='email' id='email' />
+          <input type="text" name='email' id='email' className='text-sky-400'/>
           <label htmlFor="businessName">Business Name:</label>
-          <input type="text" name='businessName' id='businessName' />
+          <input type="text" name='businessName' id='businessName' className='text-sky-400'/>
           <button type='submit'>Submit</button>
           </form>
           <DeleteAccount />

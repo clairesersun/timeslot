@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
 
 export const metadata = {
   title: "Profile",
@@ -106,6 +107,14 @@ export default async function Availability() {
   const currentUserInfo = await collection.findOne({
     googleEmail: session.user.email,
   });
+  if (!currentUserInfo) {
+    return (
+      <>
+      <h1>Finish setting up your profile.</h1>
+      <Link href="/profile">Click here</Link>
+      </>
+    )
+  }
   // console.log(currentUserInfo);
   let businessName = currentUserInfo.businessName;
   if (currentUserInfo.availability) {
@@ -190,37 +199,37 @@ export default async function Availability() {
             className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
           >
             <label htmlFor="mondayStart">Monday</label>
-            <input type="time" name="mondayStart" id="mondayStart"/>
+            <input type="time" name="mondayStart" id="mondayStart"className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="mondayEnd" id="mondayEnd"/>
+            <input type="time" name="mondayEnd" id="mondayEnd"className='text-sky-400'/>
             <label htmlFor="tuesdayStart">Tuesday</label>
-            <input type="time" name="tuesdayStart" id="tuesdayStart" />
+            <input type="time" name="tuesdayStart" id="tuesdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="tuesdayEnd" id="tuesdayEnd" />
+            <input type="time" name="tuesdayEnd" id="tuesdayEnd" className='text-sky-400'/>
             <label htmlFor="wednesdayStart">Wednesday</label>
-            <input type="time" name="wednesdayStart" id="wednesdayStart" />
+            <input type="time" name="wednesdayStart" id="wednesdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="wednesdayEnd" id="wednesdayEnd"/>
+            <input type="time" name="wednesdayEnd" id="wednesdayEnd"className='text-sky-400'/>
             <label htmlFor="thursdayStart">Thursday</label>
-            <input type="time" name="thursdayStart" id="thursdayStart" />
+            <input type="time" name="thursdayStart" id="thursdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="thursdayEnd" id="thursdayEnd" />
+            <input type="time" name="thursdayEnd" id="thursdayEnd" className='text-sky-400'/>
             <label htmlFor="fridayStart">Friday</label>
-            <input type="time" name="fridayStart" id="fridayStart" />
+            <input type="time" name="fridayStart" id="fridayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="fridayEnd" id="fridayEnd" />
+            <input type="time" name="fridayEnd" id="fridayEnd" className='text-sky-400'/>
             <label htmlFor="saturdayStart">Saturday</label>
-            <input type="time" name="saturdayStart" id="saturdayStart" />
+            <input type="time" name="saturdayStart" id="saturdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="saturdayEnd" id="saturdayEnd"/>
+            <input type="time" name="saturdayEnd" id="saturdayEnd"className='text-sky-400'/>
             <label htmlFor="sundayStart">Sunday</label>
-            <input type="time" name="sundayStart" id="sundayStart"/>
+            <input type="time" name="sundayStart" id="sundayStart"className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="sundayEnd" id="sundayEnd"/>
+            <input type="time" name="sundayEnd" id="sundayEnd"className='text-sky-400'/>
             <label htmlFor="additionalDays">Additional Days</label>
-            <input type="datetime-local" name="additionalDays" id="additionalDays" />
+            <input type="datetime-local" name="additionalDays" id="additionalDays" className='text-sky-400'/>
             <label htmlFor="additionalDaysEnd">Additional Day End</label>
-            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" />
+            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" className='text-sky-400'/>
             {/* I need to figure out how to add multiple */}
             {/* if there is already a value, then add another input */}
             <button type="submit">Submit</button>
@@ -247,36 +256,38 @@ export default async function Availability() {
             className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
           >
             <label htmlFor="mondayStart">Monday</label>
-            <input type="time" name="mondayStart" id="mondayStart" />
+            <input type="time" name="mondayStart" id="mondayStart" className='text-sky-400'/>
             {/* set the value value="13:30" by using the current mondayStart */}
             <p className="lg:text-center"> - </p>
-            <input type="time" name="mondayEnd" id="mondayEnd" />
+            <input type="time" name="mondayEnd" id="mondayEnd" className='text-sky-400'/>
             <label htmlFor="tuesdayStart">Tuesday</label>
-            <input type="time" name="tuesdayStart" id="tuesdayStart" />
+            <input type="time" name="tuesdayStart" id="tuesdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="tuesdayEnd" id="tuesdayEnd" />
+            <input type="time" name="tuesdayEnd" id="tuesdayEnd" className='text-sky-400'/>
             <label htmlFor="wednesdayStart">Wednesday</label>
-            <input type="time" name="wednesdayStart" id="wednesdayStart" />
+            <input type="time" name="wednesdayStart" id="wednesdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="wednesdayEnd" id="wednesdayEnd" />
+            <input type="time" name="wednesdayEnd" id="wednesdayEnd" className='text-sky-400'/>
             <label htmlFor="thursdayStart">Thursday</label>
-            <input type="time" name="thursdayStart" id="thursdayStart" />
+            <input type="time" name="thursdayStart" id="thursdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="thursdayEnd" id="thursdayEnd" />
+            <input type="time" name="thursdayEnd" id="thursdayEnd" className='text-sky-400'/>
             <label htmlFor="fridayStart">Friday</label>
-            <input type="time" name="fridayStart" id="fridayStart" />
+            <input type="time" name="fridayStart" id="fridayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="fridayEnd" id="fridayEnd" />
+            <input type="time" name="fridayEnd" id="fridayEnd" className='text-sky-400'/>
             <label htmlFor="saturdayStart">Saturday</label>
-            <input type="time" name="saturdayStart" id="saturdayStart" />
+            <input type="time" name="saturdayStart" id="saturdayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="saturdayEnd" id="saturdayEnd"/>
+            <input type="time" name="saturdayEnd" id="saturdayEnd"className='text-sky-400'/>
             <label htmlFor="sundayStart">Sunday</label>
-            <input type="time" name="sundayStart" id="sundayStart" />
+            <input type="time" name="sundayStart" id="sundayStart" className='text-sky-400'/>
             <p className="lg:text-center"> - </p>
-            <input type="time" name="sundayEnd" id="sundayEnd" />
+            <input type="time" name="sundayEnd" id="sundayEnd" className='text-sky-400'/>
             <label htmlFor="additionalDays">Additional Days</label>
-            <input type="datetime-local" name="additionalDays" id="additionalDays" />
+            <input type="datetime-local" name="additionalDays" id="additionalDays" className='text-sky-400'/>
+            <label htmlFor="additionalDaysEnd">Additional Day End</label>
+            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" className='text-sky-400'/>
             {/* I need to figure out how to add multiple */}
             {/* if there is already a value, then add another input */}
             <button type="submit">Submit</button>

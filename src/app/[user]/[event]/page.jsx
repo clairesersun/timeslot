@@ -15,6 +15,9 @@ export default async function ScheduleTime({ params }) {
   const user = params.user;
   // console.log(user);
   user.toString();
+  if (!user.length > 11) {
+    return <div>User not found</div>;
+  }
   // console.log(user);
   // const userId = new ObjectId(user);
   // if (!userId) {

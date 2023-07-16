@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
 
 export const metadata = {
   title: "Profile",
@@ -96,7 +97,7 @@ async function createDesign(data) {
   }
 }
 
-export default async function Profile() {
+export default async function Design() {
   const dbName = "users";
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -111,9 +112,16 @@ export default async function Profile() {
   let collection = db.collection("savedInfo");
   // Insert a single document, wait for promise so we can read it back
   const currentUserInfo = await collection.findOne({
-    googleEmail: session.user.email,
+    googleEmail: session["user"].email,
   });
-  // console.log(currentUserInfo);
+  if (currentUserInfo === null) {
+    return (
+      <>
+        <h1>Please finish setting up your profile first</h1>
+        <Link href="/profile"> Click here</Link>
+      </>
+    );
+  }
   let businessName = currentUserInfo.businessName;
   if (currentUserInfo.design) {
     let colorOne = currentUserInfo.design.colorOne;
@@ -163,7 +171,12 @@ export default async function Profile() {
               <label htmlFor="colorFour">Color 4:</label>
               <input type="color" name="colorFour" id="colorFour" />
               <label htmlFor="website"> Website:</label>
-              <input type="text" name="website" id="website" />
+              <input
+                type="text"
+                name="website"
+                id="website"
+                className="text-sky-400"
+              />
               <button type="submit">Submit</button>
             </form>
           </div>
@@ -209,7 +222,12 @@ export default async function Profile() {
               <label htmlFor="colorFour">Color 4:</label>
               <input type="text" name="colorFour" id="colorFour" />
               <label htmlFor="website"> Website:</label>
-              <input type="text" name="website" id="website" />
+              <input
+                type="text"
+                name="website"
+                id="website"
+                className="text-sky-400"
+              />
               <button type="submit">Submit</button>
             </form>
             {/* {deleteAccount()} */}

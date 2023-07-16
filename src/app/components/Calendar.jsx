@@ -20,6 +20,8 @@ export default function Calendar(props) {
   const length = props.length;
   const event = props.event;
   const bookings = props.bookings;
+  // console.log(bookings);
+  // const booked = bookings.shift();
   const eventName = props.eventName;
   const googleEmail = props.googleEmail;
   const email = props.email;
@@ -701,7 +703,10 @@ export default function Calendar(props) {
                 filterTime={filterPassedTime}
                 includeDates={datesIncluded}
                 //does this work?
-                // excludeTimes={bookings}
+                excludeTimes={bookings.map((booking) => {
+                  return new Date(booking);
+                })}
+                // excludeTimes={booked}
                 dateFormat="MMMM d, yyyy h:mmaa"
                 minDate={new Date()}
               />

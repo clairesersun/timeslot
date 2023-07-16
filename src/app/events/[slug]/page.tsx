@@ -132,12 +132,12 @@ async function UpdateEvent(data: FormData) {
             </p>
           <form action={UpdateEvent} id='update-event-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <label htmlFor="eventName" >Event Name:</label> 
-          <input type="text" name="eventName" id="eventName" />
+          <input type="text" name="eventName" id="eventName" className='text-sky-400'/>
           <input type="hidden" name="previousnameSlug" id="previousnameSlug" value={slug} />
           <label htmlFor="description">Description:</label>
-          <input type="text" name='description' id='description' />
+          <input type="text" name='description' id='description' className='text-sky-400'/>
           <label htmlFor="length">Length:</label>
-          <input type="text" name='length' id='length' />
+          <input type="text" name='length' id='length' className='text-sky-400'/>
           <button type='submit'>Submit</button>
           </form>
           <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
