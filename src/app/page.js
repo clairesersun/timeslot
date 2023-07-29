@@ -36,13 +36,11 @@ export default async function Home() {
   const eventInfoArray = await eventInfo.toArray();
   // console.log(eventInfoArray);
   const events = eventInfoArray.map((event) => (
-    <div key={event._id} className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-      <div>
-      <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{event.eventName}</p>
-      <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{event.eventDescription}</p>
-      <Link href={"/" + currentUserInfo.userId.toString() + "/" + event.eventnameParams} className={`m-0 max-w-[30ch] text-sm opacity-50`} >View scheduling link to send to clients</Link>
-      </div>
-      <Link href={"/events/" + event.eventnameParams} className={`m-0 max-w-[30ch] text-sm opacity-50`} >Edit event.</Link>
+    <div key={event._id} className="grid-1 events-box">
+      <p className={`text-bold event-title-box`}>{event.eventName}</p>
+      <Link href={"/" + currentUserInfo.userId.toString() + "/" + event.eventnameParams} className={`text-regular event-spacing`} >View Public Link</Link>
+      <Link href={"/events/" + event.eventnameParams} className={`text-regular edit-event`} >Edit Event</Link>
+      
       </div>
       )
     )
@@ -52,19 +50,17 @@ export default async function Home() {
 
   if (!currentUserInfo) {
     return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="container">
     
-    <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
       
-    <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+    <div className="grid-1">
       
-        <h1 className={`mb-3 text-2xl font-semibold`}>
+        <h1 className={`text-bold`}>
           Finish Creating Your Profile
   
         </h1>
-        <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Click Here</Link>
+        <Link href="/profile" className={`text-bold`} > Click Here</Link>
       </div>
-    </div>
   </main>)
   }
   
@@ -81,6 +77,7 @@ export default async function Home() {
     let colorTwo = currentUserInfo.design.colorTwo;
     let colorFour = currentUserInfo.design.colorFour;
     let colorThree = currentUserInfo.design.colorThree;
+    let website = currentUserInfo.design.website;
     
   //get availability
   let mondaystartValue = currentUserInfo.availability.mondayStart;
@@ -103,94 +100,113 @@ export default async function Home() {
 
   
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+          
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
-                Welcome back, {session.user.name} with {businessName}!
+              <h2 className="text-bold home">
+                Welcome, <br></br>{businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+                </div>
+              <div className="availability-box">
+              <div className="grid-2">
+              <h3 className={`text-bold`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              </h3>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </div>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  {mondaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Monday: {mondaystartValue} - {mondayendValue}
+                  {mondaystartValue ? (<>
+                <p className={`text-regular`}>
+                  Monday: </p> <p className={`text-regular`}>{mondaystartValue} - {mondayendValue}
                 </p>
+                </>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                <>
+              
+                <p className={`text-regular`}>
+                  Tuesday: </p> <p className={`text-regular`}>{tuesdaystartValue} - {tuesdayendValue}
                 </p>
+                </>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                <>
+                <p className={`text-regular`}>
+                  Wednesday: </p> <p className={`text-regular`}>{wednesdaystartValue} - {wednesdayendValue}
                 </p>
+                </>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                <>
+                <p className={`text-regular`}>
+                  Thursday: </p> <p className={`text-regular`}>{thursdaystartValue} - {thursdayendValue}
                 </p>
+                </>
               ) : null}
               {fridaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Friday: {fridaystartValue} - {fridayendValue}
+                <>
+                <p className={`text-regular`}>
+                  Friday: </p> <p className={`text-regular`}>{fridaystartValue} - {fridayendValue}
                 </p>
+                </>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                <>
+                <p className={`text-regular`}>
+                  Saturday: </p> <p className={`text-regular`}>{saturdaystartValue} - {saturdayendValue}
                 </p>
+                
+                </>
               ) : null}
               {sundaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Sunday: {sundaystartValue} - {sundayendValue}
+                <>
+                <p className={`text-regular`}>
+                  Sunday: </p> <p className={`text-regular`}>{sundaystartValue} - {sundayendValue}
                 </p>
+                </>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Additional Days: {additionaldaysValue}
+                  <>
+                  
+                <p className={`text-regular`}>
+                  Additional Days: </p><p className={`text-regular`}>{additionaldaysValue}
                 </p>
+                  </>
               ) : null}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>Additional Days: {additionaldaysValue}</p>
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              
+              <h3 className={`text-bold`}>
                 Design
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorOne}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorTwo}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorThree}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorFour}</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              </h3>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
+             <div className="colors-main-page">
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+         </div>
+              <p className={`text-regular`}> {website}</p>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
+            
             
     
-            </div>
-          </div>
         </main>
       )
   }
@@ -229,92 +245,90 @@ export default async function Home() {
 
   
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+          
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name} with {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
                   {mondaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Monday: {mondaystartValue} - {mondayendValue}
                 </p>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Tuesday: {tuesdaystartValue} - {tuesdayendValue}
                 </p>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Wednesday: {wednesdaystartValue} - {wednesdayendValue}
                 </p>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Thursday: {thursdaystartValue} - {thursdayendValue}
                 </p>
               ) : null}
               {fridaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Friday: {fridaystartValue} - {fridayendValue}
                 </p>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Saturday: {saturdaystartValue} - {saturdayendValue}
                 </p>
               ) : null}
               {sundaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Sunday: {sundaystartValue} - {sundayendValue}
                 </p>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Additional Days: {additionaldaysValue}
                 </p>
               ) : null}
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
-                Design
+              <p className={`text-bold`}>          Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorOne}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorTwo}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorThree}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorFour}</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <p className={`text-regular`}>{colorOne}</p>
+              <p className={`text-regular`}>{colorTwo}</p>
+              <p className={`text-regular`}>{colorThree}</p>
+              <p className={`text-regular`}>{colorFour}</p>
+              <div className="grid-2">
               {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+              <p className={`text-regular`}>
                 By Claire Sersun
               </p>
             
     
             </div>
-          </div>
         </main>
       )
   }
@@ -344,85 +358,82 @@ export default async function Home() {
 
   
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+         
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name} with {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
                   {mondaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Monday: {mondaystartValue} - {mondayendValue}
                 </p>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Tuesday: {tuesdaystartValue} - {tuesdayendValue}
                 </p>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Wednesday: {wednesdaystartValue} - {wednesdayendValue}
                 </p>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Thursday: {thursdaystartValue} - {thursdayendValue}
                 </p>
               ) : null}
               {fridaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Friday: {fridaystartValue} - {fridayendValue}
                 </p>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Saturday: {saturdaystartValue} - {saturdayendValue}
                 </p>
               ) : null}
               {sundaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Sunday: {sundaystartValue} - {sundayendValue}
                 </p>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Additional Days: {additionaldaysValue}
                 </p>
               ) : null}
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <p className={`text-bold`}>
                 Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <p className={`text-regular`}>not set</p>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
-          </div>
+              
         </main>
       )
   }
@@ -438,54 +449,50 @@ export default async function Home() {
   let colorThree = currentUserInfo.design.colorThree;
   
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name} with {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
+                  <p className={`text-regular`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <p className={`text-bold`}>
                 Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorOne}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorTwo}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorThree}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorFour}</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <p className={`text-regular`}>{colorOne}</p>
+              <p className={`text-regular`}>{colorTwo}</p>
+              <p className={`text-regular`}>{colorThree}</p>
+              <p className={`text-regular`}>{colorFour}</p>
+              <div className="grid-2">
               {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
+              
             
     
             </div>
-          </div>
         </main>
       )
   }
@@ -506,60 +513,50 @@ export default async function Home() {
   
   
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name} with {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
-              {/* how to do this?
-              <div>
-               this on is to view 
-              <Link href="/[user]/[event]" className={`m-0 max-w-[30ch] text-sm opacity-50`} > event name. This will repeat depending on how many events there are</Link>
-               this one is to edit 
-              <Link href="/events/[slug]" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit event. This will repeat depending on how many events there are</Link>
-              </div> */}
+              {events}
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
+                  <p className={`text-regular`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <p className={`text-bold`}>
                 Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorOne}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorTwo}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorThree}</p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>{colorFour}</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <p className={`text-regular`}>{colorOne}</p>
+              <p className={`text-regular`}>{colorTwo}</p>
+              <p className={`text-regular`}>{colorThree}</p>
+              <p className={`text-regular`}>{colorFour}</p>
+              <div className="grid-2">
               {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
+              
             
     
             </div>
-          </div>
         </main>
       )
   }
@@ -589,96 +586,86 @@ export default async function Home() {
 
   
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name} with {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
-              {/* how to do this?
-              <div>
-               this on is to view 
-              <Link href="/[user]/[event]" className={`m-0 max-w-[30ch] text-sm opacity-50`} > event name. This will repeat depending on how many events there are</Link>
-               this one is to edit 
-              <Link href="/events/[slug]" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit event. This will repeat depending on how many events there are</Link>
-              </div> */}
+              {events}
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
                   {mondaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Monday: {mondaystartValue} - {mondayendValue}
                 </p>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Tuesday: {tuesdaystartValue} - {tuesdayendValue}
                 </p>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Wednesday: {wednesdaystartValue} - {wednesdayendValue}
                 </p>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Thursday: {thursdaystartValue} - {thursdayendValue}
                 </p>
               ) : null}
               {fridaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Friday: {fridaystartValue} - {fridayendValue}
                 </p>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Saturday: {saturdaystartValue} - {saturdayendValue}
                 </p>
               ) : null}
               {sundaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Sunday: {sundaystartValue} - {sundayendValue}
                 </p>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+                <p className={`text-regular`}>
                   Additional Days: {additionaldaysValue}
                 </p>
               ) : null}
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <p className={`text-bold`}>
                 Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <p className={`text-regular`}>not set</p>
+              <div className="grid-2">
               {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
+             
             
     
             </div>
-          </div>
         </main>
       )
   }
@@ -689,58 +676,46 @@ export default async function Home() {
 
 
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+          <div className="grid-1">
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-            
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name} with {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
-              {/* how to do this?
-              <div>
-               this on is to view 
-              <Link href="/[user]/[event]" className={`m-0 max-w-[30ch] text-sm opacity-50`} > event name. This will repeat depending on how many events there are</Link>
-               this one is to edit 
-              <Link href="/events/[slug]" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit event. This will repeat depending on how many events there are</Link>
-              </div> */}
+              
               {events}
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
+                  <p className={`text-regular`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <p className={`text-bold`}>
                 Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <p className={`text-regular`}>not set</p>
+              <div className="grid-2">
               {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
-            
+             
     
             </div>
-          </div>
         </main>
       )
   }
@@ -751,51 +726,46 @@ export default async function Home() {
 
 
   return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main >
     
-          <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+          
             
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+          <div className="grid-1">
             
-              <h2 className={`mb-3 text-2xl font-semibold`}>
+              <h2 className={`text-bold`}>
                 Welcome back, {session.user.name}!
                 
               </h2>
-              <Link href="/profile" className={`mb-3 text-2xl font-semibold`} > Profile</Link>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/profile" className={`text-bold`} > Profile</Link>
+              <p className={`text-bold`}>
                 Events
               </p>
               <Suspense fallback={<div>Loading...</div>}>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
+              <p className={`text-regular`}>not set</p>
               </Suspense>
-              <Link href="/events " className={`m-0 max-w-[30ch] text-sm opacity-50`} > + </Link>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <Link href="/events " className={`text-regular`} > + </Link>
+              <div className="grid-2">
+              <p className={`text-bold`}>
                 Availability
               </p>
-              <Link href="/availability" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/availability" className={`text-regular`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
-                <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-7 lg:text-left">
+                <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
+                  <p className={`text-regular`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}>
+              <p className={`text-bold`}>
                 Design
               </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>not set</p>
-              <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+              <p className={`text-regular`}>not set</p>
+              <div className="grid-2">
               {/* a view of the design */}
-              <Link href="/design" className={`m-0 max-w-[30ch] text-sm opacity-50`} > Edit </Link>
+              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                By Claire Sersun
-              </p>
-            
     
             </div>
-          </div>
         </main>
       )
   }

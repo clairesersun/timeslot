@@ -1,12 +1,7 @@
-import { Chicle } from 'next/font/google'
 import './globals.css'
 import Header from './components/header'
 import Provider from './components/Provider'
-
-const chicle = Chicle({
-  weight: ['400'],
-  subsets: ['latin']
-})
+import Footer from "./components/footer";
 
 
 export const metadata = {
@@ -24,12 +19,14 @@ export default async function RootLayout({
   return (
     <>
       <html lang="en">
-        <body className={chicle.className}>
+        <body >
           <Provider>
             <Header/>
             <main>
+            <link rel="stylesheet" href="https://use.typekit.net/ohb7fqk.css"></link>
               {children}
             </main>
+            <Footer/>
           </Provider>
         </body>
       </html>
