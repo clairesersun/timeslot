@@ -56,10 +56,6 @@ footer {
   background-color: var(--menu-hex);
   width: 100vw;
   height: 10vh;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: space-between; */
   text-decoration: none;
   position: fixed;
   z-index: 1;
@@ -79,6 +75,7 @@ footer {
   padding: 0.35rem;
 }
 
+/* on the header */
 .logo {
   background-color: transparent;
 }
@@ -92,6 +89,52 @@ main {
   height: 100%;
 }
 
+/* can be used anywhere */
+.no-margin {
+  margin: 0 !important;
+}
+
+.width70 {
+  width: 70%;
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.padding {
+  padding: 5vh;
+}
+
+/*two text options*/
+.text-bold {
+  font-style: normal;
+  max-width: 30ch;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.text-regular {
+  max-width: 30ch;
+  margin: 0 auto;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 16px;
+  letter-spacing: 1.6px;
+  padding: 2vh;
+  justify-self: left;
+}
+
+/* use this on any container */
 .container {
   display: flex;
   flex-direction: column;
@@ -101,6 +144,20 @@ main {
   height: 100%;
   padding-top: 6rem;
   padding-bottom: 6rem;
+}
+
+/* 3 grid versions */
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  justify-items: center;
+  align-items: center;
+  grid-gap: 0px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: left;
 }
 
 .grid-2 {
@@ -127,86 +184,42 @@ main {
   text-align: left;
 }
 
+/*on index page*/
 .availability {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
   text-align: left;
   width: 100%;
   height: 100%;
   padding: 0;
+  border: 0;
 }
 
 .availability-box {
+  border: 0;
   margin-top: 50px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 20px;
   background-color: #ffffffbd;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 25px;
+  height: max-content;
 }
 
-.text-bold {
-  font-style: normal;
-  max-width: 30ch;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.text-regular {
-  max-width: 30ch;
-  margin: 0 auto;
-  font-weight: 300;
-  text-decoration: none;
-}
-
-button.notSignedIn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #52a288;
-  color: #ffffff;
-  border-radius: 0px 25px;
-  border: none;
-  /* top: 698px;
-  left: 357px;
-  width: 222px;
-  height: 115px;  
-  desktop*/
-  top: 341px;
-  left: 72px;
-  width: 89px;
-  height: 46px;
-  font-size: 14px;
-}
-
-.notSignedIn {
-  margin-left: 2rem;
-  margin-right: 2rem;
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: left;
-  color: var(--text-main-color);
-}
-
-h1.notSignedIn {
-  left: 72px;
-  width: 225px;
-  font-size: 26px;
-  line-height: 25px;
-  letter-spacing: 2.31px;
-}
-
-p.notSignedIn {
-  left: 72px;
-  width: 225px;
-  font-size: 18px;
-  line-height: 22px;
-  letter-spacing: 1.6px;
+.edit-avialability-btn {
+  background-color: var(--circle-top-background-hex);
+  border-radius: 0px 25px 0px 25px;
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 20px !important;
+  max-width: none;
 }
 
 h2.home {
@@ -221,37 +234,33 @@ h2.home {
 }
 
 .colorThree-main-page {
-  top: 1505px;
-  left: 387px;
-  width: 206px;
-  height: 81px;
+  width: 12rem;
+  height: 5rem;
+  line-height: 4.5rem;
   border-radius: 0px 0px 0px 45px;
   box-shadow: 0px 3px 6px #00000029;
 }
 
 .colorFour-main-page {
-  top: 1505px;
-  left: 387px;
-  width: 206px;
-  height: 81px;
+  width: 12rem;
+  height: 5rem;
+  line-height: 4.5rem;
   border-radius: 0px 0px 45px 0px;
   box-shadow: 0px 3px 6px #00000029;
 }
 
 .colorTwo-main-page {
-  top: 1505px;
-  left: 387px;
-  width: 206px;
-  height: 81px;
+  width: 12rem;
+  height: 5rem;
+  line-height: 4.5rem;
   border-radius: 0px 45px 0px 0px;
   box-shadow: 0px 3px 6px #00000029;
 }
 
 .colorOne-main-page {
-  top: 1505px;
-  left: 387px;
-  width: 206px;
-  height: 81px;
+  width: 12rem;
+  height: 5rem;
+  line-height: 4.5rem;
   border-radius: 45px 0px 0px 0px;
   box-shadow: 0px 3px 6px #00000029;
 }
@@ -271,8 +280,12 @@ h2.home {
   align-items: center;
   text-align: center;
   width: 100%;
-  height: 100%;
   padding: 0;
+}
+
+.website-main {
+  margin-bottom: 14vh;
+  margin-top: 20px;
 }
 
 .events-box {
@@ -320,10 +333,52 @@ h2.home {
   box-shadow: 0px 3px 6px #00000029;
 }
 
-h3 {
+/*when not signed in*/
+
+button.notSignedIn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #52a288;
+  color: #ffffff;
+  border-radius: 0px 25px;
+  border: none;
+  /* top: 698px;
+    left: 357px;
+    width: 222px;
+    height: 115px;  
+    desktop*/
+  top: 341px;
+  left: 72px;
+  width: 89px;
+  height: 46px;
+  font-size: 14px;
+}
+
+.notSignedIn {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  color: var(--text-main-color);
+}
+
+h1.notSignedIn {
+  left: 72px;
+  width: 225px;
+  font-size: 26px;
+  line-height: 25px;
+  letter-spacing: 2.31px;
+}
+
+p.notSignedIn {
+  left: 72px;
+  width: 225px;
   font-size: 18px;
-  line-height: 16px;
+  line-height: 22px;
   letter-spacing: 1.6px;
-  padding: 2vh;
-  justify-self: left;
 }

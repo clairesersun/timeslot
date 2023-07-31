@@ -120,81 +120,84 @@ export default async function Home() {
               <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
                 </div>
               <div className="availability-box">
-              <div className="grid-2">
-              <h3 className={`text-bold`}>
+              <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
               </h3>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
-              </div>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
                   {mondaystartValue ? (<>
-                <p className={`text-regular`}>
-                  Monday: </p> <p className={`text-regular`}>{mondaystartValue} - {mondayendValue}
+                <p className={`text-regular width70`}>
+                  Monday: </p> <p className={`text-regular width70`}>{mondaystartValue} - {mondayendValue}
                 </p>
                 </>
               ) : null}
               {tuesdaystartValue ? (
                 <>
               
-                <p className={`text-regular`}>
-                  Tuesday: </p> <p className={`text-regular`}>{tuesdaystartValue} - {tuesdayendValue}
+                <p className={`text-regular width70`}>
+                  Tuesday: </p> <p className={`text-regular width70`}>{tuesdaystartValue} - {tuesdayendValue}
                 </p>
                 </>
               ) : null}
               {wednesdaystartValue ? (
                 <>
-                <p className={`text-regular`}>
-                  Wednesday: </p> <p className={`text-regular`}>{wednesdaystartValue} - {wednesdayendValue}
+                <p className={`text-regular width70`}>
+                  Wednesday: </p> <p className={`text-regular width70`}>{wednesdaystartValue} - {wednesdayendValue}
                 </p>
                 </>
               ) : null}
               {thursdaystartValue ? (
                 <>
-                <p className={`text-regular`}>
-                  Thursday: </p> <p className={`text-regular`}>{thursdaystartValue} - {thursdayendValue}
+                <p className={`text-regular width70`}>
+                  Thursday: </p> <p className={`text-regular width70`}>{thursdaystartValue} - {thursdayendValue}
                 </p>
                 </>
               ) : null}
               {fridaystartValue ? (
                 <>
-                <p className={`text-regular`}>
-                  Friday: </p> <p className={`text-regular`}>{fridaystartValue} - {fridayendValue}
+                <p className={`text-regular width70`}>
+                  Friday: </p> <p className={`text-regular width70`}>{fridaystartValue} - {fridayendValue}
                 </p>
                 </>
               ) : null}
               {saturdaystartValue ? (
                 <>
-                <p className={`text-regular`}>
-                  Saturday: </p> <p className={`text-regular`}>{saturdaystartValue} - {saturdayendValue}
+                <p className={`text-regular width70`}>
+                  Saturday: </p> <p className={`text-regular width70`}>{saturdaystartValue} - {saturdayendValue}
                 </p>
                 
                 </>
               ) : null}
               {sundaystartValue ? (
                 <>
-                <p className={`text-regular`}>
-                  Sunday: </p> <p className={`text-regular`}>{sundaystartValue} - {sundayendValue}
+                <p className={`text-regular width70`}>
+                  Sunday: </p> <p className={`text-regular width70`}>{sundaystartValue} - {sundayendValue}
                 </p>
                 </>
               ) : null}
               {additionaldaysValue ? (
-                  <>
+                <>
                   
-                <p className={`text-regular`}>
-                  Additional Days: </p><p className={`text-regular`}>{additionaldaysValue}
+                <p className={`text-regular width70`}>
+                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
                 </p>
                   </>
               ) : null}
                 </div>
               </Suspense>
-              
+              </div>
+              <div className="grid-2">
+          
               <h3 className={`text-bold`}>
                 Design
               </h3>
-              <Link href="/design" className={`text-regular`} > Edit </Link>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              </div>
              <div className="colors-main-page">
               <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
               <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
@@ -202,9 +205,9 @@ export default async function Home() {
               
               <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
          </div>
-              <p className={`text-regular`}> {website}</p>
+              <p className={`text-regular website-main`}> {website}</p>
               </div>
-            
+     
             
     
         </main>
@@ -251,83 +254,106 @@ export default async function Home() {
             
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name} with {businessName}!
+              <h2 className={`text-bold home`}>
+                Welcome, <br></br> {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+              
+              <h3 className={`text-bold`}>
                 Events
-              </p>
-              <Suspense fallback={<div>Loading...</div>}>
-              </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
+              </h3>
               <div className="grid-2">
-              <p className={`text-bold`}>
+              <Suspense fallback={<div>Loading...</div>}>
+              <div></div>
+              </Suspense>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              </div>
+              <div className="availability-box">
+                <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-availability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  {mondaystartValue ? (
-                <p className={`text-regular`}>
-                  Monday: {mondaystartValue} - {mondayendValue}
+                  {mondaystartValue ? ( <>
+                <p className={`text-regular width70`}>
+                  Monday: </p> <p className={`text-regular width70`}>{mondaystartValue} - {mondayendValue}
                 </p>
+                  </>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`text-regular`}>
-                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                <>
+              
+                <p className={`text-regular width70`}>
+                  Tuesday: </p> <p className={`text-regular width70`}>{tuesdaystartValue} - {tuesdayendValue}
                 </p>
+                </>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`text-regular`}>
-                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Wednesday: </p> <p className={`text-regular width70`}>{wednesdaystartValue} - {wednesdayendValue}
                 </p>
+                </>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`text-regular`}>
-                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Thursday: </p> <p className={`text-regular width70`}>{thursdaystartValue} - {thursdayendValue}
                 </p>
+                </>
               ) : null}
               {fridaystartValue ? (
-                <p className={`text-regular`}>
-                  Friday: {fridaystartValue} - {fridayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Friday: </p> <p className={`text-regular width70`}>{fridaystartValue} - {fridayendValue}
                 </p>
+                </>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`text-regular`}>
-                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Saturday: </p> <p className={`text-regular width70`}>{saturdaystartValue} - {saturdayendValue}
                 </p>
+                
+                </>
               ) : null}
               {sundaystartValue ? (
-                <p className={`text-regular`}>
-                  Sunday: {sundaystartValue} - {sundayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Sunday: </p> <p className={`text-regular width70`}>{sundaystartValue} - {sundayendValue}
                 </p>
+                </>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`text-regular`}>
-                  Additional Days: {additionaldaysValue}
+                <>
+                  
+                <p className={`text-regular width70`}>
+                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
                 </p>
+                  </>
               ) : null}
                 </div>
               </Suspense>
-              <p className={`text-bold`}>          Design
-              </p>
-              <p className={`text-regular`}>{colorOne}</p>
-              <p className={`text-regular`}>{colorTwo}</p>
-              <p className={`text-regular`}>{colorThree}</p>
-              <p className={`text-regular`}>{colorFour}</p>
-              <div className="grid-2">
-              {/* a view of the design */}
-              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
-              <p className={`text-regular`}>
-                By Claire Sersun
-              </p>
-            
-    
+              <div className="grid-2">
+              <h3 className={`text-bold`}>
+                Design
+              </h3>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              </div>
+              <div className="colors-main-page">
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+         </div>
+              <p className={`text-regular website-main`}> {website}</p>
             </div>
         </main>
       )
@@ -364,74 +390,100 @@ export default async function Home() {
             
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name} with {businessName}!
+              <h2 className={`text-bold home`}>
+                Welcome,<br></br> 
+                {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+              
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
-              <div className="grid-2">
-              <p className={`text-bold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              </div>
+              <div className="availability-box">
+              <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  {mondaystartValue ? (
-                <p className={`text-regular`}>
-                  Monday: {mondaystartValue} - {mondayendValue}
+                  {mondaystartValue ? (<>
+                <p className={`text-regular width70`}>
+                  Monday: </p> <p className={`text-regular width70`}>{mondaystartValue} - {mondayendValue}
                 </p>
+                </>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`text-regular`}>
-                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                <>
+              
+                <p className={`text-regular width70`}>
+                  Tuesday: </p> <p className={`text-regular width70`}>{tuesdaystartValue} - {tuesdayendValue}
                 </p>
+                </>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`text-regular`}>
-                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Wednesday: </p> <p className={`text-regular width70`}>{wednesdaystartValue} - {wednesdayendValue}
                 </p>
+                </>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`text-regular`}>
-                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Thursday: </p> <p className={`text-regular width70`}>{thursdaystartValue} - {thursdayendValue}
                 </p>
+                </>
               ) : null}
               {fridaystartValue ? (
-                <p className={`text-regular`}>
-                  Friday: {fridaystartValue} - {fridayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Friday: </p> <p className={`text-regular width70`}>{fridaystartValue} - {fridayendValue}
                 </p>
+                </>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`text-regular`}>
-                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Saturday: </p> <p className={`text-regular width70`}>{saturdaystartValue} - {saturdayendValue}
                 </p>
+                
+                </>
               ) : null}
               {sundaystartValue ? (
-                <p className={`text-regular`}>
-                  Sunday: {sundaystartValue} - {sundayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Sunday: </p> <p className={`text-regular width70`}>{sundaystartValue} - {sundayendValue}
                 </p>
+                </>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`text-regular`}>
-                  Additional Days: {additionaldaysValue}
+                <>
+                  
+                <p className={`text-regular width70`}>
+                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
                 </p>
+                  </>
               ) : null}
                 </div>
               </Suspense>
-              <p className={`text-bold`}>
+              </div>
+              <div className="grid-2">
+              <h3 className={`text-bold`}>
                 Design
-              </p>
+              </h3>
               <p className={`text-regular`}>not set</p>
-              <Link href="/design" className={`text-regular`} > Edit </Link>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              </div>
               </div>
               
         </main>
@@ -454,41 +506,51 @@ export default async function Home() {
             
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name} with {businessName}!
+              <h2 className={`text-bold home`}>
+                Welcome, <br></br> {businessName}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+            
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
-              <div className="grid-2">
-              <p className={`text-bold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+             </div>
+             <div className="availability-box">
+             <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`text-regular`}>not set</p>
+                  <p className={`text-regular width70`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`text-bold`}>
-                Design
-              </p>
-              <p className={`text-regular`}>{colorOne}</p>
-              <p className={`text-regular`}>{colorTwo}</p>
-              <p className={`text-regular`}>{colorThree}</p>
-              <p className={`text-regular`}>{colorFour}</p>
-              <div className="grid-2">
-              {/* a view of the design */}
-              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
+              <div className="grid-2">
+          
+              <h3 className={`text-bold`}>
+                Design
+              </h3>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              </div>
+             <div className="colors-main-page">
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+         </div>
+              <p className={`text-regular website-main`}> {website}</p>
+              
               
             
     
@@ -518,41 +580,51 @@ export default async function Home() {
             
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name} with {businessName}!
+              <h2 className={`text-bold home`}>
+              Welcome, <br></br>{businessName}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+        
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
-              <div className="grid-2">
-              <p className={`text-bold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              
+              </div>
+              <div className="availability-box">
+              <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`text-regular`}>not set</p>
+                  <p className={`text-regular width70`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`text-bold`}>
-                Design
-              </p>
-              <p className={`text-regular`}>{colorOne}</p>
-              <p className={`text-regular`}>{colorTwo}</p>
-              <p className={`text-regular`}>{colorThree}</p>
-              <p className={`text-regular`}>{colorFour}</p>
-              <div className="grid-2">
-              {/* a view of the design */}
-              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
+              <div className="grid-2">
+              <h3 className={`text-bold`}>
+                Design
+              </h3>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              </div>
+             <div className="colors-main-page">
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+         </div>
+              <p className={`text-regular website-main`}> {website}</p>
+              
               
             
     
@@ -591,76 +663,99 @@ export default async function Home() {
             
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name} with {businessName}!
+          <h2 className="text-bold home">
+                Welcome, <br></br>{businessName}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+              
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
-              <div className="grid-2">
-              <p className={`text-bold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              </div>
+              <div className="availability-box">
+              <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  {mondaystartValue ? (
-                <p className={`text-regular`}>
-                  Monday: {mondaystartValue} - {mondayendValue}
+                  {mondaystartValue ? (<>
+                <p className={`text-regular width70`}>
+                  Monday: </p> <p className={`text-regular width70`}>{mondaystartValue} - {mondayendValue}
                 </p>
+                </>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`text-regular`}>
-                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                <>
+              
+                <p className={`text-regular width70`}>
+                  Tuesday: </p> <p className={`text-regular width70`}>{tuesdaystartValue} - {tuesdayendValue}
                 </p>
+                </>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`text-regular`}>
-                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Wednesday: </p> <p className={`text-regular width70`}>{wednesdaystartValue} - {wednesdayendValue}
                 </p>
+                </>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`text-regular`}>
-                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Thursday: </p> <p className={`text-regular width70`}>{thursdaystartValue} - {thursdayendValue}
                 </p>
+                </>
               ) : null}
               {fridaystartValue ? (
-                <p className={`text-regular`}>
-                  Friday: {fridaystartValue} - {fridayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Friday: </p> <p className={`text-regular width70`}>{fridaystartValue} - {fridayendValue}
                 </p>
+                </>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`text-regular`}>
-                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Saturday: </p> <p className={`text-regular width70`}>{saturdaystartValue} - {saturdayendValue}
                 </p>
+                
+                </>
               ) : null}
               {sundaystartValue ? (
-                <p className={`text-regular`}>
-                  Sunday: {sundaystartValue} - {sundayendValue}
+                <>
+                <p className={`text-regular width70`}>
+                  Sunday: </p> <p className={`text-regular width70`}>{sundaystartValue} - {sundayendValue}
                 </p>
+                </>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`text-regular`}>
-                  Additional Days: {additionaldaysValue}
+                <>
+                  
+                <p className={`text-regular width70`}>
+                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
                 </p>
+                  </>
               ) : null}
                 </div>
               </Suspense>
-              <p className={`text-bold`}>
-                Design
-              </p>
-              <p className={`text-regular`}>not set</p>
+              </div>
               <div className="grid-2">
-              {/* a view of the design */}
-              <Link href="/design" className={`text-regular`} > Edit </Link>
+              <h3 className={`text-bold`}>
+                Design
+              </h3>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              <p className={`text-regular`}>not set</p>
+              
               </div>
              
             
@@ -680,39 +775,45 @@ export default async function Home() {
     
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name} with {businessName}!
+          <h2 className="text-bold home">
+                Welcome, <br></br>{businessName}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+            
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
-              <div className="grid-2">
-              <p className={`text-bold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              </div>
+              <div className="availability-box">
+              <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`text-regular`}>not set</p>
+                  <p className={`text-regular width70`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`text-bold`}>
-                Design
-              </p>
-              <p className={`text-regular`}>not set</p>
-              <div className="grid-2">
-              {/* a view of the design */}
-              <Link href="/design" className={`text-regular`} > Edit </Link>
               </div>
+              <div className="grid-2">
+          
+          <h3 className={`text-bold`}>
+            Design
+          </h3>
+          <Link href="/design" className={`text-regular underline`} > Edit </Link>
+          </div>
+              <p className={`text-regular`}>not set</p>
+              
              
     
             </div>
@@ -732,37 +833,43 @@ export default async function Home() {
             
           <div className="grid-1">
             
-              <h2 className={`text-bold`}>
-                Welcome back, {session.user.name}!
+              <h2 className={`text-bold home`}>
+                Welcome, {session.user.name}!
                 
               </h2>
-              <Link href="/profile" className={`text-bold`} > Profile</Link>
-              <p className={`text-bold`}>
+              
+              <h3 className={`text-bold`}>
                 Events
-              </p>
+              </h3>
+              <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               <p className={`text-regular`}>not set</p>
               </Suspense>
-              <Link href="/events " className={`text-regular`} > + </Link>
-              <div className="grid-2">
-              <p className={`text-bold`}>
+              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              
+              </div>
+              <div className="availability-box">
+              <div className="grid-3">
+              <h3 className={`text-bold no-margin`}>
                 Availability
-              </p>
-              <Link href="/availability" className={`text-regular`} > Edit </Link>
+              </h3>
+              <div></div>
+              <Link href="/availability" className={`text-regular edit-avialability-btn`} > Edit </Link>
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <div className="availability">
                   {/* do not show a given day if there is nothing in the database */}
-                  <p className={`text-regular`}>not set</p>
+                  <p className={`text-regular width70`}>not set</p>
                 </div>
               </Suspense>
-              <p className={`text-bold`}>
-                Design
-              </p>
-              <p className={`text-regular`}>not set</p>
+              </div>
               <div className="grid-2">
-              {/* a view of the design */}
-              <Link href="/design" className={`text-regular`} > Edit </Link>
+              <h3 className={`text-bold`}>
+                Design
+              </h3>
+              <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              <p className={`text-regular`}>not set</p>
+              
               </div>
     
             </div>
