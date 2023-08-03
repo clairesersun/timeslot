@@ -18,8 +18,8 @@ async function deleteProfile() {
         return data;
       })
       .then((data) => {
-        console.log(data);
-        console.log(data.url);
+        // console.log(data);
+        // console.log(data.url);
         //redirect to confirmation page
         location.href = data.url;
       });
@@ -29,7 +29,7 @@ async function deleteProfile() {
 
 export default function DeleteAccount() {
     return (
-      <button onClick={() => deleteProfile()} className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+      <button onClick={() => deleteProfile()} className="delete-profile-btn text-bold">
         Delete Account </button>   
     )}
 
@@ -51,8 +51,8 @@ export default function DeleteAccount() {
             return data;
           })
           .then((data) => {
-            console.log(data);
-            console.log(data.url);
+            // console.log(data);
+            // console.log(data.url);
             //redirect to confirmation page
             location.href = data.url;
           });
@@ -64,7 +64,7 @@ export default function DeleteAccount() {
       let slug = props.slug
       // console.log(slug)
         return (
-          <button onClick={() => deleteCreatedEvent(slug)} className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
+          <button onClick={() => deleteCreatedEvent(slug)} className="delete-profile-btn text-bold">
             Delete Event </button>   
         )}
     

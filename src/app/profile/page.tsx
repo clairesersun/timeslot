@@ -82,7 +82,7 @@ export const metadata = {
     const session = await getServerSession(authOptions)
     if (!session) {
       return <SignIn /> }
-      console.log(session)
+      // console.log(session)
       const { MongoClient } = require("mongodb");
       const client = new MongoClient(process.env.MONGODB_URI);
       await client.connect();
@@ -98,60 +98,81 @@ export const metadata = {
         const email = "not set"
         const businessName = "not set"
         return (
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
-            <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-              
-            <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-                <Suspense fallback={<div>Loading...</div>}>
-                <p className={`mb-3 text-2xl font-semibold`}>
-                  Name:
-                </p>
-                <p className={`mb-3 text-1xl font-semibold`}>
-                  {visibleName}
-                </p>
-                <p className={`mb-3 text-2xl font-semibold`}>
-                  Other Email:
-                </p>
-                <p className={`mb-3 text-1xl font-semibold`}>
-                  {email}
-                </p>
-                <p className={`mb-3 text-2xl font-semibold`}>
-                  Business Name:
-                </p>
-                <p className={`mb-3 text-1xl font-semibold`}>
-                  {businessName}
-                </p>
-    
-                <p className={`mb-3 text-2xl font-semibold`}>
-                  Google Account Name:
-                </p>
-                <p className={`mb-3 text-1xl font-semibold`}>
-                {session['user'].name}
-                </p>
-                <p className={`mb-3 text-2xl font-semibold`}>
-                  Google Account:
-                </p>
-                <p className={`mb-3 text-1xl font-semibold`}>
-                {session['user'].email}
-                </p>
-                <Image src=
-                {session['user'].image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
-                </Suspense>
-              <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
-              <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-              <label htmlFor="visibleName" >Name:</label> 
-              <input type="text" name="visibleName" id="visibleName" className='text-sky-400'/>
-              <label htmlFor="email">Email:</label>
-              <input type="text" name='email' id='email' className='text-sky-400'/>
-              <label htmlFor="businessName">Business Name:</label>
-              <input type="text" name='businessName' id='businessName' className='text-sky-400'/>
-              <button type='submit'>Submit</button>
-              </form>
-              <DeleteAccount />
+          <main>
+
+          
+        <h2 className='text-bold profile-title change-position'>
+          Profile
+          </h2>
+            <Suspense fallback={<div>Loading...</div>}>
+              <div className='profile-box grid-1 change-position'>
+
+            <h4 className={`text-bold profile-text-margin-top profile-text-align`}>
+              Business Name:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+              {businessName}
+            </p>
               </div>
+              <div className='profile-divider-dark change-position'></div>
+              <div className='profile-box grid-1 change-position'>
+            <h4 className={`text-bold profile-text-align profile-text-margin-top`}>
+              Visible Name:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+              {visibleName}
+            </p>
+            <h4 className={`text-bold profile-text-align profile-text-margin-top`}>
+              Visible Email:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+              {email}
+            </p>
             </div>
-          </main>
+            <div className='profile-divider-dark-2 change-position'></div>
+            <Image src=
+            {session['user'].image} alt="Profile photo" width="75" height="75" className='profile-photo'/>
+            <div>
+            <div className='profile-box grid-1'>
+            <h4 className={`text-bold profile-text-margin-top-large profile-text-align`}>
+              Google Account Name:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+            {session['user'].name}
+            </p>
+            <h4 className={`text-bold profile-text-align profile-text-margin-top`}>
+              Google Account Email:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+            {session['user'].email}
+            </p>
+            </div>
+            </div>
+            
+            </Suspense>
+
+            <form action={createProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
+          <p className='edit-profile text-bold'> Edit</p>
+            <div className='profile-box grid-1'>
+          <label htmlFor="businessName" className='text-bold profile-label'>Business Name:</label>
+          <input type="text" name='businessName' id='businessName' className='input-box'/>
+          </div>
+          <div className='profile-divider-light'></div>
+          <div className='profile-box grid-1'>
+          <label htmlFor="visibleName" className='text-bold profile-label' >Visible Name:</label> 
+          <input type="text" name="visibleName" id="visibleName" className='input-box'/>
+          <label htmlFor="email" className='text-bold profile-label'>Visible Email:</label>
+          <input type="text" name='email' id='email' className='input-box'/>
+          </div>
+          
+
+          <DeleteAccount />
+          <button type='submit' className='submit-profile-btn text-bold'>Submit</button>
+          
+          </form>
+          
+          <div className='bottom-of-page'></div>
+      </main>
         )
       
       } else { 
@@ -164,85 +185,83 @@ export const metadata = {
         
        
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main>
   
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
           
-        <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+        <h2 className='text-bold profile-title change-position'>
+          Profile
+          </h2>
             <Suspense fallback={<div>Loading...</div>}>
-            <p className={`mb-3 text-2xl font-semibold`}>
-              Name:
-            </p>
-            <p className={`mb-3 text-1xl font-semibold`}>
-              {visibleName}
-            </p>
-            <p className={`mb-3 text-2xl font-semibold`}>
-              Other Email:
-            </p>
-            <p className={`mb-3 text-1xl font-semibold`}>
-              {email}
-            </p>
-            <p className={`mb-3 text-2xl font-semibold`}>
+            <div className='profile-box grid-1 change-position'>
+
+            <h4 className={`text-bold profile-text-margin-top profile-text-align`}>
               Business Name:
-            </p>
-            <p className={`mb-3 text-1xl font-semibold`}>
+            </h4>
+            <p className={`text-regular profile-text-align`}>
               {businessName}
             </p>
-
-            <p className={`mb-3 text-2xl font-semibold`}>
-              Google Account Name:
+              </div>
+              <div className='profile-divider-dark change-position'></div>
+              <div className='profile-box grid-1 change-position'>
+            <h4 className={`text-bold profile-text-align profile-text-margin-top`}>
+              Visible Name:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+              {visibleName}
             </p>
-            <p className={`mb-3 text-1xl font-semibold`}>
+            <h4 className={`text-bold profile-text-align profile-text-margin-top`}>
+              Visible Email:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
+              {email}
+            </p>
+            </div>
+            <div className='profile-divider-dark-2 change-position'></div>
+            <Image src=
+            {session['user'].image} alt="Profile photo" width="75" height="75" className='profile-photo'/>
+            <div>
+            <div className='profile-box grid-1'>
+            <h4 className={`text-bold profile-text-margin-top-large profile-text-align`}>
+              Google Account Name:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
             {session['user'].name}
             </p>
-            <p className={`mb-3 text-2xl font-semibold`}>
-              Google Account:
-            </p>
-            <p className={`mb-3 text-1xl font-semibold`}>
+            <h4 className={`text-bold profile-text-align profile-text-margin-top`}>
+              Google Account Email:
+            </h4>
+            <p className={`text-regular profile-text-align`}>
             {session['user'].email}
             </p>
-            <Image src=
-            {session['user'].image} alt="Profile photo" width="100" height="100" className={`mb-3 text-2xl font-semibold`} />
+            </div>
+            </div>
+            
             </Suspense>
-          <p className={`mb-3 text-2xl font-semibold`}> Edit Profile: </p>
-          <form action={createProfile} id='profile-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-          <label htmlFor="visibleName" >Name:</label> 
-          <input type="text" name="visibleName" id="visibleName" className='text-sky-400'/>
-          <label htmlFor="email">Email:</label>
-          <input type="text" name='email' id='email' className='text-sky-400'/>
-          <label htmlFor="businessName">Business Name:</label>
-          <input type="text" name='businessName' id='businessName' className='text-sky-400'/>
-          <button type='submit'>Submit</button>
-          </form>
-          <DeleteAccount />
+
+         
+
+          <form action={createProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
+          <p className='edit-profile text-bold'> Edit</p>
+            <div className='profile-box grid-1'>
+          <label htmlFor="businessName" className='text-bold profile-label'>Business Name:</label>
+          <input type="text" name='businessName' id='businessName' className='input-box'/>
           </div>
-        </div>
+          <div className='profile-divider-light'></div>
+          <div className='profile-box grid-1'>
+          <label htmlFor="visibleName" className='text-bold profile-label' >Visible Name:</label> 
+          <input type="text" name="visibleName" id="visibleName" className='input-box'/>
+          <label htmlFor="email" className='text-bold profile-label'>Visible Email:</label>
+          <input type="text" name='email' id='email' className='input-box'/>
+          </div>
+          
+
+          <DeleteAccount />
+          <button type='submit' className='submit-profile-btn text-bold'>Submit</button>
+          
+          </form>
+          
+          <div className='bottom-of-page'></div>
       </main>
     )
   }}
   
-// }
-
-  // for data iften changing, when you fetch do this:
-  // const response = await fetch(
-    // 'link', {
-  //      next: {
-  //        revalidate: 60
-  //   }
-  // }) 
-  
-  // for apis either do w/in the pages or api/page/route.js then do export async function GET(response) {
-  //   return new Response('hello')
-  // }
-
-  // to pull info from your json in api use NextResponse from import { NextResponse } from "next/server"
-  // then use it in component to fetch from link
-  // in component await fetch from the api you created
-
-  //to get a query within your get request use const { searchParams } = new URL(request.url)
-  // const query = searchParams.get('query')
-
-  //to post use request.json() to get the body of the request
-  // uuid creates random id
-  // import {v4 as uuid} from 'uuid'
-  //use this when creating a new post
