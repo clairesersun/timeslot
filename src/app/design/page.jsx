@@ -231,55 +231,65 @@ export default async function Design() {
     );
   } else {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-            <Suspense fallback={<div>Loading...</div>}>
-              <h1 className={`mb-3 text-2xl font-semibold`}>
-                {businessName}&apos;s Design
-              </h1>
+      <main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <h1 className={`text-bold design-title`}>Design</h1>
 
-              {/* figure put how to update this when form is submitted */}
-              <p className={`mb-3 text-lg font-semibold`}>Color 1: not set </p>
-              <p className={`mb-3 text-lg font-semibold`}>Color 2: not set </p>
-              <p className={`mb-3 text-lg font-semibold`}>Color 3: not set </p>
-              <p className={`mb-3 text-lg font-semibold`}>Color 4: not set </p>
-              <p className={`mb-3 text-lg font-semibold`}>Website not set </p>
-            </Suspense>
-
-            <form
-              action={createDesign}
-              id="profile-form"
-              className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left"
-            >
-              <label htmlFor="colorOne">Color 1:</label>
-              {/* <ColorPicker /> */}
-              <input
-                type="text"
-                name="colorOne"
-                id="colorOne"
-                // hidden
-                // value={document.getElementById("colorOnePicker").state}
-              />
-              <label htmlFor="colorTwo">Color 2:</label>
-              <input type="text" name="colorTwo" id="colorTwo" />
-              <label htmlFor="colorThree">Color 3:</label>
-              <input type="text" name="colorThree" id="colorThree" />
-              <label htmlFor="colorFour">Color 4:</label>
-              <input type="text" name="colorFour" id="colorFour" />
-              <label htmlFor="website"> Website:</label>
-              <input
-                type="text"
-                name="website"
-                id="website"
-                className="text-sky-400"
-              />
-              <button type="submit">Submit</button>
-            </form>
-            {/* {deleteAccount()} */}
-            {/* figure out how to do a pop up delete btn */}
+          {/* figure put how to update this when form is submitted */}
+          <div className="current-design">
+            <p className={`text-regular`}>Color 1: not set </p>
+            <p className={`text-regular`}>Color 2: not set </p>
+            <p className={`text-regular`}>Color 3: not set </p>
+            <p className={`text-regular`}>Color 4: not set </p>
+            <p className={`text-regular`}>Website not set </p>
           </div>
-        </div>
+        </Suspense>
+        <div className="bottom-of-page"></div>
+        <form action={createDesign} id="design-form" className="design-form">
+          <label htmlFor="colorOne" className="text-bold">
+            Pick a new design:
+          </label>
+          <input
+            type="color"
+            name="colorOne"
+            id="colorOne"
+            className="pick-color"
+          />
+          <label htmlFor="colorTwo" className="text-bold"></label>
+          <input
+            type="color"
+            name="colorTwo"
+            id="colorTwo"
+            className="pick-color"
+          />
+          <label htmlFor="colorThree" className="text-bold"></label>
+          <input
+            type="color"
+            name="colorThree"
+            id="colorThree"
+            className="pick-color"
+          />
+          <label htmlFor="colorFour" className="text-bold"></label>
+          <input
+            type="color"
+            name="colorFour"
+            id="colorFour"
+            className="pick-color"
+          />
+          <label htmlFor="website" className="text-regular">
+            Website:
+          </label>
+          <input
+            type="text"
+            name="website"
+            id="website"
+            className="color-input-box"
+          />
+          <button type="submit" className="text-bold new-color-submit-btn">
+            Submit
+          </button>
+        </form>
+        <div className="bottom-of-page"></div>
       </main>
     );
   }
