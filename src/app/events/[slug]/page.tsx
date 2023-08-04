@@ -112,39 +112,45 @@ async function UpdateEvent(data: FormData) {
         const description = eventInfo.description
         const length = eventInfo.length
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main>
   
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+       
           
-        <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-            
-            <h1 className={`mb-3 text-2xl font-semibold`}>
-              Update {visibleName}&apos;s Event:
+        
+            <h1 className={`text-bold update-event-title`}>
+              Update Event
             </h1>
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              {eventName}
+            <div className='update-event-container grid-1'>
+            <h2 className={`text-bold text-in-box `}>
+              Title of Event:
             </h2>
-            <p className={`mb-3 text-2xl font-semibold`}>
+            <p className={`text-regular text-in-box no-margin`}>
+            {eventName}</p>
+            <h2 className={`text-bold text-in-box`}>
+              Description: </h2>
+            <p className={`text-regular text-in-box no-margin`}>
               {description}
             </p>
-            <p className={`mb-3 text-2xl font-semibold`}>
+            <h2 className={`text-bold text-in-box`}>
+              Length
+              </h2>
+            <p className={`text-regular text-in-box no-margin`}>
               {length} minutes
             </p>
-          <form action={UpdateEvent} id='update-event-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-          <label htmlFor="eventName" >Event Name:</label> 
-          <input type="text" name="eventName" id="eventName" className='text-sky-400'/>
+            </div>
+            <div className='divider-light'></div>
+          <form action={UpdateEvent} id='update-event-form' className="update-event-form grid-1">
+          <label htmlFor="eventName"  className='text-bold text-in-box'>Event Name:</label> 
+          <input type="text" name="eventName" id="eventName" className='input-box'/>
           <input type="hidden" name="previousnameSlug" id="previousnameSlug" value={slug} />
-          <label htmlFor="description">Description:</label>
-          <input type="text" name='description' id='description' className='text-sky-400'/>
-          <label htmlFor="length">Length:</label>
-          <input type="text" name='length' id='length' className='text-sky-400'/>
-          <button type='submit'>Submit</button>
+          <label htmlFor="description" className='text-bold text-in-box'>Description:</label>
+          <input type="text" name='description' id='description' className='input-box'/>
+          <label htmlFor="length" className='text-bold text-in-box'>Length:</label>
+          <input type="text" name='length' id='length' className='input-box'/>
+          <button type='submit' className='save-event-btn text-bold'>Save Changes</button>
           </form>
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <DeleteEvent slug={slug}/>
-          </div>
-          </div>
-        </div>
+        
       </main>
     )
   }

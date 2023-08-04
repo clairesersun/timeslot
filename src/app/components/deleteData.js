@@ -29,8 +29,7 @@ async function deleteProfile() {
 
 export default function DeleteAccount() {
     return (
-      <button onClick={() => deleteProfile()} className="delete-profile-btn text-bold">
-        Delete Account </button>   
+      <button onClick={() => deleteProfile()} className="delete-profile-btn text-bold">Delete</button>   
     )}
 
     async function deleteCreatedEvent(slug) {

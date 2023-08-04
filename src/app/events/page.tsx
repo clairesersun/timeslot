@@ -82,26 +82,20 @@ export const metadata = {
   
     
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-  
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-          
-        <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+      <main>
             
-            <p className={`mb-3 text-2xl font-semibold`}>
-              Add Events
+            <p className={`text-bold add-event-title`}>
+              Add Event
             </p>
-          <form action={addEvent} id='add-event-form' className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
-          <label htmlFor="eventName" >Event Name:</label> 
-          <input type="text" name="eventName" id="eventName" className='text-sky-400'/>
-          <label htmlFor="description">Description:</label>
-          <input type="text" name='description' id='description' className='text-sky-400'/>
-          <label htmlFor="length">Length:</label>
-          <input type="text" name='length' id='length' className='text-sky-400'/>
-          <button type='submit'>Submit</button>
+          <form action={addEvent} id='add-event-form' className='add-event-form grid-1'>
+          <label htmlFor="eventName" className='text-bold text-in-box'>Title of Event:</label> 
+          <input type="text" name="eventName" id="eventName" className='input-box'/>
+          <label htmlFor="description" className='text-bold text-in-box'>Description:</label>
+          <input type="text" name='description' id='description' className='input-box'/>
+          <label htmlFor="length" className='text-bold text-in-box'>Length (in minutes):</label>
+          <input type="text" name='length' id='length' className='input-box'/>
+          <button type='submit' className='create-event-btn text-bold '>Create Event</button>
           </form>
-          </div>
-        </div>
       </main>
     )
   }

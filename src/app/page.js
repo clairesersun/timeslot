@@ -36,7 +36,7 @@ export default async function Home() {
   const eventInfoArray = await eventInfo.toArray();
   // console.log(eventInfoArray);
   const events = eventInfoArray.map((event) => (
-    <div key={event._id} className="grid-1 events-box">
+    <div key={event._id} className="grid-1 events-box add-margin">
       <p className={`text-bold event-title-box`}>{event.eventName}</p>
       <Link href={"/" + currentUserInfo.userId.toString() + "/" + event.eventnameParams} className={`text-regular event-spacing`} >View Public Link</Link>
       <Link href={"/events/" + event.eventnameParams} className={`text-regular edit-event`} >Edit Event</Link>
@@ -103,23 +103,26 @@ export default async function Home() {
         <main >
     
           
-            
-          <div className="grid-1">
+          
             
               <h2 className="text-bold home">
                 Welcome, <br></br>{businessName}!
                 
               </h2>
+              <div className="grid-2">
+
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
                 </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
               <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -206,8 +209,7 @@ export default async function Home() {
               <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
          </div>
               <p className={`text-regular website-main`}> {website}</p>
-              </div>
-     
+            
             
     
         </main>
@@ -252,23 +254,24 @@ export default async function Home() {
     
           
             
-          <div className="grid-1">
-            
               <h2 className={`text-bold home`}>
                 Welcome, <br></br> {businessName}!
                 
               </h2>
+              <div className="grid-2">
               
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               <div></div>
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
               </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
                 <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -354,7 +357,6 @@ export default async function Home() {
               <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
          </div>
               <p className={`text-regular website-main`}> {website}</p>
-            </div>
         </main>
       )
   }
@@ -388,24 +390,25 @@ export default async function Home() {
     
          
             
-          <div className="grid-1">
             
               <h2 className={`text-bold home`}>
                 Welcome,<br></br> 
                 {businessName}!
                 
               </h2>
-              
+              <div className="grid-2">
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
               </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
               <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -484,7 +487,6 @@ export default async function Home() {
               <p className={`text-regular`}>not set</p>
               <Link href="/design" className={`text-regular underline`} > Edit </Link>
               </div>
-              </div>
               
         </main>
       )
@@ -504,23 +506,23 @@ export default async function Home() {
         <main >
     
             
-          <div className="grid-1">
-            
               <h2 className={`text-bold home`}>
                 Welcome, <br></br> {businessName}!
                 
               </h2>
-            
+            <div className="grid-2">
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
              </div>
-             <div className="availability-box">
+             <div className="availability-box add-margin">
              <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -552,9 +554,7 @@ export default async function Home() {
               <p className={`text-regular website-main`}> {website}</p>
               
               
-            
-    
-            </div>
+          
         </main>
       )
   }
@@ -576,26 +576,26 @@ export default async function Home() {
   
   return (
         <main >
-    
-            
-          <div className="grid-1">
+  
             
               <h2 className={`text-bold home`}>
               Welcome, <br></br>{businessName}!
                 
               </h2>
-        
+        <div className="grid-2">
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div ></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
               
               </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
               <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -627,8 +627,6 @@ export default async function Home() {
               
               
             
-    
-            </div>
         </main>
       )
   }
@@ -661,23 +659,24 @@ export default async function Home() {
         <main >
     
             
-          <div className="grid-1">
             
           <h2 className="text-bold home">
                 Welcome, <br></br>{businessName}!
                 
               </h2>
-              
+              <div className="grid-2">
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
               </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
               <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -759,8 +758,6 @@ export default async function Home() {
               </div>
              
             
-    
-            </div>
         </main>
       )
   }
@@ -773,24 +770,25 @@ export default async function Home() {
   return (
         <main >
     
-          <div className="grid-1">
             
           <h2 className="text-bold home">
                 Welcome, <br></br>{businessName}!
                 
               </h2>
-            
+            <div className="grid-2">
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               
               {events}
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
               </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
               <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -813,10 +811,6 @@ export default async function Home() {
           <Link href="/design" className={`text-regular underline`} > Edit </Link>
           </div>
               <p className={`text-regular`}>not set</p>
-              
-             
-    
-            </div>
         </main>
       )
   }
@@ -831,24 +825,25 @@ export default async function Home() {
     
           
             
-          <div className="grid-1">
             
               <h2 className={`text-bold home`}>
                 Welcome, {session.user.name}!
                 
               </h2>
-              
+              <div className="grid-2">
               <h3 className={`text-bold`}>
                 Events
               </h3>
+              <div></div>
+              </div>
               <div className="grid-2">
               <Suspense fallback={<div>Loading...</div>}>
               <p className={`text-regular`}>not set</p>
               </Suspense>
-              <Link href="/events " className={`text-regular add-event-btn`} > + </Link>
+              <Link href="/events " className={`text-regular add-event-btn add-margin`} > + </Link>
               
               </div>
-              <div className="availability-box">
+              <div className="availability-box add-margin">
               <div className="grid-3">
               <h3 className={`text-bold no-margin`}>
                 Availability
@@ -871,8 +866,6 @@ export default async function Home() {
               <p className={`text-regular`}>not set</p>
               
               </div>
-    
-            </div>
         </main>
       )
   }

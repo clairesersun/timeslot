@@ -85,6 +85,8 @@ footer {
 .signout {
   background-color: transparent;
   border-style: none;
+  justify-self: right;
+  padding-right: 1rem;
 }
 
 main {
@@ -92,11 +94,11 @@ main {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
   height: 100%;
 }
 
 /* can be used anywhere */
+
 .no-margin {
   margin: 0 !important;
 }
@@ -200,6 +202,12 @@ h3 {
 }
 
 /*on index page*/
+
+.add-margin {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .availability {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -242,7 +250,6 @@ h2.home {
   line-height: 22px;
   letter-spacing: 1.96px;
   padding: 5vh;
-  width: 50%;
   text-align: center;
   align-self: center;
   justify-self: center;
@@ -301,6 +308,7 @@ h2.home {
 .website-main {
   margin-bottom: 14vh;
   margin-top: 20px;
+  text-align: center;
 }
 
 .events-box {
@@ -540,4 +548,204 @@ p.notSignedIn {
   border-style: none;
   margin-right: 144px;
   z-index: 0;
+}
+
+/*on add event page*/
+
+.add-event-title {
+  background-color: var(--menu-hex);
+  opacity: 100%;
+  border-radius: 45px 45px 0px 0px;
+  color: #ffffff;
+  width: 13rem;
+  height: 2rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0;
+  margin-top: 35px;
+  padding-top: 10px;
+}
+
+.add-event-form {
+  border: 0;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 45px;
+  padding-bottom: 0px;
+  background-color: #ffffffbd;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 25px;
+  height: max-content;
+  width: 20rem;
+  justify-items: center;
+}
+
+.create-event-btn {
+  background-color: var(--bold-green);
+  border-radius: 0px 0px 45px 45px;
+  color: #ffffff;
+  width: 13rem;
+  height: 2rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  position: relative;
+  top: 44px;
+}
+
+.text-in-box {
+  justify-self: left;
+  padding-left: 40px;
+}
+
+/*on update event page*/
+
+.update-event-title {
+  background-color: var(--menu-hex);
+  opacity: 75%;
+  border-radius: 45px 45px 0px 0px;
+  color: #ffffff;
+  width: 13rem;
+  height: 2rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0;
+  margin-top: 35px;
+  padding-top: 10px;
+}
+
+.update-event-container {
+  border: 0;
+  padding: 20px;
+  background-color: #ffffffbd;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 25px;
+  height: max-content;
+  width: 20rem;
+  justify-items: center;
+}
+
+.divider-light {
+  width: 13rem;
+  height: 2.5rem;
+  background-color: var(--menu-hex);
+  opacity: 75%;
+}
+
+.update-event-form {
+  border: 0;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 45px;
+  padding-bottom: 0px;
+  background-color: #ffffffbd;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 25px;
+  height: max-content;
+  width: 20rem;
+  justify-items: center;
+}
+
+.save-event-btn {
+  background-color: var(--bold-green);
+  border-radius: 0px 0px 45px 45px;
+  color: #ffffff;
+  width: 10rem;
+  height: 2rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  margin-left: 144px;
+  z-index: 1;
+  position: relative;
+  top: 2.75rem;
+}
+
+/*on design page*/
+.design-title {
+  font-size: 22px;
+  line-height: 22px;
+  letter-spacing: 1.96px;
+  padding: 5vh;
+  text-align: left;
+  align-self: left;
+  justify-self: left;
+}
+
+.current-design {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  grid-gap: 0px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: left;
+}
+
+.design-form {
+  display: grid;
+  grid-template-columns: auto;
+  justify-items: center;
+  align-items: center;
+  grid-gap: 0px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-align: left;
+}
+
+.current-colors {
+  width: 12rem;
+  height: 5rem;
+  line-height: 4.5rem;
+  border-radius: 45px;
+  box-shadow: 0px 3px 6px #00000029;
+  margin: 12px;
+}
+
+.pick-color {
+  border-style: none;
+  block-size: inherit;
+  appearance: auto;
+  box-sizing: unset;
+  padding: 22px;
+  width: 10rem;
+  height: 2rem;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 3px 6px #00000029;
+  margin: 12px;
+}
+
+.color-text {
+  text-align: center;
+  color: var(--background-hex);
+}
+
+.color-input-box {
+  border: 0;
+  border-radius: 45px;
+  width: 12rem;
+  margin-bottom: 12px;
+}
+
+.new-color-submit-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #52a288;
+  color: #ffffff;
+  border-radius: 0px 25px;
+  border: none;
+  top: 341px;
+  left: 72px;
+  width: 89px;
+  height: 46px;
+  font-size: 14px;
 }
