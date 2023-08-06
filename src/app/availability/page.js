@@ -111,8 +111,8 @@ export default async function Availability() {
   if (!currentUserInfo) {
     return (
       <>
-      <h1>Finish setting up your profile.</h1>
-      <Link href="/profile">Click here</Link>
+      <h1 className="text-bold">Finish setting up your profile.</h1>
+      <Link href="/profile" className="text-bold">Click here</Link>
       </>
     )
   }
@@ -140,161 +140,307 @@ export default async function Availability() {
 
   
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+    <main className="availability-page">
           <Suspense fallback={<div>Loading...</div>}>
-            <h1 className={`mb-3 text-2xl font-semibold`}>
-              {businessName}&apos;s Availability
+            <h1 className={`text-bold add-margin availability-current`}>
+             Availability
             </h1>
           </Suspense>
           <Suspense fallback={<div>Loading...</div>}>
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              Current Availability
-            </h2>
+<div className="availability-current grid-1 available-container">
+
+          
             {mondaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Monday: {mondaystartValue} - {mondayendValue}
+              <>
+                <div className={`grid-3 unjustify`}>
+              <p className={`text-bold add-margin`}>
+                  Monday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>
+                {mondaystartValue}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}>{mondayendValue}
+                </p>
+                </div>
+              </>
               ) : null}
               {tuesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Tuesday: {tuesdaystartValue} - {tuesdayendValue}
+                <>
+                <div className={`grid-3 unjustify`}>
+                <p className={`text-bold add-margin`}>
+                  Tuesday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>
+              {tuesdaystartValue}
+              </p>
+              <div className={`dash justify`}> 
+                </div>
+            <p className={`text-regular`}>{tuesdayendValue}
+          </p>
+          </div>
+          </>
               ) : null}
               {wednesdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Wednesday: {wednesdaystartValue} - {wednesdayendValue}
+                <div className={`grid-3 unjustify`}>
+                <p className={`text-bold add-margin`}>
+                  Wednesday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>{wednesdaystartValue}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}> {wednesdayendValue}
+                </p>
+                </div>
               ) : null}
               {thursdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Thursday: {thursdaystartValue} - {thursdayendValue}
+                <>
+                <div className={`grid-3 unjustify`}>
+                  
+                <p className={`text-bold add-margin`}>
+                  Thursday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>{thursdaystartValue}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}>{thursdayendValue}
+                </p>
+                </div>
+                </>
               ) : null}
               {fridaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Friday: {fridaystartValue} - {fridayendValue}
+                <>
+                <div className={`grid-3 unjustify`}></div>
+                <p className={`text-bold add-margin`}>
+                  Friday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>
+                 {fridaystartValue}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}>{fridayendValue}
+                </p>
+                </>
               ) : null}
               {saturdaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Saturday: {saturdaystartValue} - {saturdayendValue}
+                <>
+                <div className={`grid-3 unjustify`}>
+
+                <p className={`text-bold add-margin`}>
+                  Saturday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>{saturdaystartValue}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}>
+                  {saturdayendValue}
+                </p>
+                </div>
+                </>
               ) : null}
               {sundaystartValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Sunday: {sundaystartValue} - {sundayendValue}
+                <>
+                <div className={`grid-3 unjustify`}>
+                <p className={`text-bold add-margin`}>
+                  Sunday
                 </p>
+                <div></div>
+                <div></div>
+                <p className={`text-regular`}>
+               {sundaystartValue}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}>{sundayendValue}
+                </p>
+                </div>
+                </>
               ) : null}
               {additionaldaysValue ? (
-                <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                  Additional Day Start: {new Date(additionaldaysValue).getHours()}:{(new Date(additionaldaysValue).getMinutes()<10?'0':'') + new Date(additionaldaysValue).getMinutes()} - {additionaldaysValueEnd}
+                <>
+                <div className={`grid-3 unjustify`}>
+                <p className={`text-bold add-margin`}>
+                  Additional Day
                 </p>
+                <div></div>
+                <p className={`text-regular`}>
+                  {moment(additionaldaysValue).format("MMMM Do YYYY")} </p>
+                <p className={`text-regular`}>
+                  {new Date(additionaldaysValue).getHours()}:{(new Date(additionaldaysValue).getMinutes()<10?'0':'') + new Date(additionaldaysValue).getMinutes()}
+                </p>
+                <div className={`dash justify`}> 
+                </div>
+                <p className={`text-regular`}>
+                 {additionaldaysValueEnd}
+                </p>
+                </div>
+              </>
               ) : null}
               
+              </div>
           </Suspense>
+          <div className="avail-spacer"></div>
           <form
             action={addAvailability}
             id="profile-form"
-            className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
+            className="availability-form"
           >
-            <label htmlFor="mondayStart">Monday</label>
-            <input type="time" name="mondayStart" id="mondayStart"className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="mondayEnd" id="mondayEnd"className='text-sky-400'/>
-            <label htmlFor="tuesdayStart">Tuesday</label>
-            <input type="time" name="tuesdayStart" id="tuesdayStart" className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="tuesdayEnd" id="tuesdayEnd" className='text-sky-400'/>
-            <label htmlFor="wednesdayStart">Wednesday</label>
-            <input type="time" name="wednesdayStart" id="wednesdayStart" className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="wednesdayEnd" id="wednesdayEnd"className='text-sky-400'/>
-            <label htmlFor="thursdayStart">Thursday</label>
-            <input type="time" name="thursdayStart" id="thursdayStart" className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="thursdayEnd" id="thursdayEnd" className='text-sky-400'/>
-            <label htmlFor="fridayStart">Friday</label>
-            <input type="time" name="fridayStart" id="fridayStart" className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="fridayEnd" id="fridayEnd" className='text-sky-400'/>
-            <label htmlFor="saturdayStart">Saturday</label>
-            <input type="time" name="saturdayStart" id="saturdayStart" className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="saturdayEnd" id="saturdayEnd"className='text-sky-400'/>
-            <label htmlFor="sundayStart">Sunday</label>
-            <input type="time" name="sundayStart" id="sundayStart"className='text-sky-400'/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="sundayEnd" id="sundayEnd"className='text-sky-400'/>
-            <label htmlFor="additionalDays">Additional Days</label>
-            <input type="datetime-local" name="additionalDays" id="additionalDays" className='text-sky-400'/>
-            <label htmlFor="additionalDaysEnd">Additional Day End</label>
-            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" className='text-sky-400' placeholder={additionaldaysValueEnd}/>
+            <div className="grid-3">
+
+            <label htmlFor="mondayStart" className={`text-bold`}>Monday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="mondayStart" id="mondayStart"className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="mondayEnd" id="mondayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="tuesdayStart" className={`text-bold`}>Tuesday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="tuesdayStart" id="tuesdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="tuesdayEnd" id="tuesdayEnd" className='text-regular availability-input-box'/>
+            <label htmlFor="wednesdayStart" className={`text-bold`}>Wednesday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="wednesdayStart" id="wednesdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="wednesdayEnd" id="wednesdayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="thursdayStart" className={`text-bold`}>Thursday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="thursdayStart" id="thursdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="thursdayEnd" id="thursdayEnd" className='text-regular availability-input-box'/>
+            <label htmlFor="fridayStart" className={`text-bold`}>Friday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="fridayStart" id="fridayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="fridayEnd" id="fridayEnd" className='text-regular availability-input-box'/>
+            <label htmlFor="saturdayStart" className={`text-bold`}>Saturday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="saturdayStart" id="saturdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="saturdayEnd" id="saturdayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="sundayStart" className={`text-bold`}>Sunday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="sundayStart" id="sundayStart"className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="sundayEnd" id="sundayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="additionalDays" className={`text-bold`}>Additional Day</label>
+            <div></div>
+            <div></div>
+            <input type="datetime-local" name="additionalDays" id="additionalDays" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" className='text-regular availability-input-box' placeholder={additionaldaysValueEnd}/>
+            <div></div>
+            <div></div>
             {/* I need to figure out how to add multiple */}
             {/* if there is already a value, then add another input */}
-            <button type="submit">Submit</button>
+  </div>
+  <div className="grid-1 justify">
+
+            <button type="submit" className="text-bold save-availability-btn">Save Times</button>
+  </div>
           </form>
-        </div>
-      </div>
+          <div className="bottom-of-page"></div>
+       
     </main>
   );
 } else {
  
   
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+    <main className="availability-page">
+      
           <Suspense fallback={<div>Loading...</div>}>
-            <h1 className={`mb-3 text-2xl font-semibold`}>
-              {businessName}&apos;s Availability
+            <h1 className={`text-bold add-margin availability-current`}>Availability
             </h1>
           </Suspense>
           <form
             action={addAvailability}
             id="profile-form"
-            className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"
+            className="availability-form"
           >
-            <label htmlFor="mondayStart">Monday</label>
-            <input type="time" name="mondayStart" id="mondayStart" className='text-sky-400' placeholder={mondayStart}/>
-            {/* set the value value="13:30" by using the current mondayStart */}
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="mondayEnd" id="mondayEnd" className='text-sky-400' placeholder={mondayEnd}/>
-            <label htmlFor="tuesdayStart">Tuesday</label>
-            <input type="time" name="tuesdayStart" id="tuesdayStart" className='text-sky-400' placeholder={tuesdayStart}/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="tuesdayEnd" id="tuesdayEnd" className='text-sky-400' placeholder={tuesdayEnd}/>
-            <label htmlFor="wednesdayStart">Wednesday</label>
-            <input type="time" name="wednesdayStart" id="wednesdayStart" className='text-sky-400' placeholder={wednesdayStart}/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="wednesdayEnd" id="wednesdayEnd" className='text-sky-400' placeholder={wednesdayEnd}/>
-            <label htmlFor="thursdayStart">Thursday</label>
-            <input type="time" name="thursdayStart" id="thursdayStart" className='text-sky-400' placeholder={thursdayStart}/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="thursdayEnd" id="thursdayEnd" className='text-sky-400' placeholder={thursdayEnd}/>
-            <label htmlFor="fridayStart">Friday</label>
-            <input type="time" name="fridayStart" id="fridayStart" className='text-sky-400' placeholder={fridayStart}/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="fridayEnd" id="fridayEnd" className='text-sky-400' placeholder={fridayEnd}/>
-            <label htmlFor="saturdayStart">Saturday</label>
-            <input type="time" name="saturdayStart" id="saturdayStart" className='text-sky-400' placeholder={saturdayStart}/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="saturdayEnd" id="saturdayEnd"className='text-sky-400' placeholder={saturdayEnd}/>
-            <label htmlFor="sundayStart">Sunday</label>
-            <input type="time" name="sundayStart" id="sundayStart" className='text-sky-400' placeholder={sundayStart}/>
-            <p className="lg:text-center"> - </p>
-            <input type="time" name="sundayEnd" id="sundayEnd" className='text-sky-400' placeholder={sundayEnd}/>
-            <label htmlFor="additionalDays">Additional Days</label>
-            <input type="datetime-local" name="additionalDays" id="additionalDays" className='text-sky-400' placeholder={moment(additionalDays).format()}/>
-            <label htmlFor="additionalDaysEnd">Additional Day End</label>
-            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" className='text-sky-400'/>
+            <div className="grid-3">
+            <label htmlFor="mondayStart" className={`text-bold`}>Monday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="mondayStart" id="mondayStart"className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="mondayEnd" id="mondayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="tuesdayStart" className={`text-bold`}>Tuesday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="tuesdayStart" id="tuesdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="tuesdayEnd" id="tuesdayEnd" className='text-regular availability-input-box'/>
+            <label htmlFor="wednesdayStart" className={`text-bold`}>Wednesday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="wednesdayStart" id="wednesdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="wednesdayEnd" id="wednesdayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="thursdayStart" className={`text-bold`}>Thursday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="thursdayStart" id="thursdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="thursdayEnd" id="thursdayEnd" className='text-regular availability-input-box'/>
+            <label htmlFor="fridayStart" className={`text-bold`}>Friday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="fridayStart" id="fridayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="fridayEnd" id="fridayEnd" className='text-regular availability-input-box'/>
+            <label htmlFor="saturdayStart" className={`text-bold`}>Saturday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="saturdayStart" id="saturdayStart" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="saturdayEnd" id="saturdayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="sundayStart" className={`text-bold`}>Sunday</label>
+            <div></div>
+            <div></div>
+            <input type="time" name="sundayStart" id="sundayStart"className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="sundayEnd" id="sundayEnd"className='text-regular availability-input-box'/>
+            <label htmlFor="additionalDays" className={`text-bold`}>Additional Day</label>
+            <div></div>
+            <div></div>
+            <input type="datetime-local" name="additionalDays" id="additionalDays" className='text-regular availability-input-box'/>
+            <div className="dash"></div>
+            <input type="time" name="additionalDaysEnd" id="additionalDaysEnd" className='text-regular availability-input-box'/>
+            <div></div>
+            <div></div>
             {/* I need to figure out how to add multiple */}
             {/* if there is already a value, then add another input */}
-            <button type="submit">Submit</button>
+  </div>
+  <div className="grid-1 justify">
+
+            <button type="submit" className="text-bold save-availability-btn">Save Times</button>
+  </div>
           </form>
-        </div>
-      </div>
+          <div className="bottom-of-page"></div>
     </main>
   );
 }

@@ -161,6 +161,7 @@ h3 {
   height: 100%;
   padding-top: 6rem;
   padding-bottom: 6rem;
+  overflow: hidden;
 }
 
 /* 3 grid versions */
@@ -366,6 +367,7 @@ button.notSignedIn {
   background-color: #52a288;
   color: #ffffff;
   border-radius: 0px 25px;
+  margin-left: 5.5rem;
   border: none;
   /* top: 698px;
     left: 357px;
@@ -377,11 +379,12 @@ button.notSignedIn {
   width: 89px;
   height: 46px;
   font-size: 14px;
+  z-index: 1;
 }
 
 .notSignedIn {
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
   padding: 22px;
   display: flex;
   flex-direction: column;
@@ -396,6 +399,8 @@ h1.notSignedIn {
   font-size: 26px;
   line-height: 25px;
   letter-spacing: 2.31px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 p.notSignedIn {
@@ -404,6 +409,61 @@ p.notSignedIn {
   font-size: 18px;
   line-height: 22px;
   letter-spacing: 1.6px;
+}
+
+.oval-container {
+  height: 304px;
+}
+
+.ovals {
+  position: relative;
+}
+
+.oval-1 {
+  top: -43px;
+  left: -3.874755859375px;
+  width: 432px;
+  height: 205px;
+  border-radius: 100%;
+  transform: matrix(0.83, -0.56, 0.56, 0.83, 0, 0);
+  background: #add0bb 0% 0% no-repeat padding-box;
+  border: 1px solid #5ea790;
+  opacity: 1;
+}
+
+.oval-2 {
+  top: -141px;
+  left: -221.1767578125px;
+  width: 368px;
+  height: 222px;
+  border-radius: 100%;
+  transform: matrix(-0.99, 0.16, -0.16, -0.99, 0, 0);
+  background: #516663 0% 0% no-repeat padding-box;
+  border: 1px solid #5ea790;
+  opacity: 1;
+}
+
+.oval-3 {
+  top: -402px;
+  left: 33px;
+  width: 222px;
+  height: 359px;
+  border-radius: 100%;
+  background: #c4dee0 0% 0% no-repeat padding-box;
+  border: 1px solid #5ea790;
+  opacity: 1;
+}
+
+.oval-4 {
+  top: -731px;
+  left: 161px;
+  width: 383px;
+  height: 180px;
+  border-radius: 100%;
+  transform: matrix(0.87, 0.5, -0.5, 0.87, 0, 0);
+  background: #517587 0% 0% no-repeat padding-box;
+  border: 1px solid #5ea790;
+  opacity: 1;
 }
 
 /*profile page*/
@@ -749,3 +809,125 @@ p.notSignedIn {
   height: 46px;
   font-size: 14px;
 }
+
+/*on availability page*/
+
+h1.availability-current {
+  background-color: var(--menu-hex);
+  opacity: 75%;
+  border-radius: 45px 45px 0px 0px;
+  color: #ffffff;
+  width: 13rem;
+  height: 2rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  margin-bottom: 0;
+  margin-top: 35px;
+  padding-top: 10px;
+}
+
+.unjustify {
+  justify-items: left !important;
+}
+
+.justify {
+  justify-self: center !important;
+  position: unset !important;
+  justify-items: center !important;
+}
+
+.availability-page {
+  text-align: left;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.available-container {
+  border: 0;
+  padding: 22px;
+  background-color: #ffffffbd;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 25px;
+  height: max-content;
+  width: 20rem;
+  justify-items: center;
+  align-self: center;
+}
+
+.availability-form {
+  text-align: left;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.availability-input-box {
+  border: 0;
+  border-radius: 45px;
+  width: 8rem;
+  margin-bottom: 12px;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.availability-current {
+  border: 0;
+  margin-bottom: 12px;
+}
+
+.dash {
+  background-color: var(--text-main-color);
+  width: 40px;
+  height: 2px;
+  position: relative;
+  top: -6px;
+}
+
+.save-availability-btn {
+  background-color: var(--bold-green);
+  border-radius: 45px;
+  color: #ffffff;
+  width: 10rem;
+  height: 3rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  margin-top: 15px;
+}
+
+.avail-spacer {
+  padding: 2vh;
+}
+
+/*on deleted page*/
+h1.deleted {
+  font-size: 22px;
+  line-height: 22px;
+  letter-spacing: 1.96px;
+  /* padding: 3vh; */
+  text-align: left;
+}
+
+/*on confirmation page*/
+h1.confirmation {
+  font-size: 22px;
+  line-height: 22px;
+  letter-spacing: 1.96px;
+  /* padding: 3vh; */
+  text-align: left;
+}
+
+.confirmation-btn {
+  background-color: var(--menu-hex);
+  border-radius: 45px;
+  color: #ffffff;
+  width: 10rem;
+  height: 3rem;
+  align-self: center;
+  text-align: center;
+  border-style: none;
+  margin-top: 15px;
+}
+
+
+/

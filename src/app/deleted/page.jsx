@@ -9,8 +9,8 @@ export const metadata = {
 export default function Deletion() {
   return (
     <div className="container">
-      <h1>Deleted!</h1>
-      <p>Your event has successfully been deleted.</p>
+      <h1 className="deleted text-bold">Deleted!</h1>
+      <p className="text-regular">Your event has successfully been deleted.</p>
     </div>
   );
 }
