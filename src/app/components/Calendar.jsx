@@ -638,86 +638,54 @@ export default function Calendar(props) {
       });
   }
   return (
-    <div className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-      <div
-        style={{
-          width: "400px",
-          margin: "30px auto",
-          color: "white",
-        }}
-      >
-        <>
-          <p>Event Notes</p>
+    <>
+      <p className="date-time-label-public">Select a Date &amp; Time</p>
+
+      <DatePicker
+        selected={start}
+        onChange={(date) => setStart(date)}
+        showTimeSelect
+        inline
+        timeIntervals={length}
+        //not working yet
+        highlightDates={new Date()}
+        filterTime={filterPassedTime}
+        includeDates={datesIncluded}
+        //does this work?
+        excludeTimes={bookings.map((booking) => {
+          return new Date(booking);
+        })}
+        // excludeTimes={booked}
+        dateFormat="MMMM d, yyyy h:mmaa"
+        minDate={new Date()}
+        className="date-picker"
+      />
+      <div className="grid-2 public-spacer">
+        <div>
+          <p className="text-regular public-labels"> Your Email</p>
           <input
-            style={{
-              margin: "10px",
-              color: "black",
-            }}
+            type="text"
+            onChange={(e) => setAttendees(e.target.value)}
+            className="public-input-box"
+          />
+        </div>
+        <div>
+          <p className="text-regular public-labels"> Event Notes</p>
+          <input
             type="text"
             onChange={(e) => {
               setEventNotes(e.target.value);
             }}
+            className="public-input-box"
           />
-          <p>Your Email</p>
-          <input
-            type="text"
-            onChange={(e) => setAttendees(e.target.value)}
-            style={{
-              margin: "10px",
-              color: "black",
-            }}
-          />
-
-          <p>Select Meetime Time</p>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              alignItems: "flex-start",
-              margin: "10px 0",
-              padding: "10px",
-              color: "black",
-              backgroundColor: "white",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                maxWidth: "100%",
-                flexBasis: "420px",
-                flexDirection: "column",
-                flexGrow: "100",
-                margin: "10px",
-                alignItems: "stretch",
-              }}
-            >
-              <DatePicker
-                selected={start}
-                onChange={(date) => setStart(date)}
-                showTimeSelect
-                inline
-                timeIntervals={length}
-                //not working yet
-                highlightDates={new Date()}
-                filterTime={filterPassedTime}
-                includeDates={datesIncluded}
-                //does this work?
-                excludeTimes={bookings.map((booking) => {
-                  return new Date(booking);
-                })}
-                // excludeTimes={booked}
-                dateFormat="MMMM d, yyyy h:mmaa"
-                minDate={new Date()}
-              />
-            </div>
-          </div>
-          <button onClick={() => createCalendarEvent(accessToken)}>
-            Create Calendar Event
-          </button>
-          <p></p>
-        </>
+        </div>
       </div>
-    </div>
+      <button
+        onClick={() => createCalendarEvent(accessToken)}
+        className="create-calendar-event text-bold"
+      >
+        Book Time
+      </button>
+    </>
   );
 }
