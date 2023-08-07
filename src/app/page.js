@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import Link from 'next/link';
+import moment from 'moment';
 
 export const metadata = {
   title: "Home",
@@ -187,7 +188,7 @@ export default async function Home() {
                 <>
                   
                 <p className={`text-regular width70`}>
-                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
+                  Additional Days: </p><p className={`text-regular width70`}>{moment(additionaldaysValue).format('dddd, MMMM Do YYYY, h:mm a')}
                 </p>
                   </>
               ) : null}
@@ -336,7 +337,7 @@ export default async function Home() {
                 <>
                   
                 <p className={`text-regular width70`}>
-                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
+                  Additional Days: </p><p className={`text-regular width70`}>{moment(additionaldaysValue).format('dddd, MMMM Do YYYY, h:mm a')}
                 </p>
                   </>
               ) : null}
@@ -473,7 +474,7 @@ export default async function Home() {
                 <>
                   
                 <p className={`text-regular width70`}>
-                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
+                  Additional Days: </p><p className={`text-regular width70`}>{moment(additionaldaysValue).format('dddd, MMMM Do YYYY, h:mm a')}
                 </p>
                   </>
               ) : null}
@@ -741,7 +742,7 @@ export default async function Home() {
                 <>
                   
                 <p className={`text-regular width70`}>
-                  Additional Days: </p><p className={`text-regular width70`}>{additionaldaysValue}
+                  Additional Days: </p><p className={`text-regular width70`}>{moment(additionaldaysValue).format('dddd, MMMM Do YYYY, h:mm a')}
                 </p>
                   </>
               ) : null}
