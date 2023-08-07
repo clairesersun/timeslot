@@ -127,6 +127,13 @@ export default async function ScheduleTime({ params }) {
   //get length
   let length = currentEventInfo.length;
 
+  //get design
+  const colorOne = businessInfo.design.colorOne;
+  const colorTwo = businessInfo.design.colorTwo;
+  const colorThree = businessInfo.design.colorThree;
+  const colorFour = businessInfo.design.colorFour;
+  const website = businessInfo.design.website;
+
   if (!businessInfo.availability) {
     console.log("availability doesn't exists");
     //get availability
@@ -212,66 +219,84 @@ export default async function ScheduleTime({ params }) {
   let additionaldaysValueEnd = businessInfo.availability.additionalDaysEnd;
 
   return (
-    <main className="public-container">
-      <Suspense fallback={<div>Loading...</div>}>
-        <h1 className={`text-regular public-text no-margin top-public`}>
-          {businessName}
-        </h1>
-        <h2 className={`text-bold public-text no-margin event-title-public`}>
-          {eventName}
-        </h2>
-        <div className="grid-2 length-public">
-          <Image
-            src="/clock.png"
-            alt="clock"
-            width={17}
-            height={17}
-            className="clock-icon public-text"
-          />
-          <h2
-            className={`text-regular public-text no-margin length-word-public`}
+    <div style={{ backgroundColor: colorFour, width: "100vw" }}>
+      <div className="public-container">
+        <Suspense fallback={<div>Loading...</div>}>
+          <h1
+            className={`text-regular public-text no-margin top-public`}
+            style={{ color: colorOne }}
           >
-            {length} minutes
+            {businessName}
+          </h1>
+          <h2
+            className={`text-bold public-text no-margin event-title-public`}
+            style={{ color: colorOne }}
+          >
+            {eventName}
           </h2>
-        </div>
-        <h2 className={`text-regular public-text no-margin description-public`}>
-          {description}
-        </h2>
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Calendar
-          user={user}
-          description={description}
-          length={length}
-          event={event}
-          eventName={eventName}
-          googleEmail={googleEmail}
-          email={email}
-          bookings={bookings}
-          mondaystartValue={mondaystartValue}
-          mondayendValue={mondayendValue}
-          tuesdaystartValue={tuesdaystartValue}
-          tuesdayendValue={tuesdayendValue}
-          wednesdaystartValue={wednesdaystartValue}
-          wednesdayendValue={wednesdayendValue}
-          thursdaystartValue={thursdaystartValue}
-          thursdayendValue={thursdayendValue}
-          fridaystartValue={fridaystartValue}
-          fridayendValue={fridayendValue}
-          saturdaystartValue={saturdaystartValue}
-          saturdayendValue={saturdayendValue}
-          sundaystartValue={sundaystartValue}
-          sundayendValue={sundayendValue}
-          additionaldaysValue={additionaldaysValue}
-          additionaldaysValueEnd={additionaldaysValueEnd}
-          accessToken={accessToken}
-          idToken={idToken}
-          refreshtoken={refreshtoken}
-          expires_at={expires_at}
-        />
-      </Suspense>
+          <div className="grid-2 length-public">
+            <Image
+              src="/clock.png"
+              alt="clock"
+              width={17}
+              height={17}
+              className="clock-icon public-text"
+              style={{ color: colorOne, opacity: "75%" }}
+            />
+            <h2
+              className={`text-regular public-text no-margin length-word-public`}
+              style={{ color: colorOne, opacity: "75%" }}
+            >
+              {length} minutes
+            </h2>
+          </div>
+          <h2
+            className={`text-regular public-text no-margin description-public`}
+            style={{ color: colorOne }}
+          >
+            {description}
+          </h2>
+        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Calendar
+            user={user}
+            description={description}
+            length={length}
+            event={event}
+            eventName={eventName}
+            googleEmail={googleEmail}
+            email={email}
+            bookings={bookings}
+            mondaystartValue={mondaystartValue}
+            mondayendValue={mondayendValue}
+            tuesdaystartValue={tuesdaystartValue}
+            tuesdayendValue={tuesdayendValue}
+            wednesdaystartValue={wednesdaystartValue}
+            wednesdayendValue={wednesdayendValue}
+            thursdaystartValue={thursdaystartValue}
+            thursdayendValue={thursdayendValue}
+            fridaystartValue={fridaystartValue}
+            fridayendValue={fridayendValue}
+            saturdaystartValue={saturdaystartValue}
+            saturdayendValue={saturdayendValue}
+            sundaystartValue={sundaystartValue}
+            sundayendValue={sundayendValue}
+            additionaldaysValue={additionaldaysValue}
+            additionaldaysValueEnd={additionaldaysValueEnd}
+            accessToken={accessToken}
+            idToken={idToken}
+            refreshtoken={refreshtoken}
+            expires_at={expires_at}
+            colorOne={colorOne}
+            colorTwo={colorTwo}
+            colorThree={colorThree}
+            colorFour={colorFour}
+            website={website}
+          />
+        </Suspense>
 
-      <div className="bottom-of-page"></div>
-    </main>
+        <div className="bottom-of-page"></div>
+      </div>
+    </div>
   );
 }

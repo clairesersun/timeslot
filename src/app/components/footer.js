@@ -1,10 +1,14 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 
 export default function Footer() {
-   
+    const { data: session, status } = useSession()
+    if (status === "unauthenticated") {
+        return (<></>
+)    }
     return(
         <>
         <footer className="footer">

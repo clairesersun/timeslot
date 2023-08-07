@@ -45,6 +45,11 @@ export default function Calendar(props) {
   const sundayendValue = props.sundayendValue;
   const additionaldaysValue = props.additionaldaysValue;
   const additionaldaysValueEnd = props.additionaldaysValueEnd;
+  const colorOne = props.colorOne;
+  const colorTwo = props.colorTwo;
+  const colorThree = props.colorThree;
+  const colorFour = props.colorFour;
+  const website = props.website;
 
   //include specific dates based on if the user has availability on that day
   const datesIncluded = [new Date()];
@@ -662,27 +667,35 @@ export default function Calendar(props) {
       />
       <div className="grid-2 public-spacer">
         <div>
-          <p className="text-regular public-labels"> Your Email</p>
+          <p className="text-regular public-labels" style={{ color: colorOne }}>
+            {" "}
+            Your Email
+          </p>
           <input
             type="text"
             onChange={(e) => setAttendees(e.target.value)}
             className="public-input-box"
+            style={{ caretColor: colorTwo }}
           />
         </div>
         <div>
-          <p className="text-regular public-labels"> Event Notes</p>
+          <p className="text-regular public-labels" style={{ color: colorOne }}>
+            Event Notes
+          </p>
           <input
             type="text"
             onChange={(e) => {
               setEventNotes(e.target.value);
             }}
             className="public-input-box"
+            style={{ caretColor: colorTwo }}
           />
         </div>
       </div>
       <button
         onClick={() => createCalendarEvent(accessToken)}
         className="create-calendar-event text-bold"
+        style={{ backgroundColor: colorOne, color: colorFour }}
       >
         Book Time
       </button>

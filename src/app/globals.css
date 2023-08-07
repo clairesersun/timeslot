@@ -1033,8 +1033,6 @@ h1.confirmation {
   margin-left: 1rem;
 }
 
-/* .react-datepicker__month-container {} */
-
 .react-datepicker {
   color: var(--text-main-color);
   border: none !important;
@@ -1064,6 +1062,7 @@ h1.confirmation {
 
 .react-datepicker__time-list {
   height: 214.5px !important;
+  border-bottom-right-radius: 45 !important;
 }
 
 .react-datepicker__time-list-item {
@@ -1093,8 +1092,8 @@ h1.confirmation {
 }
 
 .react-datepicker__day {
-  color: var(--bold-green) !important;
-  background-color: #a4cca960 !important;
+  /* color: var(--bold-green) !important; */
+  /* background-color: #a4cca960 !important; */
   border-radius: 50% !important;
 }
 
@@ -1124,6 +1123,6 @@ h1.confirmation {
 .react-datepicker__year-text--in-selecting-range,
 .react-datepicker__year-text--in-range {
   border-radius: 50% !important;
-  background-color: var(--bold-green) !important;
+  background-color: var(--text-main-color) !important;
   color: #fff !important;
 }
