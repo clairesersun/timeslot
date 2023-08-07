@@ -148,33 +148,48 @@ export default async function ScheduleTime({ params }) {
     let additionaldaysValueEnd = "";
 
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-          <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-            <Suspense fallback={<div>Loading...</div>}>
-              <h2 className={`mb-3 text-2xl font-semibold`}>{businessName}</h2>
-              <h2 className={`mb-3 text-2xl font-semibold`}>{description}</h2>
-              <h2 className={`mb-3 text-2xl font-semibold`}>
-                {length} minutes
-              </h2>
-            </Suspense>
-            <Suspense fallback={<div>Loading...</div>}>
-              <h2 className={`mb-3 text-2xl font-semibold`}>
-                {eventName} Availability in {length} minute slots
-              </h2>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                in {length} minute slots{" "}
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                No current availability
-              </p>
-              <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                {" "}
-                Contact {email} for more information
-              </p>
-            </Suspense>
+      <main className="public-container">
+        <Suspense fallback={<div>Loading...</div>}>
+          <h1 className={`text-regular public-text no-margin top-public`}>
+            {businessName}
+          </h1>
+          <h2 className={`text-bold public-text no-margin event-title-public`}>
+            {eventName}
+          </h2>
+          <div className="grid-2 length-public">
+            <Image
+              src="/clock.png"
+              alt="clock"
+              width={17}
+              height={17}
+              className="clock-icon public-text"
+            />
+            <h2
+              className={`text-regular public-text no-margin length-word-public`}
+            >
+              {length} minutes
+            </h2>
           </div>
-        </div>
+          <h2
+            className={`text-regular public-text no-margin description-public`}
+          >
+            {description}
+          </h2>
+        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <p
+            className={`text-regular public-text no-margin description-public`}
+          >
+            No current availability
+          </p>
+          <p
+            className={`text-regular public-text no-margin description-public`}
+          >
+            Contact {email} for more information
+          </p>
+        </Suspense>
+
+        <div className="bottom-of-page"></div>
       </main>
     );
   }
@@ -222,57 +237,6 @@ export default async function ScheduleTime({ params }) {
         <h2 className={`text-regular public-text no-margin description-public`}>
           {description}
         </h2>
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
-        {/* <Suspense fallback={<div>Loading...</div>}>
-          <div className="text-regular">{bookingTimes}</div>
-        </Suspense> */}
-        {/* create a list of booked times */}
-        {/* <div className="grid-7"> */}
-        {/* do not show a given day if there is nothing in the database */}
-        {/* {mondaystartValue ? (
-              <p className={`text-regular`}>
-                Monday: {mondaystartValue} - {mondayendValue}
-              </p>
-            ) : null}
-            {tuesdaystartValue ? (
-              <p className={`text-regular`}>
-                Tuesday: {tuesdaystartValue} - {tuesdayendValue}
-              </p>
-            ) : null}
-            {wednesdaystartValue ? (
-              <p className={`text-regular`}>
-                Wednesday: {wednesdaystartValue} - {wednesdayendValue}
-              </p>
-            ) : null}
-            {thursdaystartValue ? (
-              <p className={`text-regular`}>
-                Thursday: {thursdaystartValue} - {thursdayendValue}
-              </p>
-            ) : null}
-            {fridayendValue ? (
-              <p className={`text-regular`}>
-                Friday: {fridaystartValue} - {fridayendValue}
-              </p>
-            ) : null}
-            {saturdayendValue ? (
-              <p className={`text-regular`}>
-                Saturday: {saturdaystartValue} - {saturdayendValue}
-              </p>
-            ) : null}
-            {sundaystartValue ? (
-              <p className={`text-regular`}>
-                Sunday: {sundaystartValue} - {sundayendValue}
-              </p>
-            ) : null}
-
-            {additionaldaysValue !== "" ? (
-              <p className={`text-regular`}>
-                Additional Available Day/Times:{" "}
-                {moment(additionaldaysValue).format("MMMM Do YYYY, h:mm a")}
-              </p>
-            ) : null} */}
-        {/* </div> */}
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
         <Calendar
