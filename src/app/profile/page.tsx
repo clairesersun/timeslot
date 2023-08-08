@@ -47,21 +47,47 @@ export const metadata = {
       collection = db.collection("savedInfo");
       // Insert a single document, wait for promise so we can read it back
       const myDoc = await collection.findOne({ googleEmail:  googleEmail });
+      let booked
+      let colorOne
+      let colorTwo
+      let colorThree
+      let colorFour
+      let website
       //check if user already exists in database, if so you will update the info, if not you will add the info to the database
       if (myDoc) {
-        const updateInfo = await collection.updateOne({ googleEmail: googleEmail }, {$set: {name, email, businessName}});
-        return console.log("updated info in database: ", name, email, businessName, googleEmail, userId)
-        // alert("Updated!")
-        //  location.reload()
+          colorOne = '#2b536a'
+          colorTwo = '#52a288'
+          colorThree = '#a4cca9'
+          colorFour = '#c4dedf'
+          website = ''
+          booked = ["not booked"]
+          if (myDoc.booked){
+            booked = myDoc.booked
+          }
+          if (myDoc.design){
+            colorOne = myDoc.design.colorOne
+            colorTwo = myDoc.design.colorTwo
+            colorThree = myDoc.design.colorThree
+            colorFour = myDoc.design.colorFour
+            website = myDoc.design.website
+          }
+        const updateInfo = await collection.updateOne({ googleEmail: googleEmail }, {$set: {name, email, businessName, booked, 
+          design: { colorOne, colorTwo, colorThree, colorFour, website 
+        }}});
+        return console.log("updated info in database: ", name, email, businessName, googleEmail, userId, booked, colorOne, colorTwo, colorThree, colorFour, website 
+      )
         
       }
-      
-      const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId});
-      
-      
-      // alert("Updated!")
-      return console.log("added info in database: ", name, email, businessName, googleEmail, userId)
-      //  location.reload()
+      colorOne = '#2b536a'
+          colorTwo = '#52a288'
+          colorThree = '#a4cca9'
+          colorFour = '#c4dedf'
+          website = ''
+      booked = ["not booked"]
+      const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId, booked, 
+        design: { colorOne, colorTwo, colorThree, colorFour, website 
+      }});
+      return console.log("added info in database: ", name, email, businessName, googleEmail, userId, booked, colorOne, colorTwo, colorThree, colorFour, website )
       
     } catch (error) {
       console.log(error)
