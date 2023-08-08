@@ -221,7 +221,7 @@ export default async function Availability() {
               ) : null}
               {fridaystartValue ? (
                 <>
-                <div className={`grid-3 unjustify`}></div>
+                <div className={`grid-3 unjustify`}>
                 <p className={`text-bold add-margin`}>
                   Friday
                 </p>
@@ -234,6 +234,7 @@ export default async function Availability() {
                 </div>
                 <p className={`text-regular`}>{fridayendValue}
                 </p>
+                </div>
                 </>
               ) : null}
               {saturdaystartValue ? (

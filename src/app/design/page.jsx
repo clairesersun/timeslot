@@ -122,7 +122,6 @@ export default async function Design() {
             Please finish setting up your profile first
           </h1>
           <Link href="/profile" className="text-regular underline">
-            {" "}
             Click here
           </Link>
         </div>
@@ -144,33 +143,29 @@ export default async function Design() {
 
           {/* figure put how to update this when form is submitted */}
           <div className="current-design">
+            <p className={`text-regular color-text`}>{colorOne}</p>
             <p
               className={`text-regular current-colors color-text`}
               style={{ backgroundColor: colorOne }}
-            >
-              {colorOne}
-            </p>
+            ></p>
 
+            <p className={`text-regular color-text`}>{colorTwo}</p>
             <p
               className={`text-regular current-colors color-text`}
               style={{ backgroundColor: colorTwo }}
-            >
-              {colorTwo}
-            </p>
+            ></p>
 
+            <p className={`text-regular color-text`}>{colorThree}</p>
             <p
               className={`text-regular current-colors color-text`}
               style={{ backgroundColor: colorThree }}
-            >
-              {colorThree}
-            </p>
+            ></p>
 
+            <p className={`text-regular color-text`}>{colorFour}</p>
             <p
               className={`text-regular current-colors color-text`}
               style={{ backgroundColor: colorFour }}
-            >
-              {colorFour}
-            </p>
+            ></p>
           </div>
           <div className="grid-2">
             <p className={`text-bold`}> Website:</p>

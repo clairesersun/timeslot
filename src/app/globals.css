@@ -13,7 +13,7 @@
   --circle-right-background-hex: #517587;
   --bold-green: #52a288;
   --light-green: #a4cca9;
-  --circle-border: 1px solid #5ea790;
+  --circle-border: 0.071rem solid #5ea790;
   --text-main-color: #2b536a;
   --text-font: "canada-type-gibson", sans-serif;
 }
@@ -23,8 +23,8 @@
   font-family: var(--text-font) !important;
   font-style: normal;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 1.08rem;
+  line-height: 1.714rem;
 }
 
 body {
@@ -65,14 +65,14 @@ footer {
 
 .icon {
   background: transparent;
-  border-radius: 25px;
+  border-radius: 1.786rem;
   padding: 0.35rem;
 }
 
 /* if you are on this page show the following */
 .icon:active {
   background: #ffffff25;
-  border-radius: 25px;
+  border-radius: 1.786rem;
   padding: 0.35rem;
 }
 
@@ -146,9 +146,9 @@ main {
 }
 
 h3 {
-  font-size: 18px;
-  line-height: 16px;
-  letter-spacing: 1.6px;
+  font-size: 1.286rem;
+  line-height: 1.143rem;
+  letter-spacing: 0.1114rem;
   padding: 2vh;
   justify-self: left;
   font-family: var(--text-font);
@@ -167,6 +167,27 @@ h3 {
   overflow: hidden;
 }
 
+.container-overflow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  width: 100%;
+  height: 100%;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.container-not-signed-in {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  width: 100vw;
+  padding-top: 2rem;
+  overflow: hidden;
+}
+
 /* 3 grid versions */
 .grid-3 {
   display: grid;
@@ -174,7 +195,7 @@ h3 {
   grid-template-rows: auto;
   justify-items: center;
   align-items: center;
-  grid-gap: 0px;
+  grid-gap: 0;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -187,7 +208,7 @@ h3 {
   grid-template-rows: auto;
   justify-items: center;
   align-items: center;
-  grid-gap: 0px;
+  grid-gap: 0;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -198,7 +219,7 @@ h3 {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  grid-gap: 0px;
+  grid-gap: 0;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -208,8 +229,8 @@ h3 {
 /*on index page*/
 
 .add-margin {
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 0.357rem;
+  margin-left: 0.357rem;
 }
 
 .availability {
@@ -227,32 +248,32 @@ h3 {
 
 .availability-box {
   border: 0;
-  margin-top: 50px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 0px;
-  padding-bottom: 20px;
+  margin-top: 3.571rem;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 1.429rem;
   background-color: #ffffffbd;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 25px;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  border-radius: 1.786rem;
   height: max-content;
 }
 
 .edit-avialability-btn {
   background-color: var(--circle-top-background-hex);
-  border-radius: 0px 25px 0px 25px;
+  border-radius: 0rem 1.786rem 0rem 1.786rem;
   width: 100%;
-  line-height: 50px;
+  line-height: 3.571rem;
   text-align: center;
-  margin-top: 0px;
-  margin-bottom: 20px !important;
+  margin-top: 0;
+  margin-bottom: 1.429rem !important;
   max-width: none;
 }
 
 h2.home {
-  font-size: 22px;
-  line-height: 22px;
-  letter-spacing: 1.96px;
+  font-size: 1.571rem;
+  line-height: 1.571rem;
+  letter-spacing: 0.14rem;
   padding: 5vh;
   text-align: center;
   align-self: center;
@@ -260,40 +281,40 @@ h2.home {
 }
 
 .colorThree-main-page {
-  width: 12rem;
+  width: 11rem;
   height: 5rem;
   line-height: 4.5rem;
-  border-radius: 0px 0px 0px 45px;
-  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 0rem 0rem 0rem 3.214rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 .colorFour-main-page {
-  width: 12rem;
+  width: 11rem;
   height: 5rem;
   line-height: 4.5rem;
-  border-radius: 0px 0px 45px 0px;
-  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 0rem 0rem 3.214rem 0rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 .colorTwo-main-page {
-  width: 12rem;
+  width: 11rem;
   height: 5rem;
   line-height: 4.5rem;
-  border-radius: 0px 45px 0px 0px;
-  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 0rem 3.214rem 0rem 0rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 .colorOne-main-page {
-  width: 12rem;
+  width: 11rem;
   height: 5rem;
   line-height: 4.5rem;
-  border-radius: 45px 0px 0px 0px;
-  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 3.214rem 0rem 0rem 0rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 .line {
   width: 65%;
-  height: 1px;
+  height: 0.071rem;
   background-color: var(--menu-hex);
   opacity: 0.3;
 }
@@ -311,14 +332,14 @@ h2.home {
 
 .website-main {
   margin-bottom: 14vh;
-  margin-top: 20px;
+  margin-top: 1.429rem;
   text-align: center;
 }
 
 .events-box {
   background-color: #ffffff;
-  border-radius: 25px;
-  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 1.786rem 1.786rem 0rem 0rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
   opacity: 0.9;
   width: 13rem;
   height: 7rem;
@@ -336,7 +357,7 @@ h2.home {
 
 .edit-event {
   background-color: var(--menu-hex);
-  border-radius: 0px 0px 45px 45px;
+  border-radius: 0rem 0rem 3.214rem 3.214rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -347,7 +368,7 @@ h2.home {
 .add-event-btn {
   background-color: var(--bold-green);
   color: #ffffff;
-  font-size: 72px;
+  font-size: 5.143rem;
   border-radius: 50%;
   width: 5rem;
   height: 5rem;
@@ -355,9 +376,9 @@ h2.home {
   justify-self: center;
   text-align: center;
   vertical-align: middle;
-  line-height: 80px;
+  line-height: 5.1rem;
   text-decoration: none;
-  box-shadow: 0px 3px 6px #00000029;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 /*when not signed in*/
@@ -369,26 +390,26 @@ button.notSignedIn {
   align-items: center;
   background-color: #52a288;
   color: #ffffff;
-  border-radius: 0px 25px;
-  margin-left: 5.5rem;
+  border-radius: 0rem 1.786rem;
+  margin-left: 3.9rem;
   border: none;
-  /* top: 698px;
-    left: 357px;
-    width: 222px;
-    height: 115px;  
+  /* top: 49.857rem;
+    left: 25.5rem;
+    width: 15.857rem;
+    height: 8.214rem;  
     desktop*/
-  top: 341px;
-  left: 72px;
-  width: 89px;
-  height: 46px;
-  font-size: 14px;
+  top: 24.357rem;
+  left: 5.143rem;
+  width: 6.357rem;
+  height: 3.286rem;
+  font-size: 1rem;
   z-index: 1;
 }
 
 .notSignedIn {
-  margin-left: 4rem;
-  margin-right: 4rem;
-  padding: 22px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding: 1.571rem;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -397,25 +418,26 @@ button.notSignedIn {
 }
 
 h1.notSignedIn {
-  left: 72px;
-  width: 225px;
-  font-size: 26px;
-  line-height: 25px;
-  letter-spacing: 2.31px;
+  left: 5.143rem;
+  width: 16.071rem;
+  font-size: 1.857rem;
+  line-height: 1.786rem;
+  letter-spacing: 0.165rem;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
 p.notSignedIn {
-  left: 72px;
-  width: 225px;
-  font-size: 18px;
-  line-height: 22px;
-  letter-spacing: 1.6px;
+  left: 5.143rem;
+  width: 16.071rem;
+  font-size: 1.286rem;
+  line-height: 1.571rem;
+  letter-spacing: 0.114rem;
 }
 
 .oval-container {
-  height: 304px;
+  height: 47.5vh;
+  z-index: -1;
 }
 
 .ovals {
@@ -423,58 +445,65 @@ p.notSignedIn {
 }
 
 .oval-1 {
-  top: -43px;
-  left: -3.874755859375px;
-  width: 432px;
-  height: 205px;
+  top: -3.071rem;
+  left: -2.277rem;
+  width: 30.857rem;
+  height: 14.643rem;
   border-radius: 100%;
   transform: matrix(0.83, -0.56, 0.56, 0.83, 0, 0);
   background: #add0bb 0% 0% no-repeat padding-box;
-  border: 1px solid #5ea790;
+  border: 0.071rem solid #5ea790;
   opacity: 1;
 }
 
 .oval-2 {
-  top: -141px;
-  left: -221.1767578125px;
-  width: 368px;
-  height: 222px;
+  top: -8.071rem;
+  left: -15.798rem;
+  width: 26.286rem;
+  height: 15.857rem;
   border-radius: 100%;
   transform: matrix(-0.99, 0.16, -0.16, -0.99, 0, 0);
   background: #516663 0% 0% no-repeat padding-box;
-  border: 1px solid #5ea790;
+  border: 0.071rem solid #5ea790;
   opacity: 1;
 }
 
 .oval-3 {
-  top: -402px;
-  left: 33px;
-  width: 222px;
-  height: 359px;
+  top: -28.714rem;
+  left: 1.3570000000000002rem;
+  width: 15.857rem;
+  height: 25.643rem;
   border-radius: 100%;
   background: #c4dee0 0% 0% no-repeat padding-box;
-  border: 1px solid #5ea790;
+  border: 0.071rem solid #5ea790;
   opacity: 1;
 }
 
 .oval-4 {
-  top: -731px;
-  left: 161px;
-  width: 383px;
-  height: 180px;
+  top: -51.214rem;
+  left: 9.5rem;
+  width: 27.357rem;
+  height: 12.857rem;
   border-radius: 100%;
   transform: matrix(0.87, 0.5, -0.5, 0.87, 0, 0);
   background: #517587 0% 0% no-repeat padding-box;
-  border: 1px solid #5ea790;
+  border: 0.071rem solid #5ea790;
   opacity: 1;
 }
 
 /*profile page*/
 
+.input-box-profile {
+  border: 0;
+  border-radius: 3.214rem;
+  width: 15rem;
+  margin-bottom: 0.857rem;
+}
+
 .profile-title {
   background-color: var(--menu-hex);
   opacity: 100%;
-  border-radius: 45px 45px 0px 0px;
+  border-radius: 3.214rem 3.214rem 0rem 0rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -482,34 +511,34 @@ p.notSignedIn {
   text-align: center;
   border-style: none;
   margin-bottom: 0;
-  margin-top: -40px;
-  padding-top: 10px;
+  margin-top: -2.857rem;
+  padding-top: 0.714rem;
 }
 
 .profile-text-align {
   justify-self: left;
-  padding-left: 40px;
-  margin: 12px;
-  margin-top: 0px;
+  padding-left: 2.857rem;
+  margin: 0.857rem;
+  margin-top: 0rem;
 }
 
 .profile-text-margin-top {
-  margin-top: 12px;
+  margin-top: 0.857rem;
 }
 
 .profile-text-margin-top-large {
-  margin-top: 35px;
+  margin-top: 2.5rem;
 }
 
 .change-position {
   position: relative;
-  top: 5rem;
+  top: 5.75rem;
 }
 
 .profile-photo {
-  width: 75px;
-  height: 75px;
-  border: var(--bold-green) 3px solid;
+  width: 5.357rem;
+  height: 5.357rem;
+  border: var(--bold-green) 0.214rem solid;
   border-radius: 50%;
   z-index: 1;
   position: relative;
@@ -532,14 +561,14 @@ p.notSignedIn {
 }
 
 .edit-profile-form {
-  margin-top: 30px;
+  margin-top: 2.143rem;
   justify-items: center;
 }
 
 .edit-profile {
   background-color: var(--menu-hex);
   opacity: 75%;
-  border-radius: 45px 45px 0px 0px;
+  border-radius: 3.214rem 3.214rem 0rem 0rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -547,17 +576,17 @@ p.notSignedIn {
   text-align: center;
   border-style: none;
   margin-bottom: 0;
-  padding-top: 10px;
+  padding-top: 0.714rem;
 }
 
 .profile-box {
   border: 0;
-  padding: 20px;
+  padding: 1.429rem;
   background-color: #ffffffbd;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 25px;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  border-radius: 1.786rem;
   height: max-content;
-  width: 20rem;
+  width: 18.5rem;
   justify-items: center;
 }
 
@@ -569,16 +598,17 @@ p.notSignedIn {
 }
 
 .profile-label {
-  margin-top: 6px;
+  margin-top: 0.429rem;
   justify-self: left;
-  padding-left: 40px;
+  padding-left: 2.857rem;
 }
 
 .input-box {
   border: 0;
-  border-radius: 45px;
-  width: 15rem;
-  margin-bottom: 12px;
+  border-radius: 3.214rem;
+  width: 12rem;
+  margin-bottom: 0.857rem;
+  margin-right: 2.5rem;
 }
 
 .profile-form-btns-container {
@@ -587,14 +617,14 @@ p.notSignedIn {
 
 .submit-profile-btn {
   background-color: var(--bold-green);
-  border-radius: 0px 0px 45px 45px;
+  border-radius: 0rem 0rem 3.214rem 3.214rem;
   color: #ffffff;
-  width: 10rem;
+  width: 8.4rem;
   height: 2rem;
   align-self: center;
   text-align: center;
   border-style: none;
-  margin-left: 144px;
+  margin-left: 7.286rem;
   z-index: 1;
   position: relative;
   top: -2.7rem;
@@ -602,14 +632,14 @@ p.notSignedIn {
 
 .delete-profile-btn {
   background-color: var(--light-green);
-  border-radius: 0px 0px 45px 45px;
+  border-radius: 0rem 0rem 3.214rem 3.214rem;
   color: #ffffff;
-  width: 10rem;
+  width: 8.4rem;
   height: 2rem;
   align-self: center;
   text-align: center;
   border-style: none;
-  margin-right: 144px;
+  margin-right: 7.286rem;
   z-index: 0;
 }
 
@@ -618,7 +648,7 @@ p.notSignedIn {
 .add-event-title {
   background-color: var(--menu-hex);
   opacity: 100%;
-  border-radius: 45px 45px 0px 0px;
+  border-radius: 3.214rem 3.214rem 0rem 0rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -626,27 +656,27 @@ p.notSignedIn {
   text-align: center;
   border-style: none;
   margin-bottom: 0;
-  margin-top: 35px;
-  padding-top: 10px;
+  margin-top: 2.5rem;
+  padding-top: 0.714rem;
 }
 
 .add-event-form {
   border: 0;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 45px;
-  padding-bottom: 0px;
+  padding-right: 1.429rem;
+  padding-left: 1.429rem;
+  padding-top: 3.214rem;
+  padding-bottom: 0rem;
   background-color: #ffffffbd;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 25px;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  border-radius: 1.429rem;
   height: max-content;
-  width: 20rem;
+  width: 18rem;
   justify-items: center;
 }
 
 .create-event-btn {
   background-color: var(--bold-green);
-  border-radius: 0px 0px 45px 45px;
+  border-radius: 0rem 0rem 3.214rem 3.214rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -654,12 +684,12 @@ p.notSignedIn {
   text-align: center;
   border-style: none;
   position: relative;
-  top: 44px;
+  top: 2.775rem;
 }
 
 .text-in-box {
   justify-self: left;
-  padding-left: 40px;
+  padding-left: 2.857rem;
 }
 
 /*on update event page*/
@@ -667,7 +697,7 @@ p.notSignedIn {
 .update-event-title {
   background-color: var(--menu-hex);
   opacity: 75%;
-  border-radius: 45px 45px 0px 0px;
+  border-radius: 3.214rem 3.214rem 0rem 0rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -675,18 +705,18 @@ p.notSignedIn {
   text-align: center;
   border-style: none;
   margin-bottom: 0;
-  margin-top: 35px;
-  padding-top: 10px;
+  margin-top: 2.5rem;
+  padding-top: 0.714rem;
 }
 
 .update-event-container {
   border: 0;
-  padding: 20px;
+  padding: 1.429rem;
   background-color: #ffffffbd;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 25px;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  border-radius: 1.786rem;
   height: max-content;
-  width: 20rem;
+  width: 18rem;
   justify-items: center;
 }
 
@@ -699,28 +729,28 @@ p.notSignedIn {
 
 .update-event-form {
   border: 0;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 45px;
-  padding-bottom: 0px;
+  padding-right: 1.429rem;
+  padding-left: 1.429rem;
+  padding-top: 3.214rem;
+  padding-bottom: 0rem;
   background-color: #ffffffbd;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 25px;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  border-radius: 1.786rem;
   height: max-content;
-  width: 20rem;
+  width: 18rem;
   justify-items: center;
 }
 
 .save-event-btn {
   background-color: var(--bold-green);
-  border-radius: 0px 0px 45px 45px;
+  border-radius: 0rem 0rem 3.214rem 3.214rem;
   color: #ffffff;
-  width: 10rem;
+  width: 9rem;
   height: 2rem;
   align-self: center;
   text-align: center;
   border-style: none;
-  margin-left: 144px;
+  margin-left: 7.286rem;
   z-index: 1;
   position: relative;
   top: 2.75rem;
@@ -728,9 +758,9 @@ p.notSignedIn {
 
 /*on design page*/
 .design-title {
-  font-size: 22px;
-  line-height: 22px;
-  letter-spacing: 1.96px;
+  font-size: 1.571rem;
+  line-height: 1.571rem;
+  letter-spacing: 0.14rem;
   padding: 5vh;
   text-align: left;
   align-self: left;
@@ -740,10 +770,10 @@ p.notSignedIn {
 .current-design {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
   justify-items: center;
   align-items: center;
-  grid-gap: 0px;
+  grid-gap: 0rem;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -755,7 +785,7 @@ p.notSignedIn {
   grid-template-columns: auto;
   justify-items: center;
   align-items: center;
-  grid-gap: 0px;
+  grid-gap: 0rem;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -766,9 +796,9 @@ p.notSignedIn {
   width: 12rem;
   height: 5rem;
   line-height: 4.5rem;
-  border-radius: 45px;
-  box-shadow: 0px 3px 6px #00000029;
-  margin: 12px;
+  border-radius: 3.214rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  margin: 0.857rem;
 }
 
 .pick-color {
@@ -776,25 +806,25 @@ p.notSignedIn {
   block-size: inherit;
   appearance: auto;
   box-sizing: unset;
-  padding: 22px;
+  padding: 1.571rem;
   width: 10rem;
   height: 2rem;
   border: none;
-  border-radius: 45px;
-  box-shadow: 0px 3px 6px #00000029;
-  margin: 12px;
+  border-radius: 3.214rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  margin: 0.857rem;
 }
 
 .color-text {
   text-align: center;
-  color: var(--background-hex);
+  color: var(--text-main-color);
 }
 
 .color-input-box {
   border: 0;
-  border-radius: 45px;
+  border-radius: 3.214rem;
   width: 12rem;
-  margin-bottom: 12px;
+  margin-bottom: 0.857rem;
 }
 
 .new-color-submit-btn {
@@ -804,13 +834,13 @@ p.notSignedIn {
   align-items: center;
   background-color: #52a288;
   color: #ffffff;
-  border-radius: 0px 25px;
+  border-radius: 0rem 1.786rem;
   border: none;
-  top: 341px;
-  left: 72px;
-  width: 89px;
-  height: 46px;
-  font-size: 14px;
+  top: 24.357rem;
+  left: 5.143rem;
+  width: 6.357rem;
+  height: 3.286rem;
+  font-size: 1rem;
 }
 
 /*on availability page*/
@@ -818,7 +848,7 @@ p.notSignedIn {
 h1.availability-current {
   background-color: var(--menu-hex);
   opacity: 75%;
-  border-radius: 45px 45px 0px 0px;
+  border-radius: 3.214rem 3.214rem 0rem 0rem;
   color: #ffffff;
   width: 13rem;
   height: 2rem;
@@ -826,8 +856,8 @@ h1.availability-current {
   text-align: center;
   border-style: none;
   margin-bottom: 0;
-  margin-top: 35px;
-  padding-top: 10px;
+  margin-top: 2.5rem;
+  padding-top: 0.714rem;
 }
 
 .unjustify {
@@ -848,12 +878,12 @@ h1.availability-current {
 
 .available-container {
   border: 0;
-  padding: 22px;
+  padding: 1.571rem;
   background-color: #ffffffbd;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 25px;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
+  border-radius: 1.786rem;
   height: max-content;
-  width: 20rem;
+  width: 18rem;
   justify-items: center;
   align-self: center;
 }
@@ -866,36 +896,36 @@ h1.availability-current {
 
 .availability-input-box {
   border: 0;
-  border-radius: 45px;
+  border-radius: 3.214rem;
   width: 8rem;
-  margin-bottom: 12px;
+  margin-bottom: 0.857rem;
   margin-right: 1rem;
   margin-left: 1rem;
 }
 
 .availability-current {
   border: 0;
-  margin-bottom: 12px;
+  margin-bottom: 0.857rem;
 }
 
 .dash {
   background-color: var(--text-main-color);
-  width: 40px;
-  height: 2px;
+  width: 2.857rem;
+  height: 0.143rem;
   position: relative;
-  top: -6px;
+  top: -0.429rem;
 }
 
 .save-availability-btn {
   background-color: var(--bold-green);
-  border-radius: 45px;
+  border-radius: 3.214rem;
   color: #ffffff;
   width: 10rem;
   height: 3rem;
   align-self: center;
   text-align: center;
   border-style: none;
-  margin-top: 15px;
+  margin-top: 1.071rem;
 }
 
 .avail-spacer {
@@ -904,32 +934,32 @@ h1.availability-current {
 
 /*on deleted page*/
 h1.deleted {
-  font-size: 22px;
-  line-height: 22px;
-  letter-spacing: 1.96px;
+  font-size: 1.571rem;
+  line-height: 1.571rem;
+  letter-spacing: 0.14rem;
   /* padding: 3vh; */
   text-align: left;
 }
 
 /*on confirmation page*/
 h1.confirmation {
-  font-size: 22px;
-  line-height: 22px;
-  letter-spacing: 1.96px;
+  font-size: 1.571rem;
+  line-height: 1.571rem;
+  letter-spacing: 0.14rem;
   /* padding: 3vh; */
   text-align: left;
 }
 
 .confirmation-btn {
   background-color: var(--menu-hex);
-  border-radius: 45px;
+  border-radius: 3.214rem;
   color: #ffffff;
   width: 10rem;
   height: 3rem;
   align-self: center;
   text-align: center;
   border-style: none;
-  margin-top: 15px;
+  margin-top: 1.071;
 }
 
 /* on public link page */
@@ -949,7 +979,7 @@ h1.confirmation {
 }
 
 .event-title-public {
-  font-size: 24px;
+  font-size: 1.714rem;
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
 }
@@ -963,15 +993,15 @@ h1.confirmation {
 }
 
 .length-word-public {
-  padding-left: 5px !important;
+  padding-left: 0.357rem !important;
 }
 
 .description-public {
-  margin-bottom: 20px !important;
+  margin-bottom: 1.429rem !important;
 }
 
 .date-time-label-public {
-  font-size: 18px;
+  font-size: 1.286rem;
 }
 
 .grid-7 {
@@ -980,7 +1010,7 @@ h1.confirmation {
   grid-template-rows: auto;
   justify-items: center;
   align-items: center;
-  grid-gap: 0px;
+  grid-gap: 0rem;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -994,29 +1024,29 @@ h1.confirmation {
 .date-picker {
   /* display: inline; */
   font-weight: 300;
-  border-radius: 45px;
+  border-radius: 3.214rem;
   background-color: var(--background-hex);
 }
 
 .public-spacer {
-  margin-top: 25px;
+  margin-top: 1.786rem;
 }
 
 .create-calendar-event {
   background-color: var(--menu-hex);
-  border-radius: 45px;
+  border-radius: 3.214rem;
   color: #ffffff;
   width: 10rem;
   height: 3rem;
   align-self: center;
   text-align: center;
   border-style: none;
-  margin-top: 25px;
+  margin-top: 1.786rem;
 }
 
 .public-text {
   justify-self: left;
-  padding-left: 40px;
+  padding-left: 2.857rem;
 }
 
 .public-labels {
@@ -1026,9 +1056,9 @@ h1.confirmation {
 
 .public-input-box {
   border: 0;
-  border-radius: 45px;
+  border-radius: 3.214rem;
   width: 8rem;
-  margin-bottom: 12px;
+  margin-bottom: 0.857rem;
   margin-right: 1rem;
   margin-left: 1rem;
 }
@@ -1036,16 +1066,21 @@ h1.confirmation {
 .react-datepicker {
   color: var(--text-main-color);
   border: none !important;
-  border-radius: 45px !important;
-  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 3.214rem !important;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 .react-datepicker__month-container {
-  padding: 15px;
+  padding: 1.071rem;
+}
+
+.react-datepicker__time-container .react-datepicker__time {
+  border-bottom-right-radius: 3.214rem !important;
 }
 
 .react-datepicker__time-container {
   border: 0 !important;
+  width: 8.214rem !important;
 }
 
 .react-datepicker__header {
@@ -1055,14 +1090,14 @@ h1.confirmation {
 }
 
 .react-datepicker__header--time {
-  padding-top: 10px !important;
-  padding-bottom: 5px !important;
+  padding-top: 0.714rem !important;
+  padding-bottom: 0.357rem !important;
   background-color: transparent !important;
 }
 
 .react-datepicker__time-list {
-  height: 214.5px !important;
-  border-bottom-right-radius: 45 !important;
+  height: 15.321rem !important;
+  border-bottom-right-radius: 3.214rem !important;
 }
 
 .react-datepicker__time-list-item {
@@ -1125,4 +1160,135 @@ h1.confirmation {
   border-radius: 50% !important;
   background-color: var(--text-main-color) !important;
   color: #fff !important;
+}
+
+@media screen and (min-width: 572px) {
+  .available-container {
+    width: 27rem;
+  }
+
+  .oval-container {
+    width: 42vw;
+    align-self: center;
+  }
+
+  .notSignedIn {
+    margin-left: 6rem;
+    margin-bottom: 0.2rem !important;
+  }
+
+  button.notSignedIn {
+    margin-left: 7.9rem;
+    width: 9.357rem;
+    height: 4.286rem;
+    font-size: 1.4rem;
+    border-radius: 0rem 3.3rem;
+  }
+
+  h1.notSignedIn {
+    left: 5.143rem;
+    width: 22.071rem;
+    font-size: 3rem;
+    line-height: 3rem;
+    letter-spacing: 0.2rem;
+  }
+
+  p.notSignedIn {
+    left: 5.143rem;
+    width: 25.071rem;
+    font-size: 2rem;
+    line-height: 2rem;
+    letter-spacing: 0.2rem;
+    margin-top: 0 !important;
+  }
+
+  .oval-1 {
+    top: -3.071rem;
+    left: -15.277000000000001rem;
+    width: 69.857rem;
+    height: 29.643rem;
+  }
+
+  .oval-2 {
+    top: -8.071rem;
+    left: -41.798rem;
+    width: 41.286rem;
+    height: 23.857rem;
+  }
+
+  .oval-3 {
+    top: -37.714rem;
+    left: -9.643rem;
+    width: 24.857rem;
+    height: 41.643rem;
+  }
+
+  .oval-4 {
+    top: -75.214rem;
+    left: 5.5rem;
+    width: 57.357rem;
+    height: 26.857rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .big-container {
+    width: 71vw;
+    align-self: center;
+  }
+
+  h1.notSignedIn {
+    width: 36.071rem;
+    font-size: 5rem;
+    line-height: 5rem;
+  }
+
+  p.notSignedIn {
+    width: 41.071rem;
+    font-size: 3.5rem;
+    line-height: 3rem;
+  }
+
+  button.notSignedIn {
+    width: 13.357rem;
+    height: 6.286rem;
+    font-size: 2.3rem;
+  }
+
+  .notSignedIn {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .oval-container {
+    height: 39vh;
+    align-self: center;
+  }
+
+  .oval-1 {
+    top: -3.071rem;
+    left: -11.277000000000001rem;
+    width: 91.857rem;
+    height: 37.643rem;
+  }
+
+  .oval-2 {
+    top: -23.070999999999998rem;
+    left: -51.798rem;
+    width: 62.286rem;
+    height: 25.857rem;
+  }
+
+  .oval-3 {
+    top: -50.714rem;
+    left: 2.357rem;
+    width: 26.857rem;
+    height: 51.643rem;
+  }
+
+  .oval-4 {
+    top: -97.214rem;
+    left: 16.5rem;
+    width: 69.357rem;
+    height: 30.857rem;
+  }
 }

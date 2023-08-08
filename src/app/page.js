@@ -203,11 +203,11 @@ export default async function Home() {
               <Link href="/design" className={`text-regular underline`} > Edit </Link>
               </div>
              <div className="colors-main-page">
-              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
-              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
-              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>       </p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>       </p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>       </p>
               
-              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>       </p>
          </div>
               <p className={`text-regular website-main`}> {website}</p>
             
@@ -351,11 +351,11 @@ export default async function Home() {
               <Link href="/design" className={`text-regular underline`} > Edit </Link>
               </div>
               <div className="colors-main-page">
-              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
-              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
-              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>        </p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>        </p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>        </p>
               
-              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>        </p>
          </div>
               <p className={`text-regular website-main`}> {website}</p>
         </main>
@@ -485,8 +485,8 @@ export default async function Home() {
               <h3 className={`text-bold`}>
                 Design
               </h3>
-              <p className={`text-regular`}>not set</p>
               <Link href="/design" className={`text-regular underline`} > Edit </Link>
+              <p className={`text-regular`}>not set</p>
               </div>
               
         </main>
@@ -546,11 +546,11 @@ export default async function Home() {
               <Link href="/design" className={`text-regular underline`} > Edit </Link>
               </div>
              <div className="colors-main-page">
-              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
-              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
-              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>        </p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>        </p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>        </p>
               
-              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>        </p>
          </div>
               <p className={`text-regular website-main`}> {website}</p>
               
@@ -618,11 +618,11 @@ export default async function Home() {
               <Link href="/design" className={`text-regular underline`} > Edit </Link>
               </div>
              <div className="colors-main-page">
-              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>{colorOne}</p>
-              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>{colorTwo}</p>
-              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>{colorThree}</p>
+              <p className={`text-regular colorOne-main-page`} style={{backgroundColor: colorOne}}>        </p>
+              <p className={`text-regular colorTwo-main-page`} style={{backgroundColor: colorTwo}}>        </p>
+              <p className={`text-regular colorThree-main-page`} style={{backgroundColor: colorThree}}>        </p>
               
-              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>{colorFour}</p>
+              <p className={`text-regular colorFour-main-page`} style={{backgroundColor: colorFour}}>        </p>
          </div>
               <p className={`text-regular website-main`}> {website}</p>
               

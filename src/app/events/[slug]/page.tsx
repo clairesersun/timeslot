@@ -147,9 +147,10 @@ async function UpdateEvent(data: FormData) {
           <input type="text" name='description' id='description' className='input-box'/>
           <label htmlFor="length" className='text-bold text-in-box'>Length:</label>
           <input type="text" name='length' id='length' className='input-box'/>
-          <button type='submit' className='save-event-btn text-bold'>Save Changes</button>
+          <button type='submit' className='save-event-btn text-bold'>Save</button>
           </form>
           <DeleteEvent slug={slug}/>
+          <div className='bottom-of-page'></div>
         
       </main>
     )

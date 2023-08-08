@@ -155,14 +155,14 @@ export const metadata = {
           <p className='edit-profile text-bold'> Edit</p>
             <div className='profile-box grid-1'>
           <label htmlFor="businessName" className='text-bold profile-label'>Business Name:</label>
-          <input type="text" name='businessName' id='businessName' className='input-box'/>
+          <input type="text" name='businessName' id='businessName' className='input-box-profile'/>
           </div>
           <div className='profile-divider-light'></div>
           <div className='profile-box grid-1'>
           <label htmlFor="visibleName" className='text-bold profile-label' >Visible Name:</label> 
-          <input type="text" name="visibleName" id="visibleName" className='input-box'/>
+          <input type="text" name="visibleName" id="visibleName" className='input-box-profile'/>
           <label htmlFor="email" className='text-bold profile-label'>Visible Email:</label>
-          <input type="text" name='email' id='email' className='input-box'/>
+          <input type="text" name='email' id='email' className='input-box-profile'/>
           </div>
           
 
@@ -244,14 +244,14 @@ export const metadata = {
           <p className='edit-profile text-bold'> Edit</p>
             <div className='profile-box grid-1'>
           <label htmlFor="businessName" className='text-bold profile-label'>Business Name:</label>
-          <input type="text" name='businessName' id='businessName' className='input-box'/>
+          <input type="text" name='businessName' id='businessName' className='input-box-profile'/>
           </div>
           <div className='profile-divider-light'></div>
           <div className='profile-box grid-1'>
           <label htmlFor="visibleName" className='text-bold profile-label' >Visible Name:</label> 
-          <input type="text" name="visibleName" id="visibleName" className='input-box'/>
+          <input type="text" name="visibleName" id="visibleName" className='input-box-profile'/>
           <label htmlFor="email" className='text-bold profile-label'>Visible Email:</label>
-          <input type="text" name='email' id='email' className='input-box'/>
+          <input type="text" name='email' id='email' className='input-box-profile'/>
           </div>
           
 

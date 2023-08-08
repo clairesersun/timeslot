@@ -64,7 +64,7 @@ export default function DeleteAccount() {
       // console.log(slug)
         return (
           <button onClick={() => deleteCreatedEvent(slug)} className="delete-profile-btn text-bold">
-            Delete Event </button>   
+            Delete </button>   
         )}
     
     
