@@ -137,39 +137,41 @@ export default async function Design() {
     let website = currentUserInfo.design.website;
 
     return (
-      <main>
+      <main className="design-main-container">
         <Suspense fallback={<div>Loading...</div>}>
-          <h1 className={`text-bold design-title`}>Design</h1>
+          <div className="current-design-container">
+            <h1 className={`text-bold design-title`}>Design</h1>
 
-          {/* figure put how to update this when form is submitted */}
-          <div className="current-design">
-            <p className={`text-regular color-text`}>{colorOne}</p>
-            <p
-              className={`text-regular current-colors color-text`}
-              style={{ backgroundColor: colorOne }}
-            ></p>
+            {/* figure put how to update this when form is submitted */}
+            <div className="current-design">
+              <p className={`text-regular color-text`}>{colorOne}</p>
+              <p
+                className={`text-regular current-colors color-text`}
+                style={{ backgroundColor: colorOne }}
+              ></p>
 
-            <p className={`text-regular color-text`}>{colorTwo}</p>
-            <p
-              className={`text-regular current-colors color-text`}
-              style={{ backgroundColor: colorTwo }}
-            ></p>
+              <p className={`text-regular color-text`}>{colorTwo}</p>
+              <p
+                className={`text-regular current-colors color-text`}
+                style={{ backgroundColor: colorTwo }}
+              ></p>
 
-            <p className={`text-regular color-text`}>{colorThree}</p>
-            <p
-              className={`text-regular current-colors color-text`}
-              style={{ backgroundColor: colorThree }}
-            ></p>
+              <p className={`text-regular color-text`}>{colorThree}</p>
+              <p
+                className={`text-regular current-colors color-text`}
+                style={{ backgroundColor: colorThree }}
+              ></p>
 
-            <p className={`text-regular color-text`}>{colorFour}</p>
-            <p
-              className={`text-regular current-colors color-text`}
-              style={{ backgroundColor: colorFour }}
-            ></p>
-          </div>
-          <div className="grid-2">
-            <p className={`text-bold`}> Website:</p>
-            <p className={`text-regular italic`}> {website} </p>
+              <p className={`text-regular color-text`}>{colorFour}</p>
+              <p
+                className={`text-regular current-colors color-text`}
+                style={{ backgroundColor: colorFour }}
+              ></p>
+            </div>
+            <div className="grid-2">
+              <p className={`text-bold`}> Website:</p>
+              <p className={`text-regular italic`}> {website} </p>
+            </div>
           </div>
         </Suspense>
         <div className="bottom-of-page"></div>
@@ -226,17 +228,19 @@ export default async function Design() {
     );
   } else {
     return (
-      <main>
+      <main className="design-main-container">
         <Suspense fallback={<div>Loading...</div>}>
-          <h1 className={`text-bold design-title`}>Design</h1>
+          <div className="current-design-container">
+            <h1 className={`text-bold design-title`}>Design</h1>
 
-          {/* figure put how to update this when form is submitted */}
-          <div className="current-design">
-            <p className={`text-regular`}>Color 1: not set </p>
-            <p className={`text-regular`}>Color 2: not set </p>
-            <p className={`text-regular`}>Color 3: not set </p>
-            <p className={`text-regular`}>Color 4: not set </p>
-            <p className={`text-regular`}>Website not set </p>
+            {/* figure put how to update this when form is submitted */}
+            <div className="current-design">
+              <p className={`text-regular`}>Color 1: not set </p>
+              <p className={`text-regular`}>Color 2: not set </p>
+              <p className={`text-regular`}>Color 3: not set </p>
+              <p className={`text-regular`}>Color 4: not set </p>
+              <p className={`text-regular`}>Website not set </p>
+            </div>
           </div>
         </Suspense>
         <div className="bottom-of-page"></div>

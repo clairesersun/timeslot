@@ -98,7 +98,8 @@ export const metadata = {
         const email = "not set"
         const businessName = "not set"
         return (
-          <main>
+          <main className='profile-main-container'>
+<div className='profile-given-container'>
 
           
         <h2 className='text-bold profile-title change-position'>
@@ -150,6 +151,7 @@ export const metadata = {
             </div>
             
             </Suspense>
+            </div>
 
             <form action={createProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
           <p className='edit-profile text-bold'> Edit</p>
@@ -185,9 +187,10 @@ export const metadata = {
         
        
     return (
-      <main>
+      <main className='profile-main-container'>
   
-          
+          <div className='profile-given-container'>
+
         <h2 className='text-bold profile-title change-position'>
           Profile
           </h2>
@@ -237,6 +240,7 @@ export const metadata = {
             </div>
             
             </Suspense>
+            </div>
 
          
 

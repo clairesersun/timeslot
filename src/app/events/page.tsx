@@ -82,7 +82,7 @@ export const metadata = {
   
     
     return (
-      <main>
+      <main className='availability-main-container'>
             
             <p className={`text-bold add-event-title`}>
               Add Event

@@ -228,6 +228,10 @@ h3 {
 
 /*on index page*/
 
+.contain-content {
+  width: -webkit-fill-available;
+}
+
 .add-margin {
   margin-right: 0.357rem;
   margin-left: 0.357rem;
@@ -338,7 +342,7 @@ h2.home {
 
 .events-box {
   background-color: #ffffff;
-  border-radius: 1.786rem 1.786rem 0rem 0rem;
+  border-radius: 1.786rem 1.786rem 0.7rem 0.7rem;
   box-shadow: 0rem 0.214rem 0.429rem #00000029;
   opacity: 0.9;
   width: 13rem;
@@ -363,6 +367,7 @@ h2.home {
   height: 2rem;
   align-self: center;
   text-align: center;
+  box-shadow: 0rem 0.214rem 0.429rem;
 }
 
 .add-event-btn {
@@ -493,6 +498,10 @@ p.notSignedIn {
 
 /*profile page*/
 
+.profile-given-container {
+  text-align: -webkit-center;
+}
+
 .input-box-profile {
   border: 0;
   border-radius: 3.214rem;
@@ -532,7 +541,7 @@ p.notSignedIn {
 
 .change-position {
   position: relative;
-  top: 5.75rem;
+  top: 6.27rem;
 }
 
 .profile-photo {
@@ -608,7 +617,7 @@ p.notSignedIn {
   border-radius: 3.214rem;
   width: 12rem;
   margin-bottom: 0.857rem;
-  margin-right: 2.5rem;
+  /* margin-right: 2.5rem; */
 }
 
 .profile-form-btns-container {
@@ -888,16 +897,25 @@ h1.availability-current {
   align-self: center;
 }
 
+.availability-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .availability-form {
   text-align: left;
-  align-items: flex-start;
   margin: 0;
+  align-self: center;
 }
 
 .availability-input-box {
   border: 0;
   border-radius: 3.214rem;
-  width: 8rem;
+  width: 7rem;
   margin-bottom: 0.857rem;
   margin-right: 1rem;
   margin-left: 1rem;
@@ -1297,4 +1315,73 @@ h1.confirmation {
 
 @media screen and (min-width: 1008px) {
   /* this is for the logged in stuff for desktop */
+
+  .contain-content {
+    margin-top: 4rem;
+    margin-left: 6rem;
+  }
+
+  .home-main-grid {
+    display: grid;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    grid-template-columns: auto auto;
+  }
+
+  .profile-title {
+    margin-top: -4.5rem;
+  }
+
+  .profile-given-container {
+    margin-right: 13rem;
+    margin-bottom: 8rem;
+  }
+
+  .profile-main-container {
+    flex-direction: row;
+  }
+
+  .add-event-title {
+    margin-top: 10.5rem;
+  }
+
+  .availability-main-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .availability-form {
+    margin-top: 1rem;
+  }
+
+  .design-main-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .design-form {
+    margin-top: 6rem;
+  }
+
+  .current-design-container {
+    margin-right: 14rem;
+  }
+
+  .top-public {
+    padding-top: 2rem;
+  }
+
+  .bottom-of-page {
+    margin-bottom: 10vh;
+  }
+
+  .description-public {
+    margin-bottom: 0.7rem !important;
+  }
+
+  .text-regular {
+    max-width: 48ch;
+  }
 }

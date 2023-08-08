@@ -664,6 +664,7 @@ export default function Calendar(props) {
         dateFormat="MMMM d, yyyy h:mmaa"
         minDate={new Date()}
         className="date-picker"
+        style={{ boxShadow: `0rem 0.214rem 0.429rem ${colorThree}` }}
       />
       <div className="grid-2 public-spacer">
         <div>
@@ -675,7 +676,7 @@ export default function Calendar(props) {
             type="text"
             onChange={(e) => setAttendees(e.target.value)}
             className="public-input-box"
-            style={{ caretColor: colorTwo }}
+            style={{ caretColor: colorThree }}
           />
         </div>
         <div>
@@ -688,14 +689,14 @@ export default function Calendar(props) {
               setEventNotes(e.target.value);
             }}
             className="public-input-box"
-            style={{ caretColor: colorTwo }}
+            style={{ caretColor: colorThree }}
           />
         </div>
       </div>
       <button
         onClick={() => createCalendarEvent(accessToken)}
         className="create-calendar-event text-bold"
-        style={{ backgroundColor: colorOne, color: colorFour }}
+        style={{ backgroundColor: colorTwo, color: colorFour }}
       >
         Book Time
       </button>

@@ -140,12 +140,12 @@ export default async function Availability() {
 
   
   return (
-    <main className="availability-page">
-          <Suspense fallback={<div>Loading...</div>}>
+    <main className="availability-page availability-main-container">
+      <div className="availability-container">
+
             <h1 className={`text-bold add-margin availability-current`}>
              Availability
             </h1>
-          </Suspense>
           <Suspense fallback={<div>Loading...</div>}>
 <div className="availability-current grid-1 available-container">
 
@@ -297,6 +297,7 @@ export default async function Availability() {
               
               </div>
           </Suspense>
+          </div>
           <div className="avail-spacer"></div>
           <form
             action={addAvailability}
@@ -371,12 +372,11 @@ export default async function Availability() {
  
   
   return (
-    <main className="availability-page">
-      
-          <Suspense fallback={<div>Loading...</div>}>
+    <main className="availability-page availability-main-container">
+      <div className="availability-container">
             <h1 className={`text-bold add-margin availability-current`}>Availability
             </h1>
-          </Suspense>
+            </div>
           <form
             action={addAvailability}
             id="profile-form"
