@@ -436,7 +436,7 @@ p.notSignedIn {
 }
 
 .oval-container {
-  height: 47.5vh;
+  height: 43.5vh;
   z-index: -1;
 }
 
@@ -1163,6 +1163,7 @@ h1.confirmation {
 }
 
 @media screen and (min-width: 572px) {
+  /* this is for tablet and bigger */
   .available-container {
     width: 27rem;
   }
@@ -1203,28 +1204,28 @@ h1.confirmation {
   }
 
   .oval-1 {
-    top: -3.071rem;
+    top: -7.071rem;
     left: -15.277000000000001rem;
     width: 69.857rem;
     height: 29.643rem;
   }
 
   .oval-2 {
-    top: -8.071rem;
+    top: -15.070999999999998rem;
     left: -41.798rem;
     width: 41.286rem;
     height: 23.857rem;
   }
 
   .oval-3 {
-    top: -37.714rem;
+    top: -42.714rem;
     left: -9.643rem;
     width: 24.857rem;
     height: 41.643rem;
   }
 
   .oval-4 {
-    top: -75.214rem;
+    top: -81.214rem;
     left: 5.5rem;
     width: 57.357rem;
     height: 26.857rem;
@@ -1232,6 +1233,7 @@ h1.confirmation {
 }
 
 @media screen and (min-width: 1200px) {
+  /* this is for the not signed in desktop */
   .big-container {
     width: 71vw;
     align-self: center;
@@ -1260,35 +1262,39 @@ h1.confirmation {
   }
 
   .oval-container {
-    height: 39vh;
+    height: 27vh;
     align-self: center;
   }
 
   .oval-1 {
-    top: -3.071rem;
+    top: -11.070999999999998rem;
     left: -11.277000000000001rem;
     width: 91.857rem;
     height: 37.643rem;
   }
 
   .oval-2 {
-    top: -23.070999999999998rem;
+    top: -32.071rem;
     left: -51.798rem;
     width: 62.286rem;
     height: 25.857rem;
   }
 
   .oval-3 {
-    top: -50.714rem;
+    top: -60.714rem;
     left: 2.357rem;
     width: 26.857rem;
     height: 51.643rem;
   }
 
   .oval-4 {
-    top: -97.214rem;
+    top: -107.214rem;
     left: 16.5rem;
     width: 69.357rem;
     height: 30.857rem;
   }
+}
+
+@media screen and (min-width: 1008px) {
+  /* this is for the logged in stuff for desktop */
 }

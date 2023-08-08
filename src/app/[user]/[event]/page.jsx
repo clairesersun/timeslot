@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Calendar from "../../components/Calendar.jsx";
 import moment from "moment";
 import Image from "next/image.js";
+import Link from "next/link.js";
 
 export const metadata = {
   title: "Schedule",
@@ -222,12 +223,15 @@ export default async function ScheduleTime({ params }) {
     <div style={{ backgroundColor: colorFour, width: "100vw" }}>
       <div className="public-container">
         <Suspense fallback={<div>Loading...</div>}>
-          <h1
-            className={`text-regular public-text no-margin top-public`}
-            style={{ color: colorOne }}
-          >
-            {businessName}
-          </h1>
+          <a href={website} target="_blank" rel="noopener noreferrer">
+            {/* does this link work? */}
+            <h1
+              className={`text-regular public-text no-margin top-public`}
+              style={{ color: colorOne }}
+            >
+              {businessName}
+            </h1>
+          </a>
           <h2
             className={`text-bold public-text no-margin event-title-public`}
             style={{ color: colorOne }}
