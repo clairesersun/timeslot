@@ -1249,8 +1249,7 @@ h1.confirmation {
     height: 26.857rem;
   }
 }
-
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1008px) {
   /* this is for the not signed in desktop */
   .big-container {
     width: 71vw;
@@ -1311,9 +1310,7 @@ h1.confirmation {
     width: 69.357rem;
     height: 30.857rem;
   }
-}
 
-@media screen and (min-width: 1008px) {
   /* this is for the logged in stuff for desktop */
 
   .contain-content {
