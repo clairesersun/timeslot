@@ -644,7 +644,9 @@ export default function Calendar(props) {
   }
   return (
     <>
-      <p className="date-time-label-public">Select a Date &amp; Time</p>
+      <p className="date-time-label-public" style={{ color: colorOne }}>
+        Select a Date &amp; Time
+      </p>
 
       <DatePicker
         selected={start}

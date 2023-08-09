@@ -151,14 +151,12 @@ export default async function ScheduleTime({ params }) {
       <div style={{ backgroundColor: "#c4dedf", width: "100vw" }}>
         <div className="public-container">
           <Suspense fallback={<div>Loading...</div>}>
-            <h1
-              className={`text-regular public-text no-margin top-public`}
-              style={{ color: "#2b536a" }}
-            >
+            <h1 className={`text-regular public-text no-margin top-public`}>
               <a
                 href={`https://www.${website}/`}
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: "#2b536a" }}
               >
                 {businessName}
               </a>
@@ -238,14 +236,12 @@ export default async function ScheduleTime({ params }) {
       <div style={{ backgroundColor: colorFour, width: "100vw" }}>
         <div className="public-container">
           <Suspense fallback={<div>Loading...</div>}>
-            <h1
-              className={`text-regular public-text no-margin top-public`}
-              style={{ color: colorOne }}
-            >
+            <h1 className={`text-regular public-text no-margin top-public`}>
               <a
                 href={`https://www.${website}/`}
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: colorOne }}
               >
                 {businessName}
               </a>
@@ -354,14 +350,12 @@ export default async function ScheduleTime({ params }) {
       <div style={{ backgroundColor: colorFour, width: "100vw" }}>
         <div className="public-container">
           <Suspense fallback={<div>Loading...</div>}>
-            <h1
-              className={`text-regular public-text no-margin top-public`}
-              style={{ color: colorOne }}
-            >
+            <h1 className={`text-regular public-text no-margin top-public`}>
               <a
                 href={`https://www.${website}/`}
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ color: colorOne }}
               >
                 {businessName}
               </a>
@@ -437,14 +431,12 @@ export default async function ScheduleTime({ params }) {
     <div style={{ backgroundColor: colorFour, width: "100vw" }}>
       <div className="public-container">
         <Suspense fallback={<div>Loading...</div>}>
-          <h1
-            className={`text-regular public-text no-margin top-public`}
-            style={{ color: colorOne }}
-          >
+          <h1 className={`text-regular public-text no-margin top-public`}>
             <a
               href={`https://www.${website}/`}
               target="_blank"
               rel="noopener noreferrer"
+              style={{ color: colorOne }}
             >
               {businessName}
             </a>

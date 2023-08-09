@@ -16,27 +16,37 @@ async function createDesign(data) {
   const { MongoClient } = require("mongodb");
   const client = new MongoClient(process.env.MONGODB_URI);
   try {
-    const colorOne = data.get("colorOne")?.valueOf();
+    let colorOne = data.get("colorOne")?.valueOf();
 
     // console.log(colorOne);
     if (typeof colorOne !== "string" || colorOne.length !== 7) {
       throw new Error("Color 1 is required and must be 6 characters long");
     }
-    const colorTwo = data.get("colorTwo");
+    let colorTwo = data.get("colorTwo");
     if (typeof colorTwo !== "string" || colorTwo.length !== 7) {
       throw new Error("Color 2 is required and must be 6 characters long");
     }
-    const colorThree = data.get("colorThree");
+    let colorThree = data.get("colorThree");
     if (typeof colorThree !== "string" || colorThree.length !== 7) {
       throw new Error("Color 3 is required and must be 6 characters long");
     }
 
-    const colorFour = data.get("colorThree");
+    let colorFour = data.get("colorThree");
     if (typeof colorFour !== "string" || colorFour.length !== 7) {
       throw new Error("Color 4 is required and must be 6 characters long");
     }
 
-    const website = data.get("website");
+    let website = data.get("website");
+
+    // does this work?
+    const original = data.get("original");
+    if (original) {
+      const originalColors = original.split(",");
+      colorOne = originalColors[0];
+      colorTwo = originalColors[1];
+      colorThree = originalColors[2];
+      colorFour = originalColors[3];
+    }
 
     const session = await getServerSession(authOptions);
     const googleEmail = session.user.email;
@@ -219,6 +229,16 @@ export default async function Design() {
             id="website"
             className="color-input-box"
           />
+          <label htmlFor="original" className="text-regular color-reset">
+            <input
+              type="checkbox"
+              id="original"
+              name="original"
+              value="#2b536a,#52a288,#a4cca9,#c4dedf"
+              className="color-reset-box"
+            />
+            reset to original design
+          </label>
           <button type="submit" className="text-bold new-color-submit-btn">
             Submit
           </button>
@@ -284,6 +304,16 @@ export default async function Design() {
             id="website"
             className="color-input-box"
           />
+          <label htmlFor="original" className="text-regular color-reset">
+            <input
+              type="checkbox"
+              id="original"
+              name="original"
+              value="#2b536a,#52a288,#a4cca9,#c4dedf"
+              className="color-reset-box"
+            />
+            reset to original design
+          </label>
           <button type="submit" className="text-bold new-color-submit-btn">
             Submit
           </button>
