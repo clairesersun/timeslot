@@ -1,8 +1,6 @@
 ![timeslot logo](/public/logo_inverse.png)
 
-# timeslot
-
-Go to live [site] (https://timeslot-iota.vercel.app/)
+# [timeslot] (https://timeslot-iota.vercel.app/)
 
 ## About
 
