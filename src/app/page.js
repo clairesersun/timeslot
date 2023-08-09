@@ -9,6 +9,7 @@ export const metadata = {
   title: "Home",
   description: "Home page for the scheduling app",
   keywords: "scheduling app",
+  
 };
 
 export default async function Home() {

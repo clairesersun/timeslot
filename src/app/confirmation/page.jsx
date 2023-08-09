@@ -1,7 +1,5 @@
 // Note: Confirmation page for the scheduling app
 
-import Link from "next/link";
-
 export const metadata = {
   title: "Booked!",
   description: "Meeting confirmation for the scheduling app",

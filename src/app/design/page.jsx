@@ -7,8 +7,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Profile",
-  description: "Profile page for the scheduling app",
+  title: "Design",
+  description: "Design page for the scheduling app",
   keywords: "scheduling app",
 };
 

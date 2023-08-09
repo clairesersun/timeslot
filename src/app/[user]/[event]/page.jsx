@@ -4,7 +4,7 @@ import moment from "moment";
 import Image from "next/image.js";
 
 export const metadata = {
-  title: "Schedule",
+  title: "Book Time",
   description: "Scheduling page for the scheduling app",
   keywords: "scheduling app",
 };

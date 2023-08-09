@@ -8,8 +8,8 @@ import moment from "moment";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Profile",
-  description: "Profile page for the scheduling app",
+  title: "Availability",
+  description: "Availability page for the scheduling app",
   keywords: "scheduling app",
 };
 
