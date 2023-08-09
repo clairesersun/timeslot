@@ -2,7 +2,7 @@
 
 # timeslot
 
-[Go to live site] (https://timeslot-iota.vercel.app/)
+Go to live [site] (https://timeslot-iota.vercel.app/)
 
 ## About
 
