@@ -88,18 +88,21 @@ export const metadata = {
       const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId, booked, 
         design: { colorOne, colorTwo, colorThree, colorFour, website 
       }});
-      return console.log("added info in database: ", name, email, businessName, googleEmail, userId, booked, colorOne, colorTwo, colorThree, colorFour, website )
       
+        return console.log("added info in database: ", name, email, businessName, googleEmail, userId, booked, colorOne, colorTwo, colorThree, colorFour, website )
+  
+        
     } catch (error) {
       console.log(error)
     }
+    
     finally {
       // Ensures that the client will close when you finish/error and update information on the page
       revalidatePath('/profile')
-      revalidatePath('/')
-      revalidatePath("/[user]/[event]")
-      await client.close();
-      redirect('/')
+        revalidatePath("/[user]/[event]")
+        revalidatePath('/')
+        await client.close();
+        return redirect('/')
     }
   }
   
@@ -206,11 +209,10 @@ export const metadata = {
         )
       
       } else { 
-        const userId = currentUserInfo.userId
+      
         const visibleName = currentUserInfo.name
         const email = currentUserInfo.email 
         const businessName = currentUserInfo.businessName
-        const googleEmail = currentUserInfo.googleEmail
         
         
        

@@ -105,7 +105,7 @@ async function createDesign(data) {
     revalidatePath("/");
     revalidatePath("/[user]/[event]");
     await client.close();
-    redirect("/design");
+    return redirect("/design");
   }
 }
 

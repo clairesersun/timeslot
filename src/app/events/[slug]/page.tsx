@@ -67,7 +67,7 @@ async function UpdateEvent(data: FormData) {
       revalidatePath('/events/[slug]')
       revalidatePath("/[user]/[event]")
       await client.close();
-      redirect('/events/[slug]')
+      return redirect('/events/[slug]')
   }
     }
   

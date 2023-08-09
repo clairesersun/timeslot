@@ -79,7 +79,7 @@ export const metadata = {
       revalidatePath('/events')
       revalidatePath("/")
       await client.close();
-      redirect('/')
+      return redirect('/')
   }
     }
   

@@ -89,7 +89,7 @@ async function addAvailability(data) {
         revalidatePath("/[user]/[event]");
         revalidatePath("/");
         await client.close();
-        redirect("/availability");
+        return redirect("/availability");
       }
 }
 
