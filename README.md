@@ -1,6 +1,6 @@
 ![timeslot logo](/public/logo_inverse.png)
 
-# [timeslot] (https://timeslot-iota.vercel.app/)
+# [timeslot](https://timeslot-iota.vercel.app/)
 
 ## About
 
