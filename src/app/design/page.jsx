@@ -4,6 +4,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Profile",
@@ -104,6 +105,7 @@ async function createDesign(data) {
     revalidatePath("/");
     revalidatePath("/[user]/[event]");
     await client.close();
+    redirect("/design");
   }
 }
 

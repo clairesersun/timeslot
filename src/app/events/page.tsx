@@ -2,6 +2,7 @@ import SignIn from '../components/signin';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation'
 // import { useRouter } from 'next/router';
 
 
@@ -11,6 +12,9 @@ export const metadata = {
     keywords: 'scheduling app'
   }
 
+  function onlyLettersAndSpaces(str) {
+    return /^[A-Za-z\s]*$/.test(str);
+  }
   
   
   async function addEvent(data: FormData) {
@@ -26,10 +30,16 @@ export const metadata = {
       if (typeof eventName !== 'string' || eventName.length === 0) {
         throw new Error ('Name is required')
       }
+
+      if (!onlyLettersAndSpaces(eventName)) {
+        throw new Error ('Only letters and spaces are allowed in the name')
+      }
+
       const description = data.get('description')
       if (typeof description !== 'string' || description.length === 0) {
         throw new Error ('Description is required')
       }
+
       const length = data.get('length')
       if (typeof length !== 'string' || length.length === 0) {
         throw new Error ('Length is required')
@@ -69,6 +79,7 @@ export const metadata = {
       revalidatePath('/events')
       revalidatePath("/")
       await client.close();
+      redirect('/')
   }
     }
   
@@ -82,7 +93,7 @@ export const metadata = {
   
     
     return (
-      <main className='availability-main-container'>
+      <main>
             
             <p className={`text-bold add-event-title`}>
               Add Event
@@ -93,7 +104,7 @@ export const metadata = {
           <label htmlFor="description" className='text-bold text-in-box'>Description:</label>
           <input type="text" name='description' id='description' className='input-box'/>
           <label htmlFor="length" className='text-bold text-in-box'>Length (in minutes):</label>
-          <input type="text" name='length' id='length' className='input-box'/>
+          <input type="number" name='length' id='length' className='input-box'/>
           <button type='submit' className='create-event-btn text-bold '>Create Event</button>
           </form>
       </main>

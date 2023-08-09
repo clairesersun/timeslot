@@ -3,8 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]/route';
 import { revalidatePath } from 'next/cache';
 import { DeleteEvent } from '../../components/deleteData';
-// import { redirect } from 'next/dist/server/api-utils';
-// import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 export const metadata = {
   title: 'Events',
@@ -68,6 +67,7 @@ async function UpdateEvent(data: FormData) {
       revalidatePath('/events/[slug]')
       revalidatePath("/[user]/[event]")
       await client.close();
+      redirect('/events/[slug]')
   }
     }
   

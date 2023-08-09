@@ -5,6 +5,7 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import { Suspense } from 'react';
 import  DeleteAccount  from '../../app/components/deleteData';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 
 export const metadata = {
@@ -59,7 +60,7 @@ export const metadata = {
           colorTwo = '#52a288'
           colorThree = '#a4cca9'
           colorFour = '#c4dedf'
-          website = ''
+          website = 'website not set'
           booked = ["not booked"]
           if (myDoc.booked){
             booked = myDoc.booked
@@ -82,7 +83,7 @@ export const metadata = {
           colorTwo = '#52a288'
           colorThree = '#a4cca9'
           colorFour = '#c4dedf'
-          website = ''
+          website = 'website not set'
       booked = ["not booked"]
       const newInfo = await collection.insertOne({name, email, businessName, googleEmail, userId, booked, 
         design: { colorOne, colorTwo, colorThree, colorFour, website 
@@ -98,6 +99,7 @@ export const metadata = {
       revalidatePath('/')
       revalidatePath("/[user]/[event]")
       await client.close();
+      redirect('/')
     }
   }
   

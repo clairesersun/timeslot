@@ -337,12 +337,30 @@ h2.home {
   text-align: center;
 }
 
+.flex-event {
+  display: flex;
+  flex-flow: row;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  justify-items: center;
+  align-items: center;
+  grid-gap: 4rem;
+  width: inherit;
+  height: 100%;
+  align-content: center;
+  padding: 0;
+  text-align: left;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 37rem;
+}
+
 .events-box {
   background-color: #ffffff;
   border-radius: 1.786rem 1.786rem 0.7rem 0.7rem;
   box-shadow: 0rem 0.214rem 0.429rem #00000029;
   opacity: 0.9;
-  width: 13rem;
+  width: 15rem;
   height: 7rem;
 }
 
@@ -360,11 +378,11 @@ h2.home {
   background-color: var(--menu-hex);
   border-radius: 0rem 0rem 3.214rem 3.214rem;
   color: #ffffff;
-  width: 13rem;
+  width: 15rem;
   height: 2rem;
   align-self: center;
   text-align: center;
-  box-shadow: 0rem 0.214rem 0.429rem;
+  box-shadow: 0rem 0.214rem 0.429rem #00000029;
 }
 
 .add-event-btn {
@@ -1313,20 +1331,21 @@ h1.confirmation {
 
   h1.notSignedIn {
     width: 36.071rem;
-    font-size: 5rem;
-    line-height: 5rem;
+    font-size: 4rem;
+    line-height: 4rem;
   }
 
   p.notSignedIn {
     width: 41.071rem;
-    font-size: 3.5rem;
-    line-height: 3rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
   }
 
   button.notSignedIn {
     width: 13.357rem;
     height: 6.286rem;
-    font-size: 2.3rem;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
   }
 
   .notSignedIn {
@@ -1346,14 +1365,14 @@ h1.confirmation {
   }
 
   .oval-2 {
-    top: -32.071rem;
+    top: -34.071rem;
     left: -51.798rem;
     width: 62.286rem;
     height: 25.857rem;
   }
 
   .oval-3 {
-    top: -60.714rem;
+    top: -59.714rem;
     left: 2.357rem;
     width: 26.857rem;
     height: 51.643rem;
@@ -1369,7 +1388,7 @@ h1.confirmation {
   /* this is for the logged in stuff for desktop */
 
   .contain-content {
-    margin-top: 4rem;
+    margin-top: 1rem;
     margin-left: 6rem;
   }
 

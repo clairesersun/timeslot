@@ -119,7 +119,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
@@ -275,7 +275,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               <div></div>
               </Suspense>
@@ -418,7 +418,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
@@ -521,6 +521,7 @@ export default async function Home() {
   let colorTwo = currentUserInfo.design.colorTwo;
   let colorFour = currentUserInfo.design.colorFour;
   let colorThree = currentUserInfo.design.colorThree;
+  let website = currentUserInfo.design.website;
   
   return (
         <main className="home-main-grid">
@@ -538,7 +539,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
@@ -617,7 +618,7 @@ export default async function Home() {
               </h3>
               <div ></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
@@ -705,7 +706,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               {events}
               </Suspense>
@@ -822,7 +823,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               
               {events}
@@ -883,7 +884,7 @@ export default async function Home() {
               </h3>
               <div></div>
               </div>
-              <div className="grid-2">
+              <div className="flex-event">
               <Suspense fallback={<div>Loading...</div>}>
               <p className={`text-regular`}>not set</p>
               </Suspense>

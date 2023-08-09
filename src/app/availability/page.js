@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import moment from "moment";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Profile",
@@ -88,6 +89,7 @@ async function addAvailability(data) {
         revalidatePath("/[user]/[event]");
         revalidatePath("/");
         await client.close();
+        redirect("/availability");
       }
 }
 
@@ -372,7 +374,7 @@ export default async function Availability() {
  
   
   return (
-    <main className="availability-page availability-main-container">
+    <main className="availability-page">
       <div className="availability-container">
             <h1 className={`text-bold add-margin availability-current`}>Availability
             </h1>
