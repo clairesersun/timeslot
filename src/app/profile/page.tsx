@@ -9,13 +9,13 @@ import { redirect } from 'next/navigation';
 
 
 export const metadata = {
-    title: 'Profile',
-    description: 'Profile page for the scheduling app',
-    keywords: 'scheduling app'
-  }
-  
-  async function createProfile(data: FormData) {
-    'use server'
+  title: 'Profile',
+  description: 'Profile page for the scheduling app',
+  keywords: 'scheduling app'
+}
+
+async function CreateProfile(data: FormData) {
+  'use server'
     const { MongoClient } = require("mongodb");
     const client = new MongoClient(process.env.MONGODB_URI);
     try {
@@ -102,9 +102,18 @@ export const metadata = {
         revalidatePath("/[user]/[event]")
         revalidatePath('/')
         await client.close();
-        return redirect('/')
+        return console.log("client closed");
+
+        // return {
+        //   redirect: {
+        //     destination: '/',
+        //     permanent: false,
+        //   },
+        // };
+      //  redirect('/')
+      }
     }
-  }
+  
   
   
   
@@ -116,20 +125,23 @@ export const metadata = {
       // console.log(session)
       const { MongoClient } = require("mongodb");
       const client = new MongoClient(process.env.MONGODB_URI);
-      await client.connect();
-      console.log("Connected correctly to server");
-      const db = client.db(dbName);
-      //this allows me to take the userId to find the access_token from sessions later down the road
-      let collection = db.collection("savedInfo");
-      // Insert a single document, wait for promise so we can read it back
-      const currentUserInfo = await collection.findOne({ googleEmail:  session['user'].email });
-      // console.log(currentUserInfo)
-      if (currentUserInfo === null) {
-        const visibleName = "not set"
-        const email = "not set"
-        const businessName = "not set"
-        return (
-          <main className='profile-main-container'>
+      try {
+
+        await client.connect();
+        console.log("Connected correctly to server");
+        const db = client.db(dbName);
+        //this allows me to take the userId to find the access_token from sessions later down the road
+        let collection = db.collection("savedInfo");
+        // Insert a single document, wait for promise so we can read it back
+        const currentUserInfo = await collection.findOne({ googleEmail:  session['user'].email });
+        // console.log(currentUserInfo)
+        if (currentUserInfo === null) {
+          const visibleName = "not set"
+          const email = "not set"
+          const businessName = "not set"
+    
+          return (
+            <main className='profile-main-container'>
 <div className='profile-given-container'>
 
           
@@ -184,7 +196,7 @@ export const metadata = {
             </Suspense>
             </div>
 
-            <form action={createProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
+            <form action={CreateProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
           <p className='edit-profile text-bold'> Edit</p>
             <div className='profile-box grid-1'>
           <label htmlFor="businessName" className='text-bold profile-label'>Business Name:</label>
@@ -207,17 +219,16 @@ export const metadata = {
           <div className='bottom-of-page'></div>
       </main>
         )
-      
+        
       } else { 
-      
+        
         const visibleName = currentUserInfo.name
         const email = currentUserInfo.email 
         const businessName = currentUserInfo.businessName
         
         
-       
-    return (
-      <main className='profile-main-container'>
+        return (
+          <main className='profile-main-container'>
   
           <div className='profile-given-container'>
 
@@ -274,7 +285,7 @@ export const metadata = {
 
          
 
-          <form action={createProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
+          <form action={CreateProfile} id='profile-form' className="edit-profile-form grid-1 justify-center">
           <p className='edit-profile text-bold'> Edit</p>
             <div className='profile-box grid-1'>
           <label htmlFor="businessName" className='text-bold profile-label'>Business Name:</label>
@@ -297,5 +308,11 @@ export const metadata = {
           <div className='bottom-of-page'></div>
       </main>
     )
-  }}
+  }} catch (err) {
+    console.log(err)
+  }
+  finally {
+    await client.close();
+  }
+}
   

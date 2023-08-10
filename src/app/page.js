@@ -16,6 +16,7 @@ export default async function Home() {
   const dbName = "users";
   const session = await getServerSession(authOptions);
   if (!session) {
+    
     return <SignIn />;
   }
   const { MongoClient } = require("mongodb");
@@ -51,6 +52,7 @@ export default async function Home() {
   // console.log(events);
 
   if (!currentUserInfo) {
+    await client.close();
     return (
     <main className="container">
     
@@ -100,7 +102,7 @@ export default async function Home() {
 
 // how to say if this doesn't exist, then make the value blank?
 
-  
+await client.close();
   return (
         <main className="home-main-grid">
     
@@ -257,7 +259,7 @@ export default async function Home() {
 
 // how to say if this doesn't exist, then make the value blank?
 
-  
+await client.close();
   return (
         <main className="home-main-grid">
     
@@ -399,7 +401,7 @@ export default async function Home() {
 
 // how to say if this doesn't exist, then make the value blank?
 
-  
+await client.close();
   return (
         <main className="home-main-grid">
     
@@ -523,7 +525,7 @@ export default async function Home() {
   let colorFour = currentUserInfo.design.colorFour;
   let colorThree = currentUserInfo.design.colorThree;
   let website = currentUserInfo.design.website;
-  
+  await client.close();
   return (
         <main className="home-main-grid">
     
@@ -602,7 +604,7 @@ export default async function Home() {
   let colorThree = currentUserInfo.design.colorThree;
 
   
-  
+  await client.close();
   return (
         <main className="home-main-grid">
   
@@ -689,7 +691,7 @@ export default async function Home() {
 
 // how to say if this doesn't exist, then make the value blank?
 
-  
+await client.close();
   return (
         <main className="home-main-grid">
     
@@ -807,7 +809,7 @@ export default async function Home() {
     // console.log(currentUserInfo);
   let businessName = currentUserInfo.businessName;
 
-
+  await client.close();
   return (
         <main className="home-main-grid">
     
@@ -866,7 +868,7 @@ export default async function Home() {
     // console.log(currentUserInfo);
   // let businessName = currentUserInfo.businessName;
 
-
+  await client.close();
   return (
         <main className="home-main-grid">
     

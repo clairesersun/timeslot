@@ -146,7 +146,7 @@ export default async function ScheduleTime({ params }) {
     let sundayendValue = "";
     let additionaldaysValue = "";
     let additionaldaysValueEnd = "";
-
+    await client.close();
     return (
       <div style={{ backgroundColor: "#c4dedf", width: "100vw" }}>
         <div className="public-container">
@@ -232,6 +232,7 @@ export default async function ScheduleTime({ params }) {
     let sundayendValue = businessInfo.availability.sundayEnd;
     let additionaldaysValue = businessInfo.availability.additionalDays;
     let additionaldaysValueEnd = businessInfo.availability.additionalDaysEnd;
+    await client.close();
     return (
       <div style={{ backgroundColor: colorFour, width: "100vw" }}>
         <div className="public-container">
@@ -345,7 +346,7 @@ export default async function ScheduleTime({ params }) {
     let sundayendValue = "";
     let additionaldaysValue = "";
     let additionaldaysValueEnd = "";
-
+    await client.close();
     return (
       <div style={{ backgroundColor: colorFour, width: "100vw" }}>
         <div className="public-container">
@@ -426,7 +427,7 @@ export default async function ScheduleTime({ params }) {
   let sundayendValue = businessInfo.availability.sundayEnd;
   let additionaldaysValue = businessInfo.availability.additionalDays;
   let additionaldaysValueEnd = businessInfo.availability.additionalDaysEnd;
-
+  await client.close();
   return (
     <div style={{ backgroundColor: colorFour, width: "100vw" }}>
       <div className="public-container">

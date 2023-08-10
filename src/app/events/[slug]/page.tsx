@@ -67,7 +67,7 @@ async function UpdateEvent(data: FormData) {
       revalidatePath('/events/[slug]')
       revalidatePath("/[user]/[event]")
       await client.close();
-      return redirect('/events/[slug]')
+      redirect('/events/[slug]')
   }
     }
   
@@ -84,35 +84,37 @@ async function UpdateEvent(data: FormData) {
         return <SignIn /> }
       const { MongoClient } = require("mongodb");
       const client = new MongoClient(process.env.MONGODB_URI);
-      await client.connect();
-      console.log("Connected correctly to server");
-      const db = client.db(dbName);
-      //this allows me to take the userId to find the access_token from sessions later down the road
-      let collection = db.collection("savedInfo");
-      // Insert a single document, wait for promise so we can read it back
-      const googleEmail = session['user'].email
-      const currentUserInfo = await collection.findOne({ googleEmail:  googleEmail });
-      // console.log(currentUserInfo)
-      const visibleName = currentUserInfo.name
+      try {
+
+        await client.connect();
+        console.log("Connected correctly to server");
+        const db = client.db(dbName);
+        //this allows me to take the userId to find the access_token from sessions later down the road
+        let collection = db.collection("savedInfo");
+        // Insert a single document, wait for promise so we can read it back
+        const googleEmail = session['user'].email
+        const currentUserInfo = await collection.findOne({ googleEmail:  googleEmail });
+        // console.log(currentUserInfo)
+        const visibleName = currentUserInfo.name
         collection = db.collection("eventInfo");
-      // Insert a single document, wait for promise so we can read it back
-      const eventInfo = await collection.findOne({$and:
-        [{ googleEmail: googleEmail }, 
-        {eventnameParams: slug}] });
-        //throw an error if the event is not found based on the slug
-        if (!eventInfo) { throw new Error('Event not found') }
-        
-        
-        
-        
-        
-          
-        // console.log(eventInfo)
-        const eventName = eventInfo.eventName
-        const description = eventInfo.description
-        const length = eventInfo.length
-    return (
-      <main>
+        // Insert a single document, wait for promise so we can read it back
+        const eventInfo = await collection.findOne({$and:
+          [{ googleEmail: googleEmail }, 
+            {eventnameParams: slug}] });
+            //throw an error if the event is not found based on the slug
+            if (!eventInfo) { throw new Error('Event not found') }
+            
+            
+            
+            
+            
+            
+            // console.log(eventInfo)
+            const eventName = eventInfo.eventName
+            const description = eventInfo.description
+            const length = eventInfo.length
+            return (
+              <main>
   
        
           
@@ -155,4 +157,11 @@ async function UpdateEvent(data: FormData) {
       </main>
     )
   }
-
+  catch (error) {
+    console.log(error)
+  }
+  finally {
+    await client.close();}
+}
+  
+  
