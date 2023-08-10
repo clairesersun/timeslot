@@ -98,11 +98,12 @@ async function CreateProfile(data: FormData) {
     
     finally {
       // Ensures that the client will close when you finish/error and update information on the page
-      revalidatePath('/profile')
+      
+        await client.close();
+        console.log("client closed");
+        revalidatePath('/profile')
         revalidatePath("/[user]/[event]")
         revalidatePath('/')
-        await client.close();
-        return console.log("client closed");
 
         // return {
         //   redirect: {
@@ -110,7 +111,7 @@ async function CreateProfile(data: FormData) {
         //     permanent: false,
         //   },
         // };
-      //  redirect('/')
+       redirect('/')
       }
     }
   
