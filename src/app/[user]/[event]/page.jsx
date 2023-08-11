@@ -9,25 +9,7 @@ export const metadata = {
   keywords: "scheduling app",
 };
 
-export default async function ScheduleTime({ params }) {
-  //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
-  const user = params.user;
-  // console.log(user);
-  user.toString();
-  if (!user.length > 11) {
-    return <div>User not found</div>;
-  }
-  // console.log(user);
-  // const userId = new ObjectId(user);
-  // if (!userId) {
-  //   return <div>User not found</div>;
-  // }
-
-  const event = params.event;
-  if (!event) {
-    return;
-  }
-
+async function AccessToken(user) {
   const dbName = "users";
   const { MongoClient, ObjectId } = require("mongodb");
   const client = new MongoClient(process.env.MONGODB_URI);
@@ -85,118 +67,342 @@ export default async function ScheduleTime({ params }) {
       console.error("Error refreshing access token", error);
       // The error property will be used client-side to handle the refresh token error
       throw (error = "RefreshAccessTokenError");
+    } finally {
+      await client.close();
     }
   }
+}
 
-  collection = db.collection("savedInfo");
-  // Insert a single document, wait for promise so we can read it back
-  let businessInfo = await collection.findOne({
-    userId: new ObjectId(user),
-  });
-
-  if (!businessInfo) {
-    return <p className="text-regular">Business not found</p>;
+export default async function ScheduleTime({ params }) {
+  //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
+  const user = params.user;
+  // console.log(user);
+  user.toString();
+  if (!user.length > 11) {
+    return <div>User not found</div>;
   }
-  const googleEmail = businessInfo.googleEmail;
-  const email = businessInfo.email;
-  //get bookings
-  let bookings = businessInfo.booked;
-  // console.log(bookings);
-  let notBooked = bookings.shift();
-  let bookingTimes = bookings.map((bookingTimes) => (
-    <p className={`m-0 max-w-[30ch] text-sm opacity-50`} key={bookingTimes}>
-      {moment(bookingTimes).format("MMMM Do YYYY, h:mm a")}
-    </p>
-  ));
-  bookings.unshift(notBooked);
-  collection = db.collection("eventInfo");
-  let currentEventInfo = await collection.findOne({
-    $and: [{ googleEmail: googleEmail }, { eventnameParams: event }],
-  }); //this is how to get the event name
+  // console.log(user);
+  // const userId = new ObjectId(user);
+  // if (!userId) {
+  //   return <div>User not found</div>;
+  // }
 
-  //get business name
-  let businessName = businessInfo.businessName;
+  const event = params.event;
+  if (!event) {
+    return;
+  }
 
-  //get description
-  let description = currentEventInfo.description;
+  const dbName = "users";
+  const { MongoClient, ObjectId } = require("mongodb");
+  const client = new MongoClient(process.env.MONGODB_URI);
+  try {
+    await client.connect();
+    console.log("Connected correctly to server");
+    const db = client.db(dbName);
+    //this allows me to take the userId to find the access_token from sessions later down the road
 
-  //get event name
-  let eventName = currentEventInfo.eventName;
+    await AccessToken(user);
 
-  //get length
-  let length = currentEventInfo.length;
+    let collection = db.collection("savedInfo");
+    // Insert a single document, wait for promise so we can read it back
+    let businessInfo = await collection.findOne({
+      userId: new ObjectId(user),
+    });
 
-  if (!businessInfo.availability && !businessInfo.design) {
-    console.log("availability doesn't exists");
-    //get availability
-    await client.close();
-    return (
-      <div style={{ backgroundColor: "#c4dedf", width: "100vw" }}>
-        <div className="public-container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <h1 className={`text-regular public-text no-margin top-public`}>
-              <a
-                href={`https://www.${website}/`}
-                target="_blank"
-                rel="noopener noreferrer"
+    if (!businessInfo) {
+      return <p className="text-regular">Business not found</p>;
+    }
+    const googleEmail = businessInfo.googleEmail;
+    const email = businessInfo.email;
+    //get bookings
+    let bookings = businessInfo.booked;
+    // console.log(bookings);
+    let notBooked = bookings.shift();
+    let bookingTimes = bookings.map((bookingTimes) => (
+      <p className={`m-0 max-w-[30ch] text-sm opacity-50`} key={bookingTimes}>
+        {moment(bookingTimes).format("MMMM Do YYYY, h:mm a")}
+      </p>
+    ));
+    bookings.unshift(notBooked);
+    collection = db.collection("eventInfo");
+    let currentEventInfo = await collection.findOne({
+      $and: [{ googleEmail: googleEmail }, { eventnameParams: event }],
+    }); //this is how to get the event name
+
+    //get business name
+    let businessName = businessInfo.businessName;
+
+    //get description
+    let description = currentEventInfo.description;
+
+    //get event name
+    let eventName = currentEventInfo.eventName;
+
+    //get length
+    let length = currentEventInfo.length;
+
+    if (!businessInfo.availability && !businessInfo.design) {
+      console.log("availability doesn't exists");
+      //get availability
+      await client.close();
+      return (
+        <div style={{ backgroundColor: "#c4dedf", width: "100vw" }}>
+          <div className="public-container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <h1 className={`text-regular public-text no-margin top-public`}>
+                <a
+                  href={`https://www.${website}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#2b536a" }}
+                >
+                  {businessName}
+                </a>
+              </h1>
+              <h2
+                className={`text-bold public-text no-margin event-title-public`}
                 style={{ color: "#2b536a" }}
               >
-                {businessName}
-              </a>
-            </h1>
-            <h2
-              className={`text-bold public-text no-margin event-title-public`}
-              style={{ color: "#2b536a" }}
-            >
-              {eventName}
-            </h2>
-            <div className="grid-2 length-public">
-              <Image
-                src="/clock.png"
-                alt="clock"
-                width={17}
-                height={17}
-                className="clock-icon public-text"
-                style={{ color: "#2b536a", opacity: "75%" }}
-              />
-              <h2
-                className={`text-regular public-text no-margin length-word-public`}
-                style={{ color: "#2b536a", opacity: "75%" }}
-              >
-                {length} minutes
+                {eventName}
               </h2>
-            </div>
-            <h2
-              className={`text-regular public-text no-margin description-public`}
-              style={{ color: "#2b536a" }}
-            >
-              {description}
-            </h2>
-            <p
-              className={`text-regular public-text no-margin description-public`}
-              style={{ color: "#2b536a" }}
-            >
-              No current availability
-            </p>
-            <p
-              className={`text-regular public-text no-margin description-public`}
-              style={{ color: "#52a288" }}
-            >
-              Contact {email} for more information
-            </p>
-          </Suspense>
+              <div className="grid-2 length-public">
+                <Image
+                  src="/clock.png"
+                  alt="clock"
+                  width={17}
+                  height={17}
+                  className="clock-icon public-text"
+                  style={{ color: "#2b536a", opacity: "75%" }}
+                />
+                <h2
+                  className={`text-regular public-text no-margin length-word-public`}
+                  style={{ color: "#2b536a", opacity: "75%" }}
+                >
+                  {length} minutes
+                </h2>
+              </div>
+              <h2
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: "#2b536a" }}
+              >
+                {description}
+              </h2>
+              <p
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: "#2b536a" }}
+              >
+                No current availability
+              </p>
+              <p
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: "#52a288" }}
+              >
+                Contact {email} for more information
+              </p>
+            </Suspense>
 
-          <div className="bottom-of-page"></div>
+            <div className="bottom-of-page"></div>
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  if (!businessInfo.design) {
-    let colorOne = "#2b536a";
-    let colorTwo = "#52a288";
-    let colorThree = "#a4cca9";
-    let colorFour = "#c4dedf";
+    if (!businessInfo.design) {
+      let colorOne = "#2b536a";
+      let colorTwo = "#52a288";
+      let colorThree = "#a4cca9";
+      let colorFour = "#c4dedf";
+      let mondaystartValue = businessInfo.availability.mondayStart;
+      let mondayendValue = businessInfo.availability.mondayEnd;
+      let tuesdaystartValue = businessInfo.availability.tuesdayStart;
+      let tuesdayendValue = businessInfo.availability.tuesdayEnd;
+      let wednesdaystartValue = businessInfo.availability.wednesdayStart;
+      let wednesdayendValue = businessInfo.availability.wednesdayEnd;
+      let thursdaystartValue = businessInfo.availability.thursdayStart;
+      let thursdayendValue = businessInfo.availability.thursdayEnd;
+      let fridaystartValue = businessInfo.availability.fridayStart;
+      let fridayendValue = businessInfo.availability.fridayEnd;
+      let saturdaystartValue = businessInfo.availability.saturdayStart;
+      let saturdayendValue = businessInfo.availability.saturdayEnd;
+      let sundaystartValue = businessInfo.availability.sundayStart;
+      let sundayendValue = businessInfo.availability.sundayEnd;
+      let additionaldaysValue = businessInfo.availability.additionalDays;
+      let additionaldaysValueEnd = businessInfo.availability.additionalDaysEnd;
+      await client.close();
+      return (
+        <div style={{ backgroundColor: colorFour, width: "100vw" }}>
+          <div className="public-container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <h1 className={`text-regular public-text no-margin top-public`}>
+                <a
+                  href={`https://www.${website}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: colorOne }}
+                >
+                  {businessName}
+                </a>
+              </h1>
+              <h2
+                className={`text-bold public-text no-margin event-title-public`}
+                style={{ color: colorOne }}
+              >
+                {eventName}
+              </h2>
+              <div className="grid-2 length-public">
+                <Image
+                  src="/clock.png"
+                  alt="clock"
+                  width={17}
+                  height={17}
+                  className="clock-icon public-text"
+                  style={{ color: colorOne, opacity: "75%" }}
+                />
+                <h2
+                  className={`text-regular public-text no-margin length-word-public`}
+                  style={{ color: colorOne, opacity: "75%" }}
+                >
+                  {length} minutes
+                </h2>
+              </div>
+              <h2
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: colorOne }}
+              >
+                {description}
+              </h2>
+              <Calendar
+                user={user}
+                description={description}
+                length={length}
+                event={event}
+                eventName={eventName}
+                googleEmail={googleEmail}
+                email={email}
+                bookings={bookings}
+                mondaystartValue={mondaystartValue}
+                mondayendValue={mondayendValue}
+                tuesdaystartValue={tuesdaystartValue}
+                tuesdayendValue={tuesdayendValue}
+                wednesdaystartValue={wednesdaystartValue}
+                wednesdayendValue={wednesdayendValue}
+                thursdaystartValue={thursdaystartValue}
+                thursdayendValue={thursdayendValue}
+                fridaystartValue={fridaystartValue}
+                fridayendValue={fridayendValue}
+                saturdaystartValue={saturdaystartValue}
+                saturdayendValue={saturdayendValue}
+                sundaystartValue={sundaystartValue}
+                sundayendValue={sundayendValue}
+                additionaldaysValue={additionaldaysValue}
+                additionaldaysValueEnd={additionaldaysValueEnd}
+                accessToken={accessToken}
+                idToken={idToken}
+                refreshtoken={refreshtoken}
+                expires_at={expires_at}
+                colorOne={colorOne}
+                colorTwo={colorTwo}
+                colorThree={colorThree}
+                colorFour={colorFour}
+                website={website}
+              />
+            </Suspense>
+
+            <div className="bottom-of-page"></div>
+          </div>
+        </div>
+      );
+    }
+
+    //get design
+    const colorOne = businessInfo.design.colorOne;
+    const colorTwo = businessInfo.design.colorTwo;
+    const colorThree = businessInfo.design.colorThree;
+    const colorFour = businessInfo.design.colorFour;
+    const website = businessInfo.design.website;
+
+    if (!businessInfo.availability) {
+      console.log("availability doesn't exists");
+      //get availability
+      let mondaystartValue = "";
+      let mondayendValue = "";
+      let tuesdaystartValue = "";
+      let tuesdayendValue = "";
+      let wednesdaystartValue = "";
+      let wednesdayendValue = "";
+      let thursdaystartValue = "";
+      let thursdayendValue = "";
+      let fridaystartValue = "";
+      let fridayendValue = "";
+      let saturdaystartValue = "";
+      let saturdayendValue = "";
+      let sundaystartValue = "";
+      let sundayendValue = "";
+      let additionaldaysValue = "";
+      let additionaldaysValueEnd = "";
+      await client.close();
+      return (
+        <div style={{ backgroundColor: colorFour, width: "100vw" }}>
+          <div className="public-container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <h1 className={`text-regular public-text no-margin top-public`}>
+                <a
+                  href={`https://www.${website}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: colorOne }}
+                >
+                  {businessName}
+                </a>
+              </h1>
+              <h2
+                className={`text-bold public-text no-margin event-title-public`}
+                style={{ color: colorOne }}
+              >
+                {eventName}
+              </h2>
+              <div className="grid-2 length-public">
+                <Image
+                  src="/clock.png"
+                  alt="clock"
+                  width={17}
+                  height={17}
+                  className="clock-icon public-text"
+                  style={{ color: colorOne, opacity: "75%" }}
+                />
+                <h2
+                  className={`text-regular public-text no-margin length-word-public`}
+                  style={{ color: colorOne, opacity: "75%" }}
+                >
+                  {length} minutes
+                </h2>
+              </div>
+              <h2
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: colorOne }}
+              >
+                {description}
+              </h2>
+              <p
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: colorOne }}
+              >
+                No current availability
+              </p>
+              <p
+                className={`text-regular public-text no-margin description-public`}
+                style={{ color: colorTwo }}
+              >
+                Contact {email} for more information
+              </p>
+            </Suspense>
+
+            <div className="bottom-of-page"></div>
+          </div>
+        </div>
+      );
+    }
+
     let mondaystartValue = businessInfo.availability.mondayStart;
     let mondayendValue = businessInfo.availability.mondayEnd;
     let tuesdaystartValue = businessInfo.availability.tuesdayStart;
@@ -297,195 +503,9 @@ export default async function ScheduleTime({ params }) {
         </div>
       </div>
     );
-  }
-
-  //get design
-  const colorOne = businessInfo.design.colorOne;
-  const colorTwo = businessInfo.design.colorTwo;
-  const colorThree = businessInfo.design.colorThree;
-  const colorFour = businessInfo.design.colorFour;
-  const website = businessInfo.design.website;
-
-  if (!businessInfo.availability) {
-    console.log("availability doesn't exists");
-    //get availability
-    let mondaystartValue = "";
-    let mondayendValue = "";
-    let tuesdaystartValue = "";
-    let tuesdayendValue = "";
-    let wednesdaystartValue = "";
-    let wednesdayendValue = "";
-    let thursdaystartValue = "";
-    let thursdayendValue = "";
-    let fridaystartValue = "";
-    let fridayendValue = "";
-    let saturdaystartValue = "";
-    let saturdayendValue = "";
-    let sundaystartValue = "";
-    let sundayendValue = "";
-    let additionaldaysValue = "";
-    let additionaldaysValueEnd = "";
+  } catch (err) {
+    console.log(err);
+  } finally {
     await client.close();
-    return (
-      <div style={{ backgroundColor: colorFour, width: "100vw" }}>
-        <div className="public-container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <h1 className={`text-regular public-text no-margin top-public`}>
-              <a
-                href={`https://www.${website}/`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: colorOne }}
-              >
-                {businessName}
-              </a>
-            </h1>
-            <h2
-              className={`text-bold public-text no-margin event-title-public`}
-              style={{ color: colorOne }}
-            >
-              {eventName}
-            </h2>
-            <div className="grid-2 length-public">
-              <Image
-                src="/clock.png"
-                alt="clock"
-                width={17}
-                height={17}
-                className="clock-icon public-text"
-                style={{ color: colorOne, opacity: "75%" }}
-              />
-              <h2
-                className={`text-regular public-text no-margin length-word-public`}
-                style={{ color: colorOne, opacity: "75%" }}
-              >
-                {length} minutes
-              </h2>
-            </div>
-            <h2
-              className={`text-regular public-text no-margin description-public`}
-              style={{ color: colorOne }}
-            >
-              {description}
-            </h2>
-            <p
-              className={`text-regular public-text no-margin description-public`}
-              style={{ color: colorOne }}
-            >
-              No current availability
-            </p>
-            <p
-              className={`text-regular public-text no-margin description-public`}
-              style={{ color: colorTwo }}
-            >
-              Contact {email} for more information
-            </p>
-          </Suspense>
-
-          <div className="bottom-of-page"></div>
-        </div>
-      </div>
-    );
   }
-
-  let mondaystartValue = businessInfo.availability.mondayStart;
-  let mondayendValue = businessInfo.availability.mondayEnd;
-  let tuesdaystartValue = businessInfo.availability.tuesdayStart;
-  let tuesdayendValue = businessInfo.availability.tuesdayEnd;
-  let wednesdaystartValue = businessInfo.availability.wednesdayStart;
-  let wednesdayendValue = businessInfo.availability.wednesdayEnd;
-  let thursdaystartValue = businessInfo.availability.thursdayStart;
-  let thursdayendValue = businessInfo.availability.thursdayEnd;
-  let fridaystartValue = businessInfo.availability.fridayStart;
-  let fridayendValue = businessInfo.availability.fridayEnd;
-  let saturdaystartValue = businessInfo.availability.saturdayStart;
-  let saturdayendValue = businessInfo.availability.saturdayEnd;
-  let sundaystartValue = businessInfo.availability.sundayStart;
-  let sundayendValue = businessInfo.availability.sundayEnd;
-  let additionaldaysValue = businessInfo.availability.additionalDays;
-  let additionaldaysValueEnd = businessInfo.availability.additionalDaysEnd;
-  await client.close();
-  return (
-    <div style={{ backgroundColor: colorFour, width: "100vw" }}>
-      <div className="public-container">
-        <Suspense fallback={<div>Loading...</div>}>
-          <h1 className={`text-regular public-text no-margin top-public`}>
-            <a
-              href={`https://www.${website}/`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: colorOne }}
-            >
-              {businessName}
-            </a>
-          </h1>
-          <h2
-            className={`text-bold public-text no-margin event-title-public`}
-            style={{ color: colorOne }}
-          >
-            {eventName}
-          </h2>
-          <div className="grid-2 length-public">
-            <Image
-              src="/clock.png"
-              alt="clock"
-              width={17}
-              height={17}
-              className="clock-icon public-text"
-              style={{ color: colorOne, opacity: "75%" }}
-            />
-            <h2
-              className={`text-regular public-text no-margin length-word-public`}
-              style={{ color: colorOne, opacity: "75%" }}
-            >
-              {length} minutes
-            </h2>
-          </div>
-          <h2
-            className={`text-regular public-text no-margin description-public`}
-            style={{ color: colorOne }}
-          >
-            {description}
-          </h2>
-          <Calendar
-            user={user}
-            description={description}
-            length={length}
-            event={event}
-            eventName={eventName}
-            googleEmail={googleEmail}
-            email={email}
-            bookings={bookings}
-            mondaystartValue={mondaystartValue}
-            mondayendValue={mondayendValue}
-            tuesdaystartValue={tuesdaystartValue}
-            tuesdayendValue={tuesdayendValue}
-            wednesdaystartValue={wednesdaystartValue}
-            wednesdayendValue={wednesdayendValue}
-            thursdaystartValue={thursdaystartValue}
-            thursdayendValue={thursdayendValue}
-            fridaystartValue={fridaystartValue}
-            fridayendValue={fridayendValue}
-            saturdaystartValue={saturdaystartValue}
-            saturdayendValue={saturdayendValue}
-            sundaystartValue={sundaystartValue}
-            sundayendValue={sundayendValue}
-            additionaldaysValue={additionaldaysValue}
-            additionaldaysValueEnd={additionaldaysValueEnd}
-            accessToken={accessToken}
-            idToken={idToken}
-            refreshtoken={refreshtoken}
-            expires_at={expires_at}
-            colorOne={colorOne}
-            colorTwo={colorTwo}
-            colorThree={colorThree}
-            colorFour={colorFour}
-            website={website}
-          />
-        </Suspense>
-
-        <div className="bottom-of-page"></div>
-      </div>
-    </div>
-  );
 }
