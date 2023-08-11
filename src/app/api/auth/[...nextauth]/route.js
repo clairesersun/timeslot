@@ -22,23 +22,30 @@ export const authOptions = {
         }),
       ],
   callbacks: {
-    async session({ session, user }) {
-      const dbName = "users";
-      // const session = await getServerSession(authOptions);
-      const { MongoClient } = require("mongodb");
-      const client = new MongoClient(process.env.MONGODB_URI);
-      await client.connect();
-      // console.log("Connected correctly to server");
-      const db = client.db(dbName);
-      //this allows me to take the userId to find the access_token from sessions later down the road
-      let collection = db.collection("accounts");
-
-      const [google] = await collection.findOne({
-        userId: user.id, provider: "google" 
-      }
-      )
-      return session = google
+    async session ({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.accessToken = token.accessToken
+      session.user.id = token.id
+      
+      return session
     }},
+    // async session({ session, user }) {
+    //   const dbName = "users";
+    //   // const session = await getServerSession(authOptions);
+    //   const { MongoClient } = require("mongodb");
+    //   const client = new MongoClient(process.env.MONGODB_URI);
+    //   await client.connect();
+    //   // console.log("Connected correctly to server");
+    //   const db = client.db(dbName);
+    //   //this allows me to take the userId to find the access_token from sessions later down the road
+    //   let collection = db.collection("accounts");
+
+    //   const [google] = await collection.findOne({
+    //     userId: user.id, provider: "google" 
+    //   }
+    //   )
+    //   return session = google
+    // }},
   secret: process.env.SECRET,
   pages: {
     signIn: '/auth/signin',
