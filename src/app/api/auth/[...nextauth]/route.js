@@ -35,7 +35,10 @@ export const authOptions = {
 
       const [google] = await collection.findOne({
         userId: user.id, provider: "google" 
-      })}},
+      }
+      )
+      return session = google
+    }},
   secret: process.env.SECRET,
   pages: {
     signIn: '/auth/signin',
