@@ -111,7 +111,7 @@ async function CreateProfile(data: FormData) {
         //     permanent: false,
         //   },
         // };
-       redirect('/')
+       redirect('/profile')
       }
     }
   
