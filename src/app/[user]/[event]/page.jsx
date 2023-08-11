@@ -10,6 +10,7 @@ export const metadata = {
 };
 
 async function AccessToken(collection) {
+  "use server";
   // Insert a single document, wait for promise so we can read it back
   let accountInfo = await collection.findOne({
     userId: new ObjectId(user),
@@ -64,6 +65,7 @@ async function AccessToken(collection) {
 }
 
 export default async function ScheduleTime({ params }) {
+  debugger;
   //i need this page not to load until the user is logged in
 
   //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
