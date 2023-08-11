@@ -9,35 +9,7 @@ export const metadata = {
   keywords: "scheduling app",
 };
 
-export default async function ScheduleTime({ params }) {
-  //i need this page not to load until the user is logged in
-
-  //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
-  const user = params.user;
-  // console.log(user);
-  user.toString();
-  if (!user.length > 11) {
-    return <div>User not found</div>;
-  }
-  // console.log(user);
-  // const userId = new ObjectId(user);
-  // if (!userId) {
-  //   return <div>User not found</div>;
-  // }
-
-  const event = params.event;
-  if (!event) {
-    return;
-  }
-
-  const dbName = "users";
-  const { MongoClient, ObjectId } = require("mongodb");
-  const client = new MongoClient(process.env.MONGODB_URI);
-  await client.connect();
-  console.log("Connected correctly to server");
-  const db = client.db(dbName);
-  //this allows me to take the userId to find the access_token from sessions later down the road
-  let collection = db.collection("accounts");
+async function AccessToken(collection) {
   // Insert a single document, wait for promise so we can read it back
   let accountInfo = await collection.findOne({
     userId: new ObjectId(user),
@@ -89,6 +61,40 @@ export default async function ScheduleTime({ params }) {
       throw (error = "RefreshAccessTokenError");
     }
   }
+}
+
+export default async function ScheduleTime({ params }) {
+  //i need this page not to load until the user is logged in
+
+  //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
+  const user = params.user;
+  // console.log(user);
+  user.toString();
+  if (!user.length > 11) {
+    return <div>User not found</div>;
+  }
+  // console.log(user);
+  // const userId = new ObjectId(user);
+  // if (!userId) {
+  //   return <div>User not found</div>;
+  // }
+
+  const event = params.event;
+  if (!event) {
+    return;
+  }
+
+  const dbName = "users";
+  const { MongoClient, ObjectId } = require("mongodb");
+  const client = new MongoClient(process.env.MONGODB_URI);
+  await client.connect();
+  console.log("Connected correctly to server");
+  const db = client.db(dbName);
+  //this allows me to take the userId to find the access_token from sessions later down the road
+  let collection = db.collection("accounts");
+
+  await AccessToken(collection);
+
   collection = db.collection("savedInfo");
   // Insert a single document, wait for promise so we can read it back
   let businessInfo = await collection.findOne({
@@ -130,22 +136,6 @@ export default async function ScheduleTime({ params }) {
   if (!businessInfo.availability && !businessInfo.design) {
     console.log("availability doesn't exists");
     //get availability
-    let mondaystartValue = "";
-    let mondayendValue = "";
-    let tuesdaystartValue = "";
-    let tuesdayendValue = "";
-    let wednesdaystartValue = "";
-    let wednesdayendValue = "";
-    let thursdaystartValue = "";
-    let thursdayendValue = "";
-    let fridaystartValue = "";
-    let fridayendValue = "";
-    let saturdaystartValue = "";
-    let saturdayendValue = "";
-    let sundaystartValue = "";
-    let sundayendValue = "";
-    let additionaldaysValue = "";
-    let additionaldaysValueEnd = "";
     await client.close();
     return (
       <div style={{ backgroundColor: "#c4dedf", width: "100vw" }}>
@@ -189,8 +179,6 @@ export default async function ScheduleTime({ params }) {
             >
               {description}
             </h2>
-          </Suspense>
-          <Suspense fallback={<div>Loading...</div>}>
             <p
               className={`text-regular public-text no-margin description-public`}
               style={{ color: "#2b536a" }}
@@ -275,8 +263,6 @@ export default async function ScheduleTime({ params }) {
             >
               {description}
             </h2>
-          </Suspense>
-          <Suspense fallback={<div>Loading...</div>}>
             <Calendar
               user={user}
               description={description}
@@ -389,8 +375,6 @@ export default async function ScheduleTime({ params }) {
             >
               {description}
             </h2>
-          </Suspense>
-          <Suspense fallback={<div>Loading...</div>}>
             <p
               className={`text-regular public-text no-margin description-public`}
               style={{ color: colorOne }}
@@ -470,8 +454,6 @@ export default async function ScheduleTime({ params }) {
           >
             {description}
           </h2>
-        </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
           <Calendar
             user={user}
             description={description}
