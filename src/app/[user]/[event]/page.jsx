@@ -9,9 +9,34 @@ export const metadata = {
   keywords: "scheduling app",
 };
 
-async function AccessToken(collection) {
-  "use server";
-  // Insert a single document, wait for promise so we can read it back
+export default async function ScheduleTime({ params }) {
+  //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
+  const user = params.user;
+  // console.log(user);
+  user.toString();
+  if (!user.length > 11) {
+    return <div>User not found</div>;
+  }
+  // console.log(user);
+  // const userId = new ObjectId(user);
+  // if (!userId) {
+  //   return <div>User not found</div>;
+  // }
+
+  const event = params.event;
+  if (!event) {
+    return;
+  }
+
+  const dbName = "users";
+  const { MongoClient, ObjectId } = require("mongodb");
+  const client = new MongoClient(process.env.MONGODB_URI);
+  await client.connect();
+  console.log("Connected correctly to server");
+  const db = client.db(dbName);
+  //this allows me to take the userId to find the access_token from sessions later down the road
+  let collection = db.collection("accounts");
+
   let accountInfo = await collection.findOne({
     userId: new ObjectId(user),
   });
@@ -62,40 +87,6 @@ async function AccessToken(collection) {
       throw (error = "RefreshAccessTokenError");
     }
   }
-}
-
-export default async function ScheduleTime({ params }) {
-  debugger;
-  //i need this page not to load until the user is logged in
-
-  //instead of requiring a user to be logged in, anyone can see this page. the trick is pulling the name from the url and making sure it matches the name in the database
-  const user = params.user;
-  // console.log(user);
-  user.toString();
-  if (!user.length > 11) {
-    return <div>User not found</div>;
-  }
-  // console.log(user);
-  // const userId = new ObjectId(user);
-  // if (!userId) {
-  //   return <div>User not found</div>;
-  // }
-
-  const event = params.event;
-  if (!event) {
-    return;
-  }
-
-  const dbName = "users";
-  const { MongoClient, ObjectId } = require("mongodb");
-  const client = new MongoClient(process.env.MONGODB_URI);
-  await client.connect();
-  console.log("Connected correctly to server");
-  const db = client.db(dbName);
-  //this allows me to take the userId to find the access_token from sessions later down the road
-  let collection = db.collection("accounts");
-
-  await AccessToken(collection);
 
   collection = db.collection("savedInfo");
   // Insert a single document, wait for promise so we can read it back
