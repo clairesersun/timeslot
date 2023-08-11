@@ -21,14 +21,14 @@ export const authOptions = {
         }},
         }),
       ],
-  callbacks: {
-    async session ({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken
-      session.user.id = token.id
+  // callbacks: {
+  //   async session ({ session, token, user }) {
+  //     // Send properties to the client, like an access_token and user id from a provider.
+  //     session.accessToken = token.accessToken
+  //     session.user.id = token.id
       
-      return session
-    }},
+  //     return session
+  //   }},
     // async session({ session, user }) {
     //   const dbName = "users";
     //   // const session = await getServerSession(authOptions);
