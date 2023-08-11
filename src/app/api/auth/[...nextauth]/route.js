@@ -21,21 +21,21 @@ export const authOptions = {
         }},
         }),
       ],
-      // callbacks: {
-      //   async session({ session, user }) {
-      //     const dbName = "users";
-      //     // const session = await getServerSession(authOptions);
-      //     const { MongoClient } = require("mongodb");
-      //     const client = new MongoClient(process.env.MONGODB_URI);
-      //     await client.connect();
-      //     // console.log("Connected correctly to server");
-      //     const db = client.db(dbName);
-      //     //this allows me to take the userId to find the access_token from sessions later down the road
-      //     let collection = db.collection("accounts");
+      callbacks: {
+        async session({ session, user }) {
+          const dbName = "users";
+          // const session = await getServerSession(authOptions);
+          const { MongoClient } = require("mongodb");
+          const client = new MongoClient(process.env.MONGODB_URI);
+          await client.connect();
+          // console.log("Connected correctly to server");
+          const db = client.db(dbName);
+          //this allows me to take the userId to find the access_token from sessions later down the road
+          let collection = db.collection("accounts");
 
-      //     const [google] = await collection.findOne({
-      //       userId: user.id, provider: "google" 
-      //     })
+          const [google] = await collection.findOne({
+            userId: user.id, provider: "google" 
+          })}}}
       //     if (google.expires_at * 1000 < Date.now()) {
       //       // If the access token has expired, try to refresh it
       //       try {
